@@ -42,14 +42,15 @@ template.innerHTML = `
   <div class="loading">
     <span>Loading...</span>
   </div>
-  <div class="error">Error fetching author data.</div>
 
-    <article>
-      <img class="avatar" />
-      <h2 class="name"></h2>
-      <h3 class="birthdate"></h3>
-      <p class="bio"></p>
-    </article>
+  <div class="error">Error fetching autor data.</div>
+
+  <article>
+    <img class="avatar" />
+    <h2 class="name"></h2>
+    <h3 class="birthdate"></h3>
+    <p class="bio"></p>
+  </article>
 `;
 
 class Author extends HTMLElement {
@@ -67,7 +68,7 @@ class Author extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["name", "avatar_img", "birthdate", "bio", "url_api"];
+    return ["name", "avatar_img", "birthdate", "bio", "url_api", "loading"];
   }
 
   attributeChangedCallback(nameAtr, oldVal, newVal) {
@@ -85,6 +86,7 @@ class Author extends HTMLElement {
     }
 
     if (nameAtr === "url_api") return this.validateUrl();
+    if (nameAtr === "loading") return this.updateLoadingState();
   }
 
   validateUrl() {
@@ -93,7 +95,7 @@ class Author extends HTMLElement {
   }
 
   async fetchData() {
-    this.loading = true;
+    this.setAttribute("loading", true);
     try {
       let response = await fetch(this._url);
       let data = await response.json();
@@ -108,23 +110,23 @@ class Author extends HTMLElement {
       console.error("Error fetching item data:", message);
       this.shadowRoot.querySelector(".error").style.display = "block";
     } finally {
-      this.loading = false;
+      this.setAttribute("loading", false);
     }
   }
 
   updateLoadingState() {
-    const loadingElement = this.shadowRoot.querySelector(".loading");
-    const articleElement = this.shadowRoot.querySelector("article");
-    const errorElement = this.shadowRoot.querySelector(".error");
+    const loadingElement = this.shadowRoot.querySelector(".loading"),
+      articleElement = this.shadowRoot.querySelector("article"),
+      errorElement = this.shadowRoot.querySelector(".error");
 
-    if (this._loading) {
-      loadingElement.style.display = "block";
-      articleElement.style.display = "none";
-      errorElement.style.display = "none";
-    } else {
+    if (this._loading !== "true") {
       loadingElement.style.display = "none";
       articleElement.style.display = "flex";
+      return;
     }
+    loadingElement.style.display = "block";
+    articleElement.style.display = "none";
+    errorElement.style.display = "none";
   }
 
   displayData(data) {
@@ -170,7 +172,7 @@ class Author extends HTMLElement {
 
   // getters y setters
   get name() {
-    return this._name;
+    setTimeout(() => console.log(this._name), 3000);
   }
 
   set name(val) {
@@ -179,7 +181,7 @@ class Author extends HTMLElement {
   }
 
   get avatar() {
-    return this._avatar;
+    setTimeout(() => console.log(this._avatar), 3000);
   }
 
   set avatar(val) {
@@ -188,7 +190,7 @@ class Author extends HTMLElement {
   }
 
   get birthdate() {
-    return this._birthdate;
+    setTimeout(() => console.log(this._birthdate), 3000);
   }
 
   set birthdate(val) {
@@ -197,7 +199,7 @@ class Author extends HTMLElement {
   }
 
   get bio() {
-    return this._bio;
+    setTimeout(() => console.log(this._bio), 3000);
   }
 
   set bio(val) {
@@ -206,7 +208,7 @@ class Author extends HTMLElement {
   }
 
   get urlApi() {
-    return this._url;
+    setTimeout(() => console.log(this._url), 3000);
   }
 
   set urlApi(val) {
@@ -218,26 +220,14 @@ class Author extends HTMLElement {
   }
 
   get loading() {
-    return this._loading;
+    setTimeout(() => console.log(this._loading), 3000);
   }
 
   set loading(val) {
-    const prevState = this._loading;
-    if (prevState !== val) {
-      this._loading = val;
-      this.updateLoadingState();
-    }
+    setTimeout(() => this.setAttribute("loading", val), 3000);
   }
 }
 
 customElements.define("author-item", Author);
 
 const author = document.querySelector("author-item");
-
-// author.name = "Edmundo";
-// author.bio = "Presidente";
-// author.birthdate = "el 28";
-// author.avatar =
-//   "https://media.istockphoto.com/id/1995160642/photo/gen-z-teenager-poses-full-body-towards-camera-showing-attitude-shot-wide-angle-against-the-sky.jpg?s=1024x1024&w=is&k=20&c=0YTSZagubBiD6QQw01mFu-BLcbm0A5mKfRoLuoh3b6s=";
-
-// author.urlApi = "http://localhost:3000/authors/1";
