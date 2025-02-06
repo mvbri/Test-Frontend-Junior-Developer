@@ -27,14 +27,13 @@ class ArticleList extends HTMLElement {
     if (attributeMap[nameAtr]) {
       this[attributeMap[nameAtr]] = newVal;
     }
-  }
 
-  connectedCallback() {
-    if (!this._articlesApi && !this._arrayArticles)
-      return console.log("No haz ingresado ninguna data");
-
-    if (this._articlesApi) this.validateUrl();
-    if (this._arrayArticles) this.displayArrData();
+    if (nameAtr === "articles_api") {
+      this.validateUrl();
+    }
+    if (nameAtr === "articles_arr") {
+      this.displayArrData();
+    }
   }
 
   validateUrl() {
@@ -44,6 +43,8 @@ class ArticleList extends HTMLElement {
   }
 
   async fetchData() {
+    this.shadowRoot.querySelector(".articlesList").innerHTML = "";
+
     if (this._controller) {
       this._controller.abort();
     }
@@ -66,8 +67,6 @@ class ArticleList extends HTMLElement {
   }
 
   displayDataApi(data) {
-    this.shadowRoot.querySelector(".articlesList").innerHTML = "";
-
     data.forEach((article) => {
       const articleItem = document.createElement("article-item");
       articleItem.setAttribute("api_url", `${this._articlesApi}/${article.id}`);
@@ -79,6 +78,7 @@ class ArticleList extends HTMLElement {
   }
 
   displayArrData() {
+    if (this._articlesApi) return;
     const array = JSON.parse(this._arrayArticles);
 
     this.shadowRoot.querySelector(".articlesList").innerHTML = "";
@@ -100,13 +100,15 @@ class ArticleList extends HTMLElement {
     this.shadowRoot.querySelector(".articlesList").appendChild(fragment);
   }
 
+  // getters y setters
+
   get articlesApi() {
     return this._articlesApi;
   }
 
   set articlesApi(val) {
     this._articlesApi = val;
-    this.validateUrl();
+    this.setAttribute("articles_api", val);
   }
 
   get arrayArticles() {
@@ -115,7 +117,7 @@ class ArticleList extends HTMLElement {
 
   set arrayArticles(val) {
     this._arrayArticles = JSON.stringify(val);
-    this.displayArrData();
+    this.setAttribute("articles_arr", JSON.stringify(val));
   }
 }
 
@@ -129,7 +131,7 @@ const articleList = document.querySelector("article-list");
 // articleList.arrayArticles = [
 //   {
 //     publishedAt: "2024-06-05T03:29:00.248Z",
-//     title: "Modificado",
+//     title: "Modificado JS",
 //     image: "https://loremflickr.com/640/480",
 //     company: "Brakus, Hyatt and Lesch",
 //     description: "Rerum molestiae quod numquam nisi aut...",
@@ -140,7 +142,7 @@ const articleList = document.querySelector("article-list");
 //   },
 //   {
 //     publishedAt: "2024-07-05T03:29:00.248Z",
-//     title: "Modificado",
+//     title: "Modificado JS",
 //     image: "https://loremflickr.com/320/240/dog",
 //     company: "company 2",
 //     description: "description 2",

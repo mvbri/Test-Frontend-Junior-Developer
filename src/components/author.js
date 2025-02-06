@@ -168,7 +168,7 @@ class Author extends HTMLElement {
     });
   }
 
-  // Usamos un setter y getter para cada propiedad, para sincronizar con la UI.
+  // getters y setters
   get name() {
     return this._name;
   }

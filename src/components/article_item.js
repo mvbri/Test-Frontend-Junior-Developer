@@ -131,7 +131,6 @@ class ArticleItem extends HTMLElement {
     this._publishedAt;
     this._apiUrl;
     this._id;
-    this._setApi;
     this._controller = null;
   }
 
@@ -267,6 +266,8 @@ class ArticleItem extends HTMLElement {
       this[prop] = this[prop] || data[key];
       const element = this.shadowRoot.querySelector(selector);
       if (element) {
+        if (attr !== "textContent" && attr !== "src")
+          return console.log(`El atributo ${attr} no es un atributo valido`);
         if (attr === "textContent") return (element.textContent = this[prop]);
 
         element.setAttribute(attr, this[prop]);
@@ -290,8 +291,6 @@ class ArticleItem extends HTMLElement {
           response = await fetch(url),
           data = await response.json();
 
-        console.log(this._id);
-
         if (!response.ok)
           throw { status: response.status, statusText: response.statusText };
 
@@ -314,6 +313,8 @@ class ArticleItem extends HTMLElement {
           `;
     this._authorInfo.innerHTML = authorInfo;
   }
+
+  // getters y setters
 
   get title() {
     return this._title;
@@ -366,6 +367,7 @@ class ArticleItem extends HTMLElement {
 
   set content(val) {
     this._content = val;
+    this.updateItemData();
   }
 
   get publishedat() {
@@ -374,6 +376,7 @@ class ArticleItem extends HTMLElement {
 
   set publishedat(val) {
     this._publishedAt = val;
+    this.updateItemData();
   }
 
   get apiUrl() {

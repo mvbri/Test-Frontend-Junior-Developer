@@ -135,7 +135,6 @@
       this._publishedAt;
       this._apiUrl;
       this._id;
-      this._setApi;
       this._controller = null;
     }
 
@@ -271,6 +270,8 @@
         this[prop] = this[prop] || data[key];
         const element = this.shadowRoot.querySelector(selector);
         if (element) {
+          if (attr !== "textContent" && attr !== "src")
+            return console.log(`El atributo ${attr} no es un atributo valido`);
           if (attr === "textContent") return (element.textContent = this[prop]);
 
           element.setAttribute(attr, this[prop]);
@@ -293,8 +294,6 @@
           let url = `http://localhost:3000/authors?id=${this._id}`,
             response = await fetch(url),
             data = await response.json();
-
-          console.log(this._id);
 
           if (!response.ok)
             throw { status: response.status, statusText: response.statusText };
@@ -370,6 +369,7 @@
 
     set content(val) {
       this._content = val;
+      this.updateItemData();
     }
 
     get publishedat() {
@@ -378,6 +378,7 @@
 
     set publishedat(val) {
       this._publishedAt = val;
+      this.updateItemData();
     }
 
     get apiUrl() {
@@ -450,14 +451,13 @@
       if (attributeMap[nameAtr]) {
         this[attributeMap[nameAtr]] = newVal;
       }
-    }
 
-    connectedCallback() {
-      if (!this._articlesApi && !this._arrayArticles)
-        return console.log("No haz ingresado ninguna data");
-
-      if (this._articlesApi) this.validateUrl();
-      if (this._arrayArticles) this.displayArrData();
+      if (nameAtr === "articles_api") {
+        this.validateUrl();
+      }
+      if (nameAtr === "articles_arr") {
+        this.displayArrData();
+      }
     }
 
     validateUrl() {
@@ -467,6 +467,8 @@
     }
 
     async fetchData() {
+      this.shadowRoot.querySelector(".articlesList").innerHTML = "";
+
       if (this._controller) {
         this._controller.abort();
       }
@@ -489,8 +491,6 @@
     }
 
     displayDataApi(data) {
-      this.shadowRoot.querySelector(".articlesList").innerHTML = "";
-
       data.forEach((article) => {
         const articleItem = document.createElement("article-item");
         articleItem.setAttribute("api_url", `${this._articlesApi}/${article.id}`);
@@ -502,6 +502,7 @@
     }
 
     displayArrData() {
+      if (this._articlesApi) return;
       const array = JSON.parse(this._arrayArticles);
 
       this.shadowRoot.querySelector(".articlesList").innerHTML = "";
@@ -529,7 +530,7 @@
 
     set articlesApi(val) {
       this._articlesApi = val;
-      this.validateUrl();
+      this.setAttribute("articles_api", val);
     }
 
     get arrayArticles() {
@@ -538,7 +539,7 @@
 
     set arrayArticles(val) {
       this._arrayArticles = JSON.stringify(val);
-      this.displayArrData();
+      this.setAttribute("articles_arr", JSON.stringify(val));
     }
   }
 
@@ -552,7 +553,7 @@
   // articleList.arrayArticles = [
   //   {
   //     publishedAt: "2024-06-05T03:29:00.248Z",
-  //     title: "Modificado",
+  //     title: "Modificado JS",
   //     image: "https://loremflickr.com/640/480",
   //     company: "Brakus, Hyatt and Lesch",
   //     description: "Rerum molestiae quod numquam nisi aut...",
@@ -563,7 +564,7 @@
   //   },
   //   {
   //     publishedAt: "2024-07-05T03:29:00.248Z",
-  //     title: "Modificado",
+  //     title: "Modificado JS",
   //     image: "https://loremflickr.com/320/240/dog",
   //     company: "company 2",
   //     description: "description 2",
@@ -743,7 +744,7 @@
       });
     }
 
-    // Usamos un setter y getter para cada propiedad, para sincronizar con la UI.
+    // Probamos los getter y setter
     get name() {
       return this._name;
     }
