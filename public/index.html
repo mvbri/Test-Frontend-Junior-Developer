@@ -17,13 +17,14 @@
       <h2>Componente de Articulos Individuales</h2>
 
       <!--Se Puede sobreescribir los valores traidos de la API-->
-      <!-- <article-item
-        id="article-one"
+      <article-item
         api_url="https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/4"
-      ></article-item> -->
+      ></article-item>
 
       <h2>Componente de Lista de Articulos</h2>
-      <!-- <article-list
+
+      <!-- Si no tiene el enlace de API tomará el array que se le pase en articles_arr -->
+      <article-list
         articles_arr='[{
     "publishedAt": "2024-06-05T03:29:00.248Z",
     "title": "title 1 HTML",
@@ -44,11 +45,11 @@
     "id": "2"
   }
   ]'
-      ></article-list> -->
+      ></article-list>
 
       <h2>Compotente de Autor</h2>
 
-      <author-item></author-item>
+      <author-item url_api=" http://localhost:3000/authors/2"></author-item>
     </div>
     <script type="module" src="./bundle.js"></script>
   </body>

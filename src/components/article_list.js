@@ -103,7 +103,7 @@ class ArticleList extends HTMLElement {
   // getters y setters
 
   get articlesApi() {
-    return this._articlesApi;
+    setTimeout(() => console.log(this._articlesApi), 3000);
   }
 
   set articlesApi(val) {
@@ -112,7 +112,7 @@ class ArticleList extends HTMLElement {
   }
 
   get arrayArticles() {
-    return this._arrayArticles;
+    setTimeout(() => console.log(this._arrayArticles), 3000);
   }
 
   set arrayArticles(val) {
@@ -124,30 +124,3 @@ class ArticleList extends HTMLElement {
 window.customElements.define("article-list", ArticleList);
 
 const articleList = document.querySelector("article-list");
-
-// articleList.articlesApi =
-//   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles";
-
-// articleList.arrayArticles = [
-//   {
-//     publishedAt: "2024-06-05T03:29:00.248Z",
-//     title: "Modificado JS",
-//     image: "https://loremflickr.com/640/480",
-//     company: "Brakus, Hyatt and Lesch",
-//     description: "Rerum molestiae quod numquam nisi aut...",
-//     content:
-//       "Veniam sint dolorum corporis vitae porro rem maiores earum doloribus...",
-//     author: 1,
-//     id: "1",
-//   },
-//   {
-//     publishedAt: "2024-07-05T03:29:00.248Z",
-//     title: "Modificado JS",
-//     image: "https://loremflickr.com/320/240/dog",
-//     company: "company 2",
-//     description: "description 2",
-//     content: "content 2",
-//     author: "Matthew Sanford 4",
-//     id: "2",
-//   },
-// ];

@@ -26,10 +26,15 @@
     }
 
     img {
+      display: none;
+    }
+
+    img {
       width: 100%;
       height: 400px;
       object-fit: cover;
       border-radius: 15px 15px 0 0;
+      margin-bottom: 2rem;
     }
 
     .title {
@@ -54,11 +59,6 @@
    .author, .company, .description, .published-at, .content {
       margin-bottom: 1rem;
     }
-
-    .image {
-      margin-bottom: 2rem;
-    }
-      
 
     .id {
       font-weight: bold;
@@ -101,16 +101,17 @@
 
   </style>
   <article>
+      <slot name="image-slot"></slot>
       <img class="image" />
-      <span class="id"></span>
-      <h2 class="title"></h2>
-      <h3 class="company"></h3>
-      <p class="description"></p>
+      <span class="id"><slot name="id"></slot></span>
+      <h2 class="title"><slot name="title"></slot></h2>
+      <h3 class="company"><slot name="company"></slot></h3>
+      <p class="description"><slot name="description"></slot></p>
       <div class= "hidden-info hidden">
-        <a href="#" class="author"></a>
+        <a href="#" class="author"><slot name="author"></slot></a>
         <div class="author-info hidden"></div>
-        <p class="content"></p>
-        <p class="published-at"></p>
+        <p class="content"><slot name="author-content"></slot></p>
+        <p class="published-at"><slot name="author-published"></p>
       </div>
   </article>
 `;
@@ -168,10 +169,13 @@
       if (attributeMap[nameAtr]) {
         this[attributeMap[nameAtr]] = newVal;
       }
+      this.updateItemData();
     }
 
     connectedCallback() {
-      this.validateApiUrl();
+      if (this._apiUrl) {
+        this.validateApiUrl();
+      }
 
       this.shadowRoot
         .querySelector("article")
@@ -225,6 +229,10 @@
     }
 
     updateItemData(data = {}) {
+      if (this._image || data["image"]) {
+        this.shadowRoot.querySelector(".image").style.display = "block";
+      }
+
       const mappings = [
         { prop: "_image", key: "image", selector: ".image", attr: "src" },
         { prop: "_id", key: "id", selector: ".id", attr: "textContent" },
@@ -321,7 +329,7 @@
     // getters y setters
 
     get title() {
-      return this._title;
+      setTimeout(() => console.log(this._title), 3000);
     }
 
     set title(val) {
@@ -330,7 +338,7 @@
     }
 
     get image() {
-      return this._image;
+      setTimeout(() => console.log(this._image), 3000);
     }
 
     set image(val) {
@@ -339,7 +347,7 @@
     }
 
     get company() {
-      return this._company;
+      setTimeout(() => console.log(this._company), 3000);
     }
 
     set company(val) {
@@ -348,7 +356,7 @@
     }
 
     get description() {
-      return this._description;
+      setTimeout(() => console.log(this._description), 3000);
     }
 
     set description(val) {
@@ -357,7 +365,7 @@
     }
 
     get author() {
-      return this._author;
+      setTimeout(() => console.log(this._author), 3000);
     }
 
     set author(val) {
@@ -366,7 +374,7 @@
     }
 
     get content() {
-      return this._content;
+      setTimeout(() => console.log(this._content), 3000);
     }
 
     set content(val) {
@@ -375,7 +383,7 @@
     }
 
     get publishedat() {
-      return this._publishedAt;
+      setTimeout(() => console.log(this._publishedAt), 3000);
     }
 
     set publishedat(val) {
@@ -384,7 +392,7 @@
     }
 
     get apiUrl() {
-      return this._apiUrl;
+      setTimeout(() => console.log(this._apiUrl), 3000);
     }
 
     set apiUrl(val) {
@@ -396,33 +404,6 @@
   }
 
   window.customElements.define("article-item", ArticleItem);
-
-  // document.getElementById("article-one").title =
-  //   "1.Titulo modificado desde el JS";
-  // document.getElementById("article-one").company = "2.Compañia modificada des JS";
-  // document.getElementById("article-one").description =
-  //   "3.Descripción modificada desde JS";
-  // document.getElementById("article-one").author = "4.Author Modificado desde JS";
-  // document.getElementById("article-one").content =
-  //   "5.Contenido modificado desde JS";
-  // document.getElementById("article-one").publishedat =
-  //   "6. Fecha modificada desde JS";
-  // document.getElementById("article-one").image =
-  //   "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png";
-  // document.getElementById("article-one").apiUrl =
-  //   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
-
-  // Para los elementos que vengan asincronamente.
-  // setTimeout(() => {
-  //   console.log(document.getElementById("article-one").company);
-  //   console.log(document.getElementById("article-one").apiUrl);
-  //   console.log(document.getElementById("article-one").publishedat);
-  //   console.log(document.getElementById("article-one").title);
-  //   console.log(document.getElementById("article-one").image);
-  //   console.log(document.getElementById("article-one").content);
-  //   console.log(document.getElementById("article-one").description);
-  //   console.log(document.getElementById("article-one").author);
-  // }, 3000);
 
   const template$1 = document.createElement("template"),
     fragment = document.createDocumentFragment();
@@ -529,7 +510,7 @@
     // getters y setters
 
     get articlesApi() {
-      return this._articlesApi;
+      setTimeout(() => console.log(this._articlesApi), 3000);
     }
 
     set articlesApi(val) {
@@ -538,7 +519,7 @@
     }
 
     get arrayArticles() {
-      return this._arrayArticles;
+      setTimeout(() => console.log(this._arrayArticles), 3000);
     }
 
     set arrayArticles(val) {
@@ -550,33 +531,6 @@
   window.customElements.define("article-list", ArticleList);
 
   document.querySelector("article-list");
-
-  // articleList.articlesApi =
-  //   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles";
-
-  // articleList.arrayArticles = [
-  //   {
-  //     publishedAt: "2024-06-05T03:29:00.248Z",
-  //     title: "Modificado JS",
-  //     image: "https://loremflickr.com/640/480",
-  //     company: "Brakus, Hyatt and Lesch",
-  //     description: "Rerum molestiae quod numquam nisi aut...",
-  //     content:
-  //       "Veniam sint dolorum corporis vitae porro rem maiores earum doloribus...",
-  //     author: 1,
-  //     id: "1",
-  //   },
-  //   {
-  //     publishedAt: "2024-07-05T03:29:00.248Z",
-  //     title: "Modificado JS",
-  //     image: "https://loremflickr.com/320/240/dog",
-  //     company: "company 2",
-  //     description: "description 2",
-  //     content: "content 2",
-  //     author: "Matthew Sanford 4",
-  //     id: "2",
-  //   },
-  // ];
 
   const template = document.createElement("template");
 
@@ -809,8 +763,6 @@
   }
 
   customElements.define("author-item", Author);
-
-  document.querySelector("author-item");
 
 })();
 //# sourceMappingURL=bundle.js.map

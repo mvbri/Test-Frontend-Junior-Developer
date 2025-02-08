@@ -22,10 +22,15 @@ template.innerHTML = `
     }
 
     img {
+      display: none;
+    }
+
+    img {
       width: 100%;
       height: 400px;
       object-fit: cover;
       border-radius: 15px 15px 0 0;
+      margin-bottom: 2rem;
     }
 
     .title {
@@ -50,11 +55,6 @@ template.innerHTML = `
    .author, .company, .description, .published-at, .content {
       margin-bottom: 1rem;
     }
-
-    .image {
-      margin-bottom: 2rem;
-    }
-      
 
     .id {
       font-weight: bold;
@@ -97,16 +97,17 @@ template.innerHTML = `
 
   </style>
   <article>
+      <slot name="image-slot"></slot>
       <img class="image" />
-      <span class="id"></span>
-      <h2 class="title"></h2>
-      <h3 class="company"></h3>
-      <p class="description"></p>
+      <span class="id"><slot name="id"></slot></span>
+      <h2 class="title"><slot name="title"></slot></h2>
+      <h3 class="company"><slot name="company"></slot></h3>
+      <p class="description"><slot name="description"></slot></p>
       <div class= "hidden-info hidden">
-        <a href="#" class="author"></a>
+        <a href="#" class="author"><slot name="author"></slot></a>
         <div class="author-info hidden"></div>
-        <p class="content"></p>
-        <p class="published-at"></p>
+        <p class="content"><slot name="author-content"></slot></p>
+        <p class="published-at"><slot name="author-published"></p>
       </div>
   </article>
 `;
@@ -164,10 +165,13 @@ class ArticleItem extends HTMLElement {
     if (attributeMap[nameAtr]) {
       this[attributeMap[nameAtr]] = newVal;
     }
+    this.updateItemData();
   }
 
   connectedCallback() {
-    this.validateApiUrl();
+    if (this._apiUrl) {
+      this.validateApiUrl();
+    }
 
     this.shadowRoot
       .querySelector("article")
@@ -221,6 +225,10 @@ class ArticleItem extends HTMLElement {
   }
 
   updateItemData(data = {}) {
+    if (this._image || data["image"]) {
+      this.shadowRoot.querySelector(".image").style.display = "block";
+    }
+
     const mappings = [
       { prop: "_image", key: "image", selector: ".image", attr: "src" },
       { prop: "_id", key: "id", selector: ".id", attr: "textContent" },
@@ -317,7 +325,7 @@ class ArticleItem extends HTMLElement {
   // getters y setters
 
   get title() {
-    return this._title;
+    setTimeout(() => console.log(this._title), 3000);
   }
 
   set title(val) {
@@ -326,7 +334,7 @@ class ArticleItem extends HTMLElement {
   }
 
   get image() {
-    return this._image;
+    setTimeout(() => console.log(this._image), 3000);
   }
 
   set image(val) {
@@ -335,7 +343,7 @@ class ArticleItem extends HTMLElement {
   }
 
   get company() {
-    return this._company;
+    setTimeout(() => console.log(this._company), 3000);
   }
 
   set company(val) {
@@ -344,7 +352,7 @@ class ArticleItem extends HTMLElement {
   }
 
   get description() {
-    return this._description;
+    setTimeout(() => console.log(this._description), 3000);
   }
 
   set description(val) {
@@ -353,7 +361,7 @@ class ArticleItem extends HTMLElement {
   }
 
   get author() {
-    return this._author;
+    setTimeout(() => console.log(this._author), 3000);
   }
 
   set author(val) {
@@ -362,7 +370,7 @@ class ArticleItem extends HTMLElement {
   }
 
   get content() {
-    return this._content;
+    setTimeout(() => console.log(this._content), 3000);
   }
 
   set content(val) {
@@ -371,7 +379,7 @@ class ArticleItem extends HTMLElement {
   }
 
   get publishedat() {
-    return this._publishedAt;
+    setTimeout(() => console.log(this._publishedAt), 3000);
   }
 
   set publishedat(val) {
@@ -380,7 +388,7 @@ class ArticleItem extends HTMLElement {
   }
 
   get apiUrl() {
-    return this._apiUrl;
+    setTimeout(() => console.log(this._apiUrl), 3000);
   }
 
   set apiUrl(val) {
@@ -392,30 +400,3 @@ class ArticleItem extends HTMLElement {
 }
 
 window.customElements.define("article-item", ArticleItem);
-
-// document.getElementById("article-one").title =
-//   "1.Titulo modificado desde el JS";
-// document.getElementById("article-one").company = "2.Compañia modificada des JS";
-// document.getElementById("article-one").description =
-//   "3.Descripción modificada desde JS";
-// document.getElementById("article-one").author = "4.Author Modificado desde JS";
-// document.getElementById("article-one").content =
-//   "5.Contenido modificado desde JS";
-// document.getElementById("article-one").publishedat =
-//   "6. Fecha modificada desde JS";
-// document.getElementById("article-one").image =
-//   "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png";
-// document.getElementById("article-one").apiUrl =
-//   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
-
-// Para los elementos que vengan asincronamente.
-// setTimeout(() => {
-//   console.log(document.getElementById("article-one").company);
-//   console.log(document.getElementById("article-one").apiUrl);
-//   console.log(document.getElementById("article-one").publishedat);
-//   console.log(document.getElementById("article-one").title);
-//   console.log(document.getElementById("article-one").image);
-//   console.log(document.getElementById("article-one").content);
-//   console.log(document.getElementById("article-one").description);
-//   console.log(document.getElementById("article-one").author);
-// }, 3000);

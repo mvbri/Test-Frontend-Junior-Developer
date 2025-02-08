@@ -229,5 +229,3 @@ class Author extends HTMLElement {
 }
 
 customElements.define("author-item", Author);
-
-const author = document.querySelector("author-item");
