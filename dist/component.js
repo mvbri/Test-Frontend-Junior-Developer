@@ -1,5 +1,15 @@
-
-(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+/**
+ * Copyright (C) 2025 by videsk - All Rights Reserved
+ * @name @videsk/frontend-junior-dev-2024
+ * @_author Videsk
+ * @license ISC
+ * Written by videsk
+ * Date 1751936990012
+ *
+ * Frontend Junior developer tests
+ * 
+ * Do not copy this code.
+*/
 (function () {
 
     var html = "<article>\r\n    <slot name=\"image-slot\"></slot>\r\n    <img class=\"image\">\r\n    <span class=\"id\"><slot name=\"id\"></slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\"></slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\"></slot></h3>\r\n    <p class=\"description\"><slot name=\"description\"></slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\"></slot></a>\r\n      <div class=\"author-info hidden\"></div>\r\n      <p class=\"content\"><slot name=\"author-content\"></slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\"></slot></p>\r\n    </div>\r\n</article>";
@@ -664,4 +674,3 @@
     customElements.define("author-item", Author);
 
 })();
-//# sourceMappingURL=bundle.js.map

@@ -1,0 +1,14 @@
+<article>
+    <slot name="image-slot"></slot>
+    <img class="image" />
+    <span class="id"><slot name="id"></slot></span>
+    <h2 class="title"><slot name="title"></slot></h2>
+    <h3 class="company"><slot name="company"></slot></h3>
+    <p class="description"><slot name="description"></slot></p>
+    <div class= "hidden-info hidden">
+      <a href="#" class="author"><slot name="author"></slot></a>
+      <div class="author-info hidden"></div>
+      <p class="content"><slot name="author-content"></slot></p>
+      <p class="published-at"><slot name="author-published"></p>
+    </div>
+</article>

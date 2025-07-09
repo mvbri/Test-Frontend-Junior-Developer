@@ -1,115 +1,13 @@
+import html from "../template.html";
+import css from "../styles.css";
+
 const template = document.createElement("template");
 
 template.innerHTML = `
   <style>
-    article {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 80%;
-      min-height: 100vh;
-      margin: 0 auto;
-      margin-bottom: 2rem;
-      background: #f8f9f9;
-      border-radius: 25px;
-      cursor: pointer;
-      padding-bottom: 2rem;
-    }
-
-    article * {
-    margin: 0;
-    font-family: "Roboto", serif;
-    }
-
-    img {
-      display: none;
-    }
-
-    img {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 15px 15px 0 0;
-      margin-bottom: 2rem;
-    }
-
-    .title {
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .hidden-info {  
-      padding-top: 1.5rem;
-      opacity: 1;
-      visibility: visible;
-      place-items: center;
-      flex-direction: column;
-    }
-
-    .hidden {
-      display: none;
-      visibility: hidden;
-      opacity: 0;
-    }
-
-   .author, .company, .description, .published-at, .content {
-      margin-bottom: 1rem;
-    }
-
-    .id {
-      font-weight: bold;
-      font-size: 27px;
-    }
-
-    .id::before {
-      content: "# ";
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .author {
-      color: blue;
-      font-weight: bold;
-    }
-
-    .author::before {
-      content: "Autor: "
-    }
-
-    a {
-      display: inline-block;
-    }
-
-    .author-info {
-      padding-bottom: 2rem;
-      text-align: center;
-    }
-
-    .author-info > * {
-      margin-bottom: 1rem;
-    }
-
-    .author-info *:last-child{
-      margin-bottom: 0;
-    }
-
+    ${css}
   </style>
-  <article>
-      <slot name="image-slot"></slot>
-      <img class="image" />
-      <span class="id"><slot name="id"></slot></span>
-      <h2 class="title"><slot name="title"></slot></h2>
-      <h3 class="company"><slot name="company"></slot></h3>
-      <p class="description"><slot name="description"></slot></p>
-      <div class= "hidden-info hidden">
-        <a href="#" class="author"><slot name="author"></slot></a>
-        <div class="author-info hidden"></div>
-        <p class="content"><slot name="author-content"></slot></p>
-        <p class="published-at"><slot name="author-published"></p>
-      </div>
-  </article>
+  ${html}
 `;
 
 class ArticleItem extends HTMLElement {
@@ -399,4 +297,4 @@ class ArticleItem extends HTMLElement {
   }
 }
 
-window.customElements.define("article-item", ArticleItem);
+customElements.define("article-item", ArticleItem);

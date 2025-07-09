@@ -1,6 +1,7 @@
 // Build plugins
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 // Serve plugins
 import livereload from "rollup-plugin-livereload";
 import postcss from "rollup-plugin-postcss";
@@ -54,6 +55,7 @@ const defaultPlugins = [
   json(),
   postcss({ inject: false }),
   resolve({ browser: true }),
+  nodeResolve(),
   commonjs(),
 ];
 
