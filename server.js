@@ -7,6 +7,7 @@ const __dirname = dirname(__filename);
 
 const server = express();
 server.set("trust proxy", true);
+console.log("Serving static files from:", __dirname + "/public");
 server.use("/", express.static(__dirname + "/public"));
 server.listen(8438);
 console.log("Live server http://localhost:8438");

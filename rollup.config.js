@@ -1,13 +1,12 @@
 // Build plugins
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
 // Serve plugins
 import livereload from "rollup-plugin-livereload";
 import postcss from "rollup-plugin-postcss";
 import html from "rollup-plugin-html";
 import json from "@rollup/plugin-json";
-
+import copy from "rollup-plugin-copy";
 import pkg from "./package.json";
 
 const production = !process.env.ROLLUP_WATCH;
@@ -39,7 +38,7 @@ function serve() {
       if (server) return;
       server = require("child_process").spawn(
         "npm",
-        ["run", "start", "--", "--dev"],
+        ["run", "serve", "--", "--dev"],
         {
           shell: true,
         }
@@ -55,8 +54,15 @@ const defaultPlugins = [
   json(),
   postcss({ inject: false }),
   resolve({ browser: true }),
-  nodeResolve(),
   commonjs(),
+  copy({
+    targets: [
+      { src: "src/index.html", dest: "public" }, // Copia index.html a la carpeta public
+      // Puedes añadir más si tienes otros archivos estáticos en src que quieras copiar:
+      // { src: 'src/assets/**/*', dest: 'public/assets' } // Ejemplo: copiar toda la carpeta assets
+    ],
+    verbose: true, // Opcional: muestra en la consola qué archivos se copian
+  }),
 ];
 
 const configBuild = [

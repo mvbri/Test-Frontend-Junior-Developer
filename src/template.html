@@ -1,14 +1,17 @@
 <article>
-    <slot name="image-slot"></slot>
-    <img class="image" />
-    <span class="id"><slot name="id"></slot></span>
-    <h2 class="title"><slot name="title"></slot></h2>
-    <h3 class="company"><slot name="company"></slot></h3>
-    <p class="description"><slot name="description"></slot></p>
+  <div class="img">
+    <slot name="image-slot">
+      <img alt="Imagen por defecto" src=""/>
+    </slot>
+  </div>
+    <span class="id"><slot name="id">ID por defecto</slot></span>
+    <h2 class="title"><slot name="title">Titulo por Defecto</slot></h2>
+    <h3 class="company"><slot name="company">Compañía por defecto</slot></h3>
+    <p class="description"><slot name="description">descripción por defecto</slot></p>
     <div class= "hidden-info hidden">
-      <a href="#" class="author"><slot name="author"></slot></a>
+      <a href="#" class="author"><slot name="author">Autor por defecto</slot></a>
       <div class="author-info hidden"></div>
-      <p class="content"><slot name="author-content"></slot></p>
-      <p class="published-at"><slot name="author-published"></p>
+      <p class="content"><slot name="author-content">Contenido por defecto.</slot></p>
+      <p class="published-at"><slot name="author-published">fecha por defecto</p>
     </div>
 </article>
