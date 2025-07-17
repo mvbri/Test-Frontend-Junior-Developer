@@ -62,6 +62,7 @@ const defaultPlugins = [
       // { src: 'src/assets/**/*', dest: 'public/assets' } // Ejemplo: copiar toda la carpeta assets
     ],
     verbose: true, // Opcional: muestra en la consola qué archivos se copian
+    watch: ["src/index.html"],
   }),
 ];
 

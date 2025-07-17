@@ -4,20 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link href="./output.css" rel="stylesheet" />
   </head>
   <body>
-    <h2>Articulo individual</h2>
-    <article-item>
-      <img
-        slot="image-slot"
-        src="https://cdn.pixabay.com/photo/2023/06/04/00/34/flowers-8038712_1280.jpg"
-      />
-    </article-item>
-    <h2>Articulos Lista</h2>
-    <article-list></article-list>
-    <h2>Articulos Lista</h2>
-    <h2>Autor</h2>
-    <author-item></author-item>
+    <main class="max-w-[1600px] m-auto p-2">
+      <article class="pt-8 mb-4">
+        <h2 class="text-center text-blue-500 font-semibold text-3xl mb-4">
+          Articulo individual
+        </h2>
+        <article-item> </article-item>
+      </article>
+      <article class="mb-4">
+        <h2 class="text-center text-blue-500 font-semibold text-3xl">
+          Articulos Lista
+        </h2>
+        <article-list></article-list>
+      </article>
+      <article>
+        <h2 class="text-center text-blue-500 font-semibold text-3xl">Autor</h2>
+        <author-item></author-item>
+      </article>
+    </main>
     <script type="module" src="./bundle.js"></script>
   </body>
 </html>

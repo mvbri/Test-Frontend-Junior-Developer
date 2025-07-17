@@ -121,6 +121,6 @@ class ArticleList extends HTMLElement {
   }
 }
 
-window.customElements.define("article-list", ArticleList);
+customElements.define("article-list", ArticleList);
 
 const articleList = document.querySelector("article-list");

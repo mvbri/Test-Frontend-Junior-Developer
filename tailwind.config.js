@@ -1,9 +1,9 @@
-const routes = ["./src/**/*.{css,html}"];
+const routes = ["./src/**/*.{html,js,ts,jsx,tsx}", "./*.html"];
 
 module.exports = {
   mode: "jit",
   purge: routes,
-  _content: routes,
+  content: routes,
   theme: {
     extend: {
       colors: {
