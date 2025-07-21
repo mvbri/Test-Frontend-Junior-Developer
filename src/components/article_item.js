@@ -19,8 +19,6 @@ class ArticleItem extends HTMLElement {
 
     this._hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
     this._authorInfo = this.shadowRoot.querySelector(".author-info");
-    this._onToggleDetails = (e) => this.toggleDetails(e);
-    this._onFetchAuthorData = (e) => this.fetchAuthorData(e);
     this._image;
     this._title;
     this._company;
@@ -31,6 +29,7 @@ class ArticleItem extends HTMLElement {
     this._apiUrl;
     this._id;
     this._controller = null;
+    this._controllerListener = null;
   }
 
   static get observedAttributes() {
@@ -47,7 +46,7 @@ class ArticleItem extends HTMLElement {
     ];
   }
 
-  attributeChangedCallback(nameAtr, oldVal, newVal) {
+  attributeChangedCallback(nameAtr, newVal) {
     const attributeMap = {
       image_src: "_image",
       title_text: "_title",
@@ -67,34 +66,35 @@ class ArticleItem extends HTMLElement {
   }
 
   connectedCallback() {
+    this._controllerListener = new AbortController();
+    const signal = this._controllerListener.signal;
+
     if (this._apiUrl) {
       this.validateApiUrl();
     }
 
     this.shadowRoot
       .querySelector("article")
-      .addEventListener("click", this._onToggleDetails);
+      .addEventListener("click", (e) => this.toggleDetails(e), {
+        signal,
+      });
 
     this.shadowRoot
       .querySelector(".author")
-      .addEventListener("click", this._onFetchAuthorData);
+      .addEventListener("click", (e) => this.fetchAuthorData(e), {
+        signal,
+      });
   }
 
   disconnectedCallback() {
-    this.shadowRoot
-      .querySelector("article")
-      .removeEventListener("click", this._onToggleDetails);
-
-    this.shadowRoot
-      .querySelector(".author")
-      .removeEventListener("click", this._onFetchAuthorData);
+    this._controllerListener.abort();
   }
 
   validateApiUrl() {
     if (this._apiUrl) return this.fetchItemData();
 
     console.error("API URL not provided.");
-    this.updateItemData();
+    // this.updateItemData();
   }
 
   async fetchItemData() {
@@ -108,7 +108,6 @@ class ArticleItem extends HTMLElement {
     try {
       let response = await fetch(`${this._apiUrl}`, { signal }),
         data = await response.json();
-
       if (!response.ok)
         throw { status: response.status, statusText: response.statusText };
 
@@ -116,17 +115,12 @@ class ArticleItem extends HTMLElement {
     } catch (error) {
       if (error.name === "AbortError")
         return console.log("Petición abortada antes de completarse.");
-
       let message = error.statusText || "Ocurrió un error";
       console.error("Error fetching item data:", message);
     }
   }
 
   updateItemData(data = {}) {
-    if (this._image || data["image"]) {
-      this.shadowRoot.querySelector(".image").style.display = "block";
-    }
-
     const mappings = [
       { prop: "_image", key: "image", selector: ".image", attr: "src" },
       { prop: "_id", key: "id", selector: ".id", attr: "textContent" },
@@ -175,7 +169,6 @@ class ArticleItem extends HTMLElement {
         if (attr !== "textContent" && attr !== "src")
           return console.log(`El atributo ${attr} no es un atributo valido`);
         if (attr === "textContent") return (element.textContent = this[prop]);
-
         element.setAttribute(attr, this[prop]);
       }
     });
@@ -298,3 +291,11 @@ class ArticleItem extends HTMLElement {
 }
 
 customElements.define("article-item", ArticleItem);
+
+const articleOne = new ArticleItem();
+
+articleOne.apiUrl =
+  "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
+
+articleOne.setAttribute("id_item", "1");
+document.body.appendChild(articleOne);
