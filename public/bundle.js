@@ -170,12 +170,11 @@
       mappings.forEach(({ prop, key, selector, attr }) => {
         this[prop] = this[prop] || data[key];
         const element = this.shadowRoot.querySelector(selector);
-        if (element) {
-          if (attr !== "textContent" && attr !== "src")
-            return console.log(`El atributo ${attr} no es un atributo valido`);
-          if (attr === "textContent") return (element.textContent = this[prop]);
-          element.setAttribute(attr, this[prop]);
-        }
+        if (!element) return;
+        if (attr !== "textContent" && attr !== "src")
+          return console.log(`El atributo ${attr} no es un atributo valido`);
+        if (attr === "textContent") return (element.textContent = this[prop]);
+        element.setAttribute(attr, this[prop]);
       });
     }
 
