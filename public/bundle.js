@@ -80,13 +80,13 @@
 
       this.shadowRoot
         .querySelector("article")
-        .addEventListener("click", (e) => this.toggleDetails(e), {
+        .addEventListener("click", this.toggleDetails.bind(this), {
           signal,
         });
 
       this.shadowRoot
         .querySelector(".author")
-        .addEventListener("click", (e) => this.fetchAuthorData(e), {
+        .addEventListener("click", this.fetchAuthorData.bind(this), {
           signal,
         });
     }
@@ -97,9 +97,7 @@
 
     validateApiUrl() {
       if (this._apiUrl) return this.fetchItemData();
-
       console.error("API URL not provided.");
-      // this.updateItemData();
     }
 
     async fetchItemData() {
