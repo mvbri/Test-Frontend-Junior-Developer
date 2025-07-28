@@ -182,21 +182,17 @@ class ArticleItem extends HTMLElement {
     this._authorInfo.classList.toggle("hidden");
 
     if (this._authorInfo.classList.contains("hidden")) return;
-    try {
-      let url = `http://localhost:3000/authors?id=${this._id}`,
-        response = await fetch(url),
-        data = await response.json();
 
-      if (!response.ok)
-        throw { status: response.status, statusText: response.statusText };
+    let url = `http://localhost:3000/authors?id=${this._id}`,
+      response = await fetch(url).catch((e) => {
+        throw ErrorApiRequest(`Error en la petición: ${e}`);
+      });
+    if (response instanceof Error) return console.log(response);
+    let data = await response.json();
 
-      if (data.length === 0) return console.log("Autor no encontrado");
+    if (data.length === 0) return console.log("Autor no encontrado");
 
-      this.displayAuthorInfo(data[0]);
-    } catch (error) {
-      let message = error.statusText || "Ocurrió un error";
-      console.error("Error fetching item data:", message);
-    }
+    this.displayAuthorInfo(data[0]);
   }
 
   displayAuthorInfo(author) {
