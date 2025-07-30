@@ -34,33 +34,33 @@ class ArticleItem extends HTMLElement {
 
   static get observedAttributes() {
     return [
-      "image_src",
-      "title_text",
+      "image-src",
+      "title-text",
       "company",
       "publishedat",
       "description",
       "content",
       "author",
-      "api_url",
-      "id_item",
+      "api-url",
+      "id-item",
     ];
   }
 
-  attributeChangedCallback(nameAtr, newVal) {
+  attributeChangedCallback(name, oldValue, newVal) {
     const attributeMap = {
-      image_src: "_image",
-      title_text: "_title",
+      "image-src": "_image",
+      "title-text": "_title",
       company: "_company",
       description: "_description",
       content: "_content",
       author: "_author",
-      api_url: "_apiUrl",
+      "api-url": "_apiUrl",
       publishedat: "_publishedAt",
-      id_item: "_id",
+      "id-item": "_id",
     };
 
-    if (attributeMap[nameAtr]) {
-      this[attributeMap[nameAtr]] = newVal;
+    if (attributeMap[name]) {
+      this[attributeMap[name]] = newVal;
     }
     this.updateItemData();
   }
@@ -183,6 +183,8 @@ class ArticleItem extends HTMLElement {
 
     if (this._authorInfo.classList.contains("hidden")) return;
 
+    console.log(this._id);
+
     let url = `http://localhost:3000/authors?id=${this._id}`,
       response = await fetch(url).catch((e) => {
         throw ErrorApiRequest(`Error en la petición: ${e}`);
@@ -284,10 +286,9 @@ class ArticleItem extends HTMLElement {
 
 customElements.define("article-item", ArticleItem);
 
-const articleOne = new ArticleItem();
+// const articleOne = new ArticleItem();
 
-articleOne.apiUrl =
-  "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
+// articleOne.apiUrl =
+//   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
 
-articleOne.setAttribute("id_item", "1");
-document.body.appendChild(articleOne);
+// document.body.appendChild(articleOne);
