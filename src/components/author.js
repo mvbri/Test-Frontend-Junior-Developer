@@ -68,25 +68,25 @@ class Author extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["name", "avatar_img", "birthdate", "bio", "url_api", "loading"];
+    return ["name", "avatar-img", "birthdate", "bio", "url-api", "loading"];
   }
 
-  attributeChangedCallback(nameAtr, oldVal, newVal) {
+  attributeChangedCallback(name, oldVal, newVal) {
     const attributeMap = {
       name: "_name",
-      avatar_img: "_avatar",
+      "avatar-img": "_avatar",
       birthdate: "_birthdate",
       bio: "_bio",
-      url_api: "_url",
+      "url-api": "_url",
       loading: "_loading",
     };
 
-    if (attributeMap[nameAtr]) {
-      this[attributeMap[nameAtr]] = newVal;
+    if (attributeMap[name]) {
+      this[attributeMap[name]] = newVal;
     }
 
-    if (nameAtr === "url_api") return this.validateUrl();
-    if (nameAtr === "loading") return this.updateLoadingState();
+    if (name === "url-api") return this.validateUrl();
+    if (name === "loading") return this.updateLoadingState();
   }
 
   validateUrl() {

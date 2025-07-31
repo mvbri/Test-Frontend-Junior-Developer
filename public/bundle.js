@@ -315,23 +315,23 @@
     }
 
     static get observedAttributes() {
-      return ["articles_api", "articles_arr"];
+      return ["articles-api", "articles-arr"];
     }
 
-    attributeChangedCallback(nameAtr, oldVal, newVal) {
+    attributeChangedCallback(name, oldVal, newVal) {
       const attributeMap = {
-        articles_api: "_articlesApi",
-        articles_arr: "_arrayArticles",
+        "articles-api": "_articlesApi",
+        "articles-arr": "_arrayArticles",
       };
 
-      if (attributeMap[nameAtr]) {
-        this[attributeMap[nameAtr]] = newVal;
+      if (attributeMap[name]) {
+        this[attributeMap[name]] = newVal;
       }
 
-      if (nameAtr === "articles_api") {
+      if (nameAtr === "articles-api") {
         this.validateUrl();
       }
-      if (nameAtr === "articles_arr") {
+      if (nameAtr === "articles-arr") {
         this.displayArrData();
       }
     }
@@ -369,7 +369,7 @@
     displayDataApi(data) {
       data.forEach((article) => {
         const articleItem = document.createElement("article-item");
-        articleItem.setAttribute("api_url", `${this._articlesApi}/${article.id}`);
+        articleItem.setAttribute("api-url", `${this._articlesApi}/${article.id}`);
         articleItem.setAttribute("id", `article-${article.id}`);
 
         fragment.appendChild(articleItem);
@@ -386,13 +386,13 @@
       array.forEach((article) => {
         const articleItem = document.createElement("article-item");
         articleItem.setAttribute("publishedat", article.publishedAt);
-        articleItem.setAttribute("title_text", article.title);
-        articleItem.setAttribute("image_src", article.image);
+        articleItem.setAttribute("title-text", article.title);
+        articleItem.setAttribute("image-src", article.image);
         articleItem.setAttribute("company", article.company);
         articleItem.setAttribute("description", article.description);
         articleItem.setAttribute("content", article.content);
         articleItem.setAttribute("author", article.author);
-        articleItem.setAttribute("id_item", article.id);
+        articleItem.setAttribute("id-item", article.id);
         articleItem.setAttribute("id", `article-${article.id}`);
 
         fragment.appendChild(articleItem);
@@ -408,7 +408,7 @@
 
     set articlesApi(val) {
       this._articlesApi = val;
-      this.setAttribute("articles_api", val);
+      this.setAttribute("articles-api", val);
     }
 
     get arrayArticles() {
@@ -417,7 +417,7 @@
 
     set arrayArticles(val) {
       this._arrayArticles = JSON.stringify(val);
-      this.setAttribute("articles_arr", JSON.stringify(val));
+      this.setAttribute("articles-arr", JSON.stringify(val));
     }
   }
 
@@ -495,25 +495,25 @@
     }
 
     static get observedAttributes() {
-      return ["name", "avatar_img", "birthdate", "bio", "url_api", "loading"];
+      return ["name", "avatar-img", "birthdate", "bio", "url-api", "loading"];
     }
 
-    attributeChangedCallback(nameAtr, oldVal, newVal) {
+    attributeChangedCallback(name, oldVal, newVal) {
       const attributeMap = {
         name: "_name",
-        avatar_img: "_avatar",
+        "avatar-img": "_avatar",
         birthdate: "_birthdate",
         bio: "_bio",
-        url_api: "_url",
+        "url-api": "_url",
         loading: "_loading",
       };
 
-      if (attributeMap[nameAtr]) {
-        this[attributeMap[nameAtr]] = newVal;
+      if (attributeMap[name]) {
+        this[attributeMap[name]] = newVal;
       }
 
-      if (nameAtr === "url_api") return this.validateUrl();
-      if (nameAtr === "loading") return this.updateLoadingState();
+      if (name === "url-api") return this.validateUrl();
+      if (name === "loading") return this.updateLoadingState();
     }
 
     validateUrl() {
