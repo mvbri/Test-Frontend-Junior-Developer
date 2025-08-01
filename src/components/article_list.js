@@ -1,17 +1,16 @@
-const template = document.createElement("template"),
-  fragment = document.createDocumentFragment();
+const template = document.createElement("template");
 
 template.innerHTML = `<div class="articlesList"></div>`;
 
 class ArticleList extends HTMLElement {
+  #articlesApi;
+  #arrayArticles;
+  #controller = null;
+
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-    this._articlesApi;
-    this._arrayArticles;
-    this._controller = null;
   }
 
   static get observedAttributes() {
@@ -20,8 +19,8 @@ class ArticleList extends HTMLElement {
 
   attributeChangedCallback(name, oldVal, newVal) {
     const attributeMap = {
-      "articles-api": "_articlesApi",
-      "articles-arr": "_arrayArticles",
+      "articles-api": "#articlesApi",
+      "articles-arr": "#arrayArticles",
     };
 
     if (attributeMap[name]) {
@@ -37,7 +36,7 @@ class ArticleList extends HTMLElement {
   }
 
   validateUrl() {
-    if (this._articlesApi) return this.fetchData();
+    if (this.#articlesApi) return this.fetchData();
 
     console.error("API URL not provided.");
   }
@@ -45,15 +44,15 @@ class ArticleList extends HTMLElement {
   async fetchData() {
     this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
-    if (this._controller) {
-      this._controller.abort();
+    if (this.#controller) {
+      this.#controller.abort();
     }
 
-    this._controller = new AbortController();
-    const signal = this._controller.signal;
+    this.#controller = new AbortController();
+    const signal = this.#controller.signal;
 
     try {
-      let response = await fetch(this._articlesApi, { signal });
+      let response = await fetch(this.#articlesApi, { signal });
 
       if (!response.ok)
         throw { status: response.status, statusText: response.statusText };
@@ -69,7 +68,7 @@ class ArticleList extends HTMLElement {
   displayDataApi(data) {
     data.forEach((article) => {
       const articleItem = document.createElement("article-item");
-      articleItem.setAttribute("api-url", `${this._articlesApi}/${article.id}`);
+      articleItem.setAttribute("api-url", `${this.#articlesApi}/${article.id}`);
       articleItem.setAttribute("id", `article-${article.id}`);
 
       fragment.appendChild(articleItem);
@@ -78,8 +77,8 @@ class ArticleList extends HTMLElement {
   }
 
   displayArrData() {
-    if (this._articlesApi) return;
-    const array = JSON.parse(this._arrayArticles);
+    if (this.#articlesApi) return;
+    const array = JSON.parse(this.#arrayArticles);
 
     this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
@@ -103,20 +102,20 @@ class ArticleList extends HTMLElement {
   // getters y setters
 
   get articlesApi() {
-    setTimeout(() => console.log(this._articlesApi), 3000);
+    setTimeout(() => console.log(this.#articlesApi), 3000);
   }
 
   set articlesApi(val) {
-    this._articlesApi = val;
+    this.#articlesApi = val;
     this.setAttribute("articles-api", val);
   }
 
   get arrayArticles() {
-    setTimeout(() => console.log(this._arrayArticles), 3000);
+    setTimeout(() => console.log(this.#arrayArticles), 3000);
   }
 
   set arrayArticles(val) {
-    this._arrayArticles = JSON.stringify(val);
+    this.#arrayArticles = JSON.stringify(val);
     this.setAttribute("articles-arr", JSON.stringify(val));
   }
 }

@@ -54,17 +54,18 @@ template.innerHTML = `
 `;
 
 class Author extends HTMLElement {
+  #name;
+  #avatar;
+  #birthdate;
+  #bio;
+  #url;
+  #loading = false;
+  #setApi;
+
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-    this._name;
-    this._avatar;
-    this._birthdate;
-    this._bio;
-    this._url;
-    this._loading = false;
   }
 
   static get observedAttributes() {
@@ -73,12 +74,12 @@ class Author extends HTMLElement {
 
   attributeChangedCallback(name, oldVal, newVal) {
     const attributeMap = {
-      name: "_name",
-      "avatar-img": "_avatar",
-      birthdate: "_birthdate",
-      bio: "_bio",
-      "url-api": "_url",
-      loading: "_loading",
+      name: "#name",
+      "avatar-img": "#avatar",
+      birthdate: "#birthdate",
+      bio: "#bio",
+      "url-api": "#url",
+      loading: "#loading",
     };
 
     if (attributeMap[name]) {
@@ -90,14 +91,14 @@ class Author extends HTMLElement {
   }
 
   validateUrl() {
-    if (this._url) return this.fetchData();
+    if (this.#url) return this.fetchData();
     console.error("API URL not provided.");
   }
 
   async fetchData() {
     this.setAttribute("loading", true);
     try {
-      let response = await fetch(this._url);
+      let response = await fetch(this.#url);
       let data = await response.json();
 
       if (!response.ok) {
@@ -119,7 +120,7 @@ class Author extends HTMLElement {
       articleElement = this.shadowRoot.querySelector("article"),
       errorElement = this.shadowRoot.querySelector(".error");
 
-    if (this._loading !== "true") {
+    if (this.#loading !== "true") {
       loadingElement.style.display = "none";
       articleElement.style.display = "flex";
       return;
@@ -131,16 +132,16 @@ class Author extends HTMLElement {
 
   displayData(data) {
     const mappings = [
-      { prop: "_avatar", key: "avatar", selector: ".avatar", attr: "src" },
-      { prop: "_name", key: "name", selector: ".name", attr: "textContent" },
+      { prop: "#avatar", key: "avatar", selector: ".avatar", attr: "src" },
+      { prop: "#name", key: "name", selector: ".name", attr: "textContent" },
       {
-        prop: "_birthdate",
+        prop: "#birthdate",
         key: "birthdate",
         selector: ".birthdate",
         attr: "textContent",
       },
       {
-        prop: "_bio",
+        prop: "#bio",
         key: "bio",
         selector: ".bio",
         attr: "textContent",
@@ -148,7 +149,7 @@ class Author extends HTMLElement {
     ];
 
     mappings.forEach(({ prop, key, selector, attr }) => {
-      if (this._setApi) this[prop] = "";
+      if (this.#setApi) this[prop] = "";
       this[prop] = this[prop] || data[key];
       const element = this.shadowRoot.querySelector(selector);
       if (element) {
@@ -163,64 +164,64 @@ class Author extends HTMLElement {
 
   updateUI() {
     this.displayData({
-      name: this._name,
-      avatar: this._avatar,
-      birthdate: this._birthdate,
-      bio: this._bio,
+      name: this.#name,
+      avatar: this.#avatar,
+      birthdate: this.#birthdate,
+      bio: this.#bio,
     });
   }
 
   // getters y setters
   get name() {
-    setTimeout(() => console.log(this._name), 3000);
+    setTimeout(() => console.log(this.#name), 3000);
   }
 
   set name(val) {
-    this._name = val;
+    this.#name = val;
     this.updateUI();
   }
 
   get avatar() {
-    setTimeout(() => console.log(this._avatar), 3000);
+    setTimeout(() => console.log(this.#avatar), 3000);
   }
 
   set avatar(val) {
-    this._avatar = val;
+    this.#avatar = val;
     this.updateUI();
   }
 
   get birthdate() {
-    setTimeout(() => console.log(this._birthdate), 3000);
+    setTimeout(() => console.log(this.#birthdate), 3000);
   }
 
   set birthdate(val) {
-    this._birthdate = val;
+    this.#birthdate = val;
     this.updateUI();
   }
 
   get bio() {
-    setTimeout(() => console.log(this._bio), 3000);
+    setTimeout(() => console.log(this.#bio), 3000);
   }
 
   set bio(val) {
-    this._bio = val;
+    this.#bio = val;
     this.updateUI();
   }
 
   get urlApi() {
-    setTimeout(() => console.log(this._url), 3000);
+    setTimeout(() => console.log(this.#url), 3000);
   }
 
   set urlApi(val) {
-    if (this._url === val) return;
-    this._url = val;
+    if (this.#url === val) return;
+    this.#url = val;
 
-    this._setApi = true;
+    this.#setApi = true;
     this.validateUrl();
   }
 
   get loading() {
-    setTimeout(() => console.log(this._loading), 3000);
+    setTimeout(() => console.log(this.#loading), 3000);
   }
 
   set loading(val) {

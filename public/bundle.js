@@ -16,25 +16,28 @@
 `;
 
   class ArticleItem extends HTMLElement {
+    #image;
+    #title;
+    #company;
+    #description;
+    #author;
+    #content;
+    #publishedAt;
+    #apiUrl;
+    #id;
+    #hiddenInfo;
+    #authorInfo;
+    #controller = null;
+    #controllerListener = null;
+
     constructor() {
       super();
 
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template$2.content.cloneNode(true));
 
-      this._hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
-      this._authorInfo = this.shadowRoot.querySelector(".author-info");
-      this._image;
-      this._title;
-      this._company;
-      this._description;
-      this._author;
-      this._content;
-      this._publishedAt;
-      this._apiUrl;
-      this._id;
-      this._controller = null;
-      this._controllerListener = null;
+      this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
+      this.#authorInfo = this.shadowRoot.querySelector(".author-info");
     }
 
     static get observedAttributes() {
@@ -53,15 +56,15 @@
 
     attributeChangedCallback(name, oldValue, newVal) {
       const attributeMap = {
-        "image-src": "_image",
-        "title-text": "_title",
-        company: "_company",
-        description: "_description",
-        content: "_content",
-        author: "_author",
-        "api-url": "_apiUrl",
-        publishedat: "_publishedAt",
-        "id-item": "_id",
+        "image-src": "#image",
+        "title-text": "#title",
+        company: "#company",
+        description: "#description",
+        content: "#content",
+        author: "#author",
+        "api-url": "#apiUrl",
+        publishedat: "#publishedAt",
+        "id-item": "#id",
       };
 
       if (attributeMap[name]) {
@@ -71,10 +74,10 @@
     }
 
     connectedCallback() {
-      this._controllerListener = new AbortController();
-      const signal = this._controllerListener.signal;
+      this.#controllerListener = new AbortController();
+      const signal = this.#controllerListener.signal;
 
-      if (this._apiUrl) {
+      if (this.#apiUrl) {
         this.validateApiUrl();
       }
 
@@ -92,24 +95,24 @@
     }
 
     disconnectedCallback() {
-      this._controllerListener.abort();
+      this.#controllerListener.abort();
     }
 
     validateApiUrl() {
-      if (this._apiUrl) return this.fetchItemData();
+      if (this.#apiUrl) return this.fetchItemData();
       console.error("API URL not provided.");
     }
 
     async fetchItemData() {
-      if (this._controller) {
-        this._controller.abort();
+      if (this.#controller) {
+        this.#controller.abort();
       }
 
-      this._controller = new AbortController();
-      const signal = this._controller.signal;
+      this.#controller = new AbortController();
+      const signal = this.#controller.signal;
 
       try {
-        let response = await fetch(`${this._apiUrl}`, { signal }),
+        let response = await fetch(`${this.#apiUrl}`, { signal }),
           data = await response.json();
         if (!response.ok)
           throw { status: response.status, statusText: response.statusText };
@@ -125,40 +128,40 @@
 
     updateItemData(data = {}) {
       const mappings = [
-        { prop: "_image", key: "image", selector: ".image", attr: "src" },
-        { prop: "_id", key: "id", selector: ".id", attr: "textContent" },
+        { prop: "#image", key: "image", selector: ".image", attr: "src" },
+        { prop: "#id", key: "id", selector: ".id", attr: "textContent" },
         {
-          prop: "_title",
+          prop: "#title",
           key: "title",
           selector: ".title",
           attr: "textContent",
         },
         {
-          prop: "_company",
+          prop: "#company",
           key: "company",
           selector: ".company",
           attr: "textContent",
         },
         {
-          prop: "_description",
+          prop: "#description",
           key: "description",
           selector: ".description",
           attr: "textContent",
         },
         {
-          prop: "_author",
+          prop: "#author",
           key: "author",
           selector: ".author",
           attr: "textContent",
         },
         {
-          prop: "_content",
+          prop: "#content",
           key: "content",
           selector: ".content",
           attr: "textContent",
         },
         {
-          prop: "_publishedAt",
+          prop: "#publishedAt",
           key: "publishedAt",
           selector: ".published-at",
           attr: "textContent",
@@ -177,20 +180,20 @@
     }
 
     toggleDetails() {
-      this._hiddenInfo.classList.toggle("hidden");
+      this.#hiddenInfo.classList.toggle("hidden");
     }
 
     async fetchAuthorData(e) {
       e.stopPropagation();
       e.preventDefault();
 
-      this._authorInfo.classList.toggle("hidden");
+      this.#authorInfo.classList.toggle("hidden");
 
-      if (this._authorInfo.classList.contains("hidden")) return;
+      if (this.#authorInfo.classList.contains("hidden")) return;
 
-      console.log(this._id);
+      console.log(this.#id);
 
-      let url = `http://localhost:3000/authors?id=${this._id}`,
+      let url = `http://localhost:3000/authors?id=${this.#id}`,
         response = await fetch(url).catch((e) => {
           throw ErrorApiRequest(`Error en la petición: ${e}`);
         });
@@ -209,81 +212,81 @@
             <p>${author.birthdate}</p>
             <p>${author.createdAt}</p>
           `;
-      this._authorInfo.innerHTML = authorInfo;
+      this.#authorInfo.innerHTML = authorInfo;
     }
 
     // getters y setters
 
     get title() {
-      setTimeout(() => console.log(this._title), 3000);
+      setTimeout(() => console.log(this.#title), 3000);
     }
 
     set title(val) {
-      this._title = val;
+      this.#title = val;
       this.updateItemData();
     }
 
     get image() {
-      setTimeout(() => console.log(this._image), 3000);
+      setTimeout(() => console.log(this.#image), 3000);
     }
 
     set image(val) {
-      this._image = val;
+      this.#image = val;
       this.updateItemData();
     }
 
     get company() {
-      setTimeout(() => console.log(this._company), 3000);
+      setTimeout(() => console.log(this.#company), 3000);
     }
 
     set company(val) {
-      this._company = val;
+      this.#company = val;
       this.updateItemData();
     }
 
     get description() {
-      setTimeout(() => console.log(this._description), 3000);
+      setTimeout(() => console.log(this.#description), 3000);
     }
 
     set description(val) {
-      this._description = val;
+      this.#description = val;
       this.updateItemData();
     }
 
     get author() {
-      setTimeout(() => console.log(this._author), 3000);
+      setTimeout(() => console.log(this.#author), 3000);
     }
 
     set author(val) {
-      this._author = val;
+      this.#author = val;
       this.updateItemData();
     }
 
     get content() {
-      setTimeout(() => console.log(this._content), 3000);
+      setTimeout(() => console.log(this.#content), 3000);
     }
 
     set content(val) {
-      this._content = val;
+      this.#content = val;
       this.updateItemData();
     }
 
     get publishedat() {
-      setTimeout(() => console.log(this._publishedAt), 3000);
+      setTimeout(() => console.log(this.#publishedAt), 3000);
     }
 
     set publishedat(val) {
-      this._publishedAt = val;
+      this.#publishedAt = val;
       this.updateItemData();
     }
 
     get apiUrl() {
-      setTimeout(() => console.log(this._apiUrl), 3000);
+      setTimeout(() => console.log(this.#apiUrl), 3000);
     }
 
     set apiUrl(val) {
-      if (this._apiUrl === val) return;
-      this._apiUrl = val;
+      if (this.#apiUrl === val) return;
+      this.#apiUrl = val;
 
       this.validateApiUrl();
     }
@@ -298,20 +301,19 @@
 
   // document.body.appendChild(articleOne);
 
-  const template$1 = document.createElement("template"),
-    fragment = document.createDocumentFragment();
+  const template$1 = document.createElement("template");
 
   template$1.innerHTML = `<div class="articlesList"></div>`;
 
   class ArticleList extends HTMLElement {
+    #articlesApi;
+    #arrayArticles;
+    #controller = null;
+
     constructor() {
       super();
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template$1.content.cloneNode(true));
-
-      this._articlesApi;
-      this._arrayArticles;
-      this._controller = null;
     }
 
     static get observedAttributes() {
@@ -320,8 +322,8 @@
 
     attributeChangedCallback(name, oldVal, newVal) {
       const attributeMap = {
-        "articles-api": "_articlesApi",
-        "articles-arr": "_arrayArticles",
+        "articles-api": "#articlesApi",
+        "articles-arr": "#arrayArticles",
       };
 
       if (attributeMap[name]) {
@@ -337,7 +339,7 @@
     }
 
     validateUrl() {
-      if (this._articlesApi) return this.fetchData();
+      if (this.#articlesApi) return this.fetchData();
 
       console.error("API URL not provided.");
     }
@@ -345,15 +347,15 @@
     async fetchData() {
       this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
-      if (this._controller) {
-        this._controller.abort();
+      if (this.#controller) {
+        this.#controller.abort();
       }
 
-      this._controller = new AbortController();
-      const signal = this._controller.signal;
+      this.#controller = new AbortController();
+      const signal = this.#controller.signal;
 
       try {
-        let response = await fetch(this._articlesApi, { signal });
+        let response = await fetch(this.#articlesApi, { signal });
 
         if (!response.ok)
           throw { status: response.status, statusText: response.statusText };
@@ -369,7 +371,7 @@
     displayDataApi(data) {
       data.forEach((article) => {
         const articleItem = document.createElement("article-item");
-        articleItem.setAttribute("api-url", `${this._articlesApi}/${article.id}`);
+        articleItem.setAttribute("api-url", `${this.#articlesApi}/${article.id}`);
         articleItem.setAttribute("id", `article-${article.id}`);
 
         fragment.appendChild(articleItem);
@@ -378,8 +380,8 @@
     }
 
     displayArrData() {
-      if (this._articlesApi) return;
-      const array = JSON.parse(this._arrayArticles);
+      if (this.#articlesApi) return;
+      const array = JSON.parse(this.#arrayArticles);
 
       this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
@@ -403,20 +405,20 @@
     // getters y setters
 
     get articlesApi() {
-      setTimeout(() => console.log(this._articlesApi), 3000);
+      setTimeout(() => console.log(this.#articlesApi), 3000);
     }
 
     set articlesApi(val) {
-      this._articlesApi = val;
+      this.#articlesApi = val;
       this.setAttribute("articles-api", val);
     }
 
     get arrayArticles() {
-      setTimeout(() => console.log(this._arrayArticles), 3000);
+      setTimeout(() => console.log(this.#arrayArticles), 3000);
     }
 
     set arrayArticles(val) {
-      this._arrayArticles = JSON.stringify(val);
+      this.#arrayArticles = JSON.stringify(val);
       this.setAttribute("articles-arr", JSON.stringify(val));
     }
   }
@@ -481,17 +483,18 @@
 `;
 
   class Author extends HTMLElement {
+    #name;
+    #avatar;
+    #birthdate;
+    #bio;
+    #url;
+    #loading = false;
+    #setApi;
+
     constructor() {
       super();
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-      this._name;
-      this._avatar;
-      this._birthdate;
-      this._bio;
-      this._url;
-      this._loading = false;
     }
 
     static get observedAttributes() {
@@ -500,12 +503,12 @@
 
     attributeChangedCallback(name, oldVal, newVal) {
       const attributeMap = {
-        name: "_name",
-        "avatar-img": "_avatar",
-        birthdate: "_birthdate",
-        bio: "_bio",
-        "url-api": "_url",
-        loading: "_loading",
+        name: "#name",
+        "avatar-img": "#avatar",
+        birthdate: "#birthdate",
+        bio: "#bio",
+        "url-api": "#url",
+        loading: "#loading",
       };
 
       if (attributeMap[name]) {
@@ -517,14 +520,14 @@
     }
 
     validateUrl() {
-      if (this._url) return this.fetchData();
+      if (this.#url) return this.fetchData();
       console.error("API URL not provided.");
     }
 
     async fetchData() {
       this.setAttribute("loading", true);
       try {
-        let response = await fetch(this._url);
+        let response = await fetch(this.#url);
         let data = await response.json();
 
         if (!response.ok) {
@@ -546,7 +549,7 @@
         articleElement = this.shadowRoot.querySelector("article"),
         errorElement = this.shadowRoot.querySelector(".error");
 
-      if (this._loading !== "true") {
+      if (this.#loading !== "true") {
         loadingElement.style.display = "none";
         articleElement.style.display = "flex";
         return;
@@ -558,16 +561,16 @@
 
     displayData(data) {
       const mappings = [
-        { prop: "_avatar", key: "avatar", selector: ".avatar", attr: "src" },
-        { prop: "_name", key: "name", selector: ".name", attr: "textContent" },
+        { prop: "#avatar", key: "avatar", selector: ".avatar", attr: "src" },
+        { prop: "#name", key: "name", selector: ".name", attr: "textContent" },
         {
-          prop: "_birthdate",
+          prop: "#birthdate",
           key: "birthdate",
           selector: ".birthdate",
           attr: "textContent",
         },
         {
-          prop: "_bio",
+          prop: "#bio",
           key: "bio",
           selector: ".bio",
           attr: "textContent",
@@ -575,7 +578,7 @@
       ];
 
       mappings.forEach(({ prop, key, selector, attr }) => {
-        if (this._setApi) this[prop] = "";
+        if (this.#setApi) this[prop] = "";
         this[prop] = this[prop] || data[key];
         const element = this.shadowRoot.querySelector(selector);
         if (element) {
@@ -590,64 +593,64 @@
 
     updateUI() {
       this.displayData({
-        name: this._name,
-        avatar: this._avatar,
-        birthdate: this._birthdate,
-        bio: this._bio,
+        name: this.#name,
+        avatar: this.#avatar,
+        birthdate: this.#birthdate,
+        bio: this.#bio,
       });
     }
 
     // getters y setters
     get name() {
-      setTimeout(() => console.log(this._name), 3000);
+      setTimeout(() => console.log(this.#name), 3000);
     }
 
     set name(val) {
-      this._name = val;
+      this.#name = val;
       this.updateUI();
     }
 
     get avatar() {
-      setTimeout(() => console.log(this._avatar), 3000);
+      setTimeout(() => console.log(this.#avatar), 3000);
     }
 
     set avatar(val) {
-      this._avatar = val;
+      this.#avatar = val;
       this.updateUI();
     }
 
     get birthdate() {
-      setTimeout(() => console.log(this._birthdate), 3000);
+      setTimeout(() => console.log(this.#birthdate), 3000);
     }
 
     set birthdate(val) {
-      this._birthdate = val;
+      this.#birthdate = val;
       this.updateUI();
     }
 
     get bio() {
-      setTimeout(() => console.log(this._bio), 3000);
+      setTimeout(() => console.log(this.#bio), 3000);
     }
 
     set bio(val) {
-      this._bio = val;
+      this.#bio = val;
       this.updateUI();
     }
 
     get urlApi() {
-      setTimeout(() => console.log(this._url), 3000);
+      setTimeout(() => console.log(this.#url), 3000);
     }
 
     set urlApi(val) {
-      if (this._url === val) return;
-      this._url = val;
+      if (this.#url === val) return;
+      this.#url = val;
 
-      this._setApi = true;
+      this.#setApi = true;
       this.validateUrl();
     }
 
     get loading() {
-      setTimeout(() => console.log(this._loading), 3000);
+      setTimeout(() => console.log(this.#loading), 3000);
     }
 
     set loading(val) {

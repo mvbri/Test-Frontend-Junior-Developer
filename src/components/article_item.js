@@ -11,25 +11,28 @@ template.innerHTML = `
 `;
 
 class ArticleItem extends HTMLElement {
+  #image;
+  #title;
+  #company;
+  #description;
+  #author;
+  #content;
+  #publishedAt;
+  #apiUrl;
+  #id;
+  #hiddenInfo;
+  #authorInfo;
+  #controller = null;
+  #controllerListener = null;
+
   constructor() {
     super();
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    this._hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
-    this._authorInfo = this.shadowRoot.querySelector(".author-info");
-    this._image;
-    this._title;
-    this._company;
-    this._description;
-    this._author;
-    this._content;
-    this._publishedAt;
-    this._apiUrl;
-    this._id;
-    this._controller = null;
-    this._controllerListener = null;
+    this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
+    this.#authorInfo = this.shadowRoot.querySelector(".author-info");
   }
 
   static get observedAttributes() {
@@ -48,15 +51,15 @@ class ArticleItem extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newVal) {
     const attributeMap = {
-      "image-src": "_image",
-      "title-text": "_title",
-      company: "_company",
-      description: "_description",
-      content: "_content",
-      author: "_author",
-      "api-url": "_apiUrl",
-      publishedat: "_publishedAt",
-      "id-item": "_id",
+      "image-src": "#image",
+      "title-text": "#title",
+      company: "#company",
+      description: "#description",
+      content: "#content",
+      author: "#author",
+      "api-url": "#apiUrl",
+      publishedat: "#publishedAt",
+      "id-item": "#id",
     };
 
     if (attributeMap[name]) {
@@ -66,10 +69,10 @@ class ArticleItem extends HTMLElement {
   }
 
   connectedCallback() {
-    this._controllerListener = new AbortController();
-    const signal = this._controllerListener.signal;
+    this.#controllerListener = new AbortController();
+    const signal = this.#controllerListener.signal;
 
-    if (this._apiUrl) {
+    if (this.#apiUrl) {
       this.validateApiUrl();
     }
 
@@ -87,24 +90,24 @@ class ArticleItem extends HTMLElement {
   }
 
   disconnectedCallback() {
-    this._controllerListener.abort();
+    this.#controllerListener.abort();
   }
 
   validateApiUrl() {
-    if (this._apiUrl) return this.fetchItemData();
+    if (this.#apiUrl) return this.fetchItemData();
     console.error("API URL not provided.");
   }
 
   async fetchItemData() {
-    if (this._controller) {
-      this._controller.abort();
+    if (this.#controller) {
+      this.#controller.abort();
     }
 
-    this._controller = new AbortController();
-    const signal = this._controller.signal;
+    this.#controller = new AbortController();
+    const signal = this.#controller.signal;
 
     try {
-      let response = await fetch(`${this._apiUrl}`, { signal }),
+      let response = await fetch(`${this.#apiUrl}`, { signal }),
         data = await response.json();
       if (!response.ok)
         throw { status: response.status, statusText: response.statusText };
@@ -120,40 +123,40 @@ class ArticleItem extends HTMLElement {
 
   updateItemData(data = {}) {
     const mappings = [
-      { prop: "_image", key: "image", selector: ".image", attr: "src" },
-      { prop: "_id", key: "id", selector: ".id", attr: "textContent" },
+      { prop: "#image", key: "image", selector: ".image", attr: "src" },
+      { prop: "#id", key: "id", selector: ".id", attr: "textContent" },
       {
-        prop: "_title",
+        prop: "#title",
         key: "title",
         selector: ".title",
         attr: "textContent",
       },
       {
-        prop: "_company",
+        prop: "#company",
         key: "company",
         selector: ".company",
         attr: "textContent",
       },
       {
-        prop: "_description",
+        prop: "#description",
         key: "description",
         selector: ".description",
         attr: "textContent",
       },
       {
-        prop: "_author",
+        prop: "#author",
         key: "author",
         selector: ".author",
         attr: "textContent",
       },
       {
-        prop: "_content",
+        prop: "#content",
         key: "content",
         selector: ".content",
         attr: "textContent",
       },
       {
-        prop: "_publishedAt",
+        prop: "#publishedAt",
         key: "publishedAt",
         selector: ".published-at",
         attr: "textContent",
@@ -172,20 +175,20 @@ class ArticleItem extends HTMLElement {
   }
 
   toggleDetails() {
-    this._hiddenInfo.classList.toggle("hidden");
+    this.#hiddenInfo.classList.toggle("hidden");
   }
 
   async fetchAuthorData(e) {
     e.stopPropagation();
     e.preventDefault();
 
-    this._authorInfo.classList.toggle("hidden");
+    this.#authorInfo.classList.toggle("hidden");
 
-    if (this._authorInfo.classList.contains("hidden")) return;
+    if (this.#authorInfo.classList.contains("hidden")) return;
 
-    console.log(this._id);
+    console.log(this.#id);
 
-    let url = `http://localhost:3000/authors?id=${this._id}`,
+    let url = `http://localhost:3000/authors?id=${this.#id}`,
       response = await fetch(url).catch((e) => {
         throw ErrorApiRequest(`Error en la petición: ${e}`);
       });
@@ -204,81 +207,81 @@ class ArticleItem extends HTMLElement {
             <p>${author.birthdate}</p>
             <p>${author.createdAt}</p>
           `;
-    this._authorInfo.innerHTML = authorInfo;
+    this.#authorInfo.innerHTML = authorInfo;
   }
 
   // getters y setters
 
   get title() {
-    setTimeout(() => console.log(this._title), 3000);
+    setTimeout(() => console.log(this.#title), 3000);
   }
 
   set title(val) {
-    this._title = val;
+    this.#title = val;
     this.updateItemData();
   }
 
   get image() {
-    setTimeout(() => console.log(this._image), 3000);
+    setTimeout(() => console.log(this.#image), 3000);
   }
 
   set image(val) {
-    this._image = val;
+    this.#image = val;
     this.updateItemData();
   }
 
   get company() {
-    setTimeout(() => console.log(this._company), 3000);
+    setTimeout(() => console.log(this.#company), 3000);
   }
 
   set company(val) {
-    this._company = val;
+    this.#company = val;
     this.updateItemData();
   }
 
   get description() {
-    setTimeout(() => console.log(this._description), 3000);
+    setTimeout(() => console.log(this.#description), 3000);
   }
 
   set description(val) {
-    this._description = val;
+    this.#description = val;
     this.updateItemData();
   }
 
   get author() {
-    setTimeout(() => console.log(this._author), 3000);
+    setTimeout(() => console.log(this.#author), 3000);
   }
 
   set author(val) {
-    this._author = val;
+    this.#author = val;
     this.updateItemData();
   }
 
   get content() {
-    setTimeout(() => console.log(this._content), 3000);
+    setTimeout(() => console.log(this.#content), 3000);
   }
 
   set content(val) {
-    this._content = val;
+    this.#content = val;
     this.updateItemData();
   }
 
   get publishedat() {
-    setTimeout(() => console.log(this._publishedAt), 3000);
+    setTimeout(() => console.log(this.#publishedAt), 3000);
   }
 
   set publishedat(val) {
-    this._publishedAt = val;
+    this.#publishedAt = val;
     this.updateItemData();
   }
 
   get apiUrl() {
-    setTimeout(() => console.log(this._apiUrl), 3000);
+    setTimeout(() => console.log(this.#apiUrl), 3000);
   }
 
   set apiUrl(val) {
-    if (this._apiUrl === val) return;
-    this._apiUrl = val;
+    if (this.#apiUrl === val) return;
+    this.#apiUrl = val;
 
     this.validateApiUrl();
   }
