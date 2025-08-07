@@ -53,7 +53,7 @@
         "image-src",
         "title-text",
         "company",
-        "publishedat",
+        "published-at",
         "description",
         "content",
         "author",
@@ -63,20 +63,37 @@
     }
 
     attributeChangedCallback(name, oldValue, newVal) {
-      const attributeMap = {
-        "image-src": "#image",
-        "title-text": "#title",
-        company: "#company",
-        description: "#description",
-        content: "#content",
-        author: "#author",
-        "api-url": "#apiUrl",
-        publishedat: "#publishedAt",
-        "id-item": "#id",
-      };
-
-      if (attributeMap[name]) {
-        this[attributeMap[name]] = newVal;
+      if (oldValue === newVal) {
+        return;
+      }
+      switch (name) {
+        case "image-src":
+          this.#image = newVal;
+          break;
+        case "title-text":
+          this.#title = newVal;
+          break;
+        case "company":
+          this.#company = newVal;
+          break;
+        case "description":
+          this.#description = newVal;
+          break;
+        case "content":
+          this.#content = newVal;
+          break;
+        case "author":
+          this.#author = newVal;
+          break;
+        case "api-url":
+          this.#apiUrl = newVal;
+          break;
+        case "published-at":
+          this.#publishedAt = newVal;
+          break;
+        case "id-item":
+          this.#id = newVal;
+          break;
       }
 
       this.updateItemData();
