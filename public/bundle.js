@@ -29,6 +29,9 @@
     #authorInfo;
     #controller = null;
     #controllerListener = null;
+    #dataLoadedPromise = null;
+    #resolvePromise;
+    #rejectedPromise;
 
     constructor() {
       super();
@@ -38,6 +41,11 @@
 
       this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
       this.#authorInfo = this.shadowRoot.querySelector(".author-info");
+
+      this.#dataLoadedPromise = new Promise((resolve, reject) => {
+        this.#resolvePromise = resolve;
+        this.#rejectedPromise = reject;
+      });
     }
 
     static get observedAttributes() {
@@ -70,6 +78,7 @@
       if (attributeMap[name]) {
         this[attributeMap[name]] = newVal;
       }
+
       this.updateItemData();
     }
 
@@ -118,64 +127,68 @@
           throw { status: response.status, statusText: response.statusText };
 
         this.updateItemData(data);
+        this.#resolvePromise();
       } catch (error) {
         if (error.name === "AbortError")
           return console.log("Petición abortada antes de completarse.");
         let message = error.statusText || "Ocurrió un error";
         console.error("Error fetching item data:", message);
+        this.#rejectedPromise(error);
       }
     }
 
     updateItemData(data = {}) {
+      this.#image = this.#image || data.image;
+      this.#id = this.#id || data.id;
+      this.#title = this.#title || data.title;
+      this.#company = this.#company || data.company;
+      this.#description = this.#description || data.description;
+      this.#author = this.#author || data.author;
+      this.#content = this.#content || data.content;
+      this.#publishedAt = this.#publishedAt || data.publishedAt;
+
       const mappings = [
-        { prop: "#image", key: "image", selector: ".image", attr: "src" },
-        { prop: "#id", key: "id", selector: ".id", attr: "textContent" },
+        { prop: this.#image, selector: ".image", attr: "src" },
+        { prop: this.#id, selector: ".id", attr: "textContent" },
         {
-          prop: "#title",
-          key: "title",
+          prop: this.#title,
           selector: ".title",
           attr: "textContent",
         },
         {
-          prop: "#company",
-          key: "company",
+          prop: this.#company,
           selector: ".company",
           attr: "textContent",
         },
         {
-          prop: "#description",
-          key: "description",
+          prop: this.#description,
           selector: ".description",
           attr: "textContent",
         },
         {
-          prop: "#author",
-          key: "author",
+          prop: this.#author,
           selector: ".author",
           attr: "textContent",
         },
         {
-          prop: "#content",
-          key: "content",
+          prop: this.#content,
           selector: ".content",
           attr: "textContent",
         },
         {
-          prop: "#publishedAt",
-          key: "publishedAt",
+          prop: this.#publishedAt,
           selector: ".published-at",
           attr: "textContent",
         },
       ];
 
-      mappings.forEach(({ prop, key, selector, attr }) => {
-        this[prop] = this[prop] || data[key];
+      mappings.forEach(({ prop, selector, attr }) => {
         const element = this.shadowRoot.querySelector(selector);
         if (!element) return;
         if (attr !== "textContent" && attr !== "src")
           return console.log(`El atributo ${attr} no es un atributo valido`);
-        if (attr === "textContent") return (element.textContent = this[prop]);
-        element.setAttribute(attr, this[prop]);
+        if (attr === "src") return element.setAttribute(attr, prop);
+        element.textContent = prop;
       });
     }
 
@@ -190,8 +203,6 @@
       this.#authorInfo.classList.toggle("hidden");
 
       if (this.#authorInfo.classList.contains("hidden")) return;
-
-      console.log(this.#id);
 
       let url = `http://localhost:3000/authors?id=${this.#id}`,
         response = await fetch(url).catch((e) => {
@@ -218,7 +229,8 @@
     // getters y setters
 
     get title() {
-      setTimeout(() => console.log(this.#title), 3000);
+      if (!this.#title) return this.#dataLoadedPromise.then(() => this.#title);
+      return this.#title;
     }
 
     set title(val) {
@@ -227,7 +239,8 @@
     }
 
     get image() {
-      setTimeout(() => console.log(this.#image), 3000);
+      if (!this.#image) return this.#dataLoadedPromise.then(() => this.#image);
+      return this.#image;
     }
 
     set image(val) {
@@ -236,7 +249,9 @@
     }
 
     get company() {
-      setTimeout(() => console.log(this.#company), 3000);
+      if (!this.#company)
+        return this.#dataLoadedPromise.then(() => this.#company);
+      return this.#company;
     }
 
     set company(val) {
@@ -245,7 +260,9 @@
     }
 
     get description() {
-      setTimeout(() => console.log(this.#description), 3000);
+      if (!this.#description)
+        return this.#dataLoadedPromise.then(() => this.#description);
+      return this.#description;
     }
 
     set description(val) {
@@ -254,7 +271,8 @@
     }
 
     get author() {
-      setTimeout(() => console.log(this.#author), 3000);
+      if (!this.#author) return this.#dataLoadedPromise.then(() => this.#author);
+      return this.#author;
     }
 
     set author(val) {
@@ -263,7 +281,9 @@
     }
 
     get content() {
-      setTimeout(() => console.log(this.#content), 3000);
+      if (!this.#content)
+        return this.#dataLoadedPromise.then(() => this.#content);
+      return this.#content;
     }
 
     set content(val) {
@@ -271,17 +291,30 @@
       this.updateItemData();
     }
 
-    get publishedat() {
-      setTimeout(() => console.log(this.#publishedAt), 3000);
+    get publishedAt() {
+      if (!this.#publishedAt)
+        return this.#dataLoadedPromise.then(() => this.#publishedAt);
+      return this.#publishedAt;
     }
 
-    set publishedat(val) {
+    set publishedAt(val) {
       this.#publishedAt = val;
       this.updateItemData();
     }
 
+    get id() {
+      if (!this.#id) return this.#dataLoadedPromise.then(() => this.#id);
+      return this.#id;
+    }
+
+    set id(val) {
+      this.#id = val;
+      this.updateItemData();
+    }
+
     get apiUrl() {
-      setTimeout(() => console.log(this.#apiUrl), 3000);
+      if (!this.#apiUrl) return this.#dataLoadedPromise.then(() => this.#apiUrl);
+      return this.#apiUrl;
     }
 
     set apiUrl(val) {
@@ -294,12 +327,53 @@
 
   customElements.define("article-item", ArticleItem);
 
-  // const articleOne = new ArticleItem();
+  const articleOne = new ArticleItem();
+  articleOne.apiUrl =
+    "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
 
-  // articleOne.apiUrl =
-  //   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
+  document.body.appendChild(articleOne);
 
-  // document.body.appendChild(articleOne);
+  articleOne.title = "Hola title";
+  articleOne.author = "Hola autor";
+  articleOne.company = "Hola compañia";
+  articleOne.description = "Hola descrición";
+  articleOne.content = "Hola contenido";
+  articleOne.publishedAt = "Hola Fecha de publicación";
+  articleOne.image =
+    "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
+
+  const getArticleTitle = async () => {
+    console.log("Información de intancia");
+    try {
+      const titleValue = await articleOne.title;
+      console.log("Título:", titleValue);
+
+      const authorValue = await articleOne.author;
+      console.log("Autor:", authorValue);
+
+      const companyValue = await articleOne.company;
+      console.log("Compañía:", companyValue);
+
+      const descriptionValue = await articleOne.description;
+      console.log("Descripción:", descriptionValue);
+
+      const contentValue = await articleOne.content;
+      console.log("Contenido:", contentValue);
+
+      const publishedAtValue = await articleOne.publishedAt;
+      console.log("Fecha de publicación:", publishedAtValue);
+
+      const idValue = await articleOne.id;
+      console.log("ID:", idValue);
+    } catch (error) {
+      console.error(
+        "Error al obtener la información del artículo:",
+        error.message
+      );
+    }
+  };
+
+  getArticleTitle();
 
   const template$1 = document.createElement("template");
 
@@ -424,8 +498,6 @@
   }
 
   customElements.define("article-list", ArticleList);
-
-  document.querySelector("article-list");
 
   const template = document.createElement("template");
 
