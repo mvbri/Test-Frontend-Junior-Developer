@@ -339,11 +339,27 @@ class ArticleItem extends HTMLElement {
 
 customElements.define("article-item", ArticleItem);
 
+/* Aquí se prueba el desarrollo mediante la creación de una
+   nueva instancia del web Compenent.
+*/
+
 const articleOne = new ArticleItem();
+
+/* Aquí se atualiza con valores de la APi 
+
+  - Los valores traidos de la API tienen prioridad sobre las establecidad
+    directamente con los setters.
+*/
 articleOne.apiUrl =
   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
 
+/* Aquí insertamos la instancia del Web Compenent en el DOM */
+
 document.body.appendChild(articleOne);
+
+/* Estas asignaciones como se mencionó antes tendrán prioridad;
+  es decir, que sobreescribiran la información de traída de API.
+*/
 
 articleOne.title = "Hola title";
 articleOne.author = "Hola autor";
@@ -353,6 +369,11 @@ articleOne.content = "Hola contenido";
 articleOne.publishedAt = "Hola Fecha de publicación";
 articleOne.image =
   "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
+
+/* Ya que usamos promesas como medio para manejar la posible asincronia
+   de las propiedades necesitaremos usar un mecanismo que permita el
+   correcto manejo de promesas en este caso async await.
+*/
 
 const getArticleTitle = async () => {
   console.log("Información de intancia");
