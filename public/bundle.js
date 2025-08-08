@@ -344,11 +344,27 @@
 
   customElements.define("article-item", ArticleItem);
 
+  /* Aquí se prueba el desarrollo mediante la creación de una
+     nueva instancia del web Compenent.
+  */
+
   const articleOne = new ArticleItem();
+
+  /* Aquí se atualiza con valores de la APi 
+
+    - Los valores traidos de la API tienen prioridad sobre las establecidad
+      directamente con los setters.
+  */
   articleOne.apiUrl =
     "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
 
+  /* Aquí insertamos la instancia del Web Compenent en el DOM */
+
   document.body.appendChild(articleOne);
+
+  /* Estas asignaciones como se mencionó antes tendrán prioridad;
+    es decir, que sobreescribiran la información de traída de API.
+  */
 
   articleOne.title = "Hola title";
   articleOne.author = "Hola autor";
@@ -359,40 +375,10 @@
   articleOne.image =
     "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
 
-  const getArticleTitle = async () => {
-    console.log("Información de intancia");
-    try {
-      const titleValue = await articleOne.title;
-      console.log("Título:", titleValue);
+  // getArticleTitle();
 
-      const authorValue = await articleOne.author;
-      console.log("Autor:", authorValue);
-
-      const companyValue = await articleOne.company;
-      console.log("Compañía:", companyValue);
-
-      const descriptionValue = await articleOne.description;
-      console.log("Descripción:", descriptionValue);
-
-      const contentValue = await articleOne.content;
-      console.log("Contenido:", contentValue);
-
-      const publishedAtValue = await articleOne.publishedAt;
-      console.log("Fecha de publicación:", publishedAtValue);
-
-      const idValue = await articleOne.id;
-      console.log("ID:", idValue);
-    } catch (error) {
-      console.error(
-        "Error al obtener la información del artículo:",
-        error.message
-      );
-    }
-  };
-
-  getArticleTitle();
-
-  const template$1 = document.createElement("template");
+  const template$1 = document.createElement("template"),
+    fragment = document.createDocumentFragment();
 
   template$1.innerHTML = `<div class="articlesList"></div>`;
 
@@ -412,19 +398,21 @@
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
-      const attributeMap = {
-        "articles-api": "#articlesApi",
-        "articles-arr": "#arrayArticles",
-      };
+      if (newVal === oldVal) return;
 
-      if (attributeMap[name]) {
-        this[attributeMap[name]] = newVal;
+      switch (name) {
+        case "articles-api":
+          this.#articlesApi = newVal;
+          break;
+        case "articles-arr":
+          this.#arrayArticles = newVal;
+          break;
       }
 
-      if (nameAtr === "articles-api") {
+      if (name === "articles-api") {
         this.validateUrl();
       }
-      if (nameAtr === "articles-arr") {
+      if (name === "articles-arr") {
         this.displayArrData();
       }
     }
@@ -435,7 +423,7 @@
       console.error("API URL not provided.");
     }
 
-    async fetchData() {
+    fetchData = async () => {
       this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
       if (this.#controller) {
@@ -444,6 +432,8 @@
 
       this.#controller = new AbortController();
       const signal = this.#controller.signal;
+
+      console.log(this.#articlesApi);
 
       try {
         let response = await fetch(this.#articlesApi, { signal });
@@ -457,7 +447,7 @@
         let message = error.statusText || "Ocurrió un error";
         console.error("Error fetching item data:", message);
       }
-    }
+    };
 
     displayDataApi(data) {
       data.forEach((article) => {
@@ -472,7 +462,11 @@
 
     displayArrData() {
       if (this.#articlesApi) return;
-      const array = JSON.parse(this.#arrayArticles);
+
+      let array =
+        !typeof this.#arrayArticles === "string"
+          ? (array = this.#arrayArticles)
+          : JSON.parse(this.#arrayArticles);
 
       this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 

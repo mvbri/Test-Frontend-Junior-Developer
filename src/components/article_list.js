@@ -1,4 +1,5 @@
-const template = document.createElement("template");
+const template = document.createElement("template"),
+  fragment = document.createDocumentFragment();
 
 template.innerHTML = `<div class="articlesList"></div>`;
 
@@ -18,19 +19,21 @@ class ArticleList extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldVal, newVal) {
-    const attributeMap = {
-      "articles-api": "#articlesApi",
-      "articles-arr": "#arrayArticles",
-    };
+    if (newVal === oldVal) return;
 
-    if (attributeMap[name]) {
-      this[attributeMap[name]] = newVal;
+    switch (name) {
+      case "articles-api":
+        this.#articlesApi = newVal;
+        break;
+      case "articles-arr":
+        this.#arrayArticles = newVal;
+        break;
     }
 
-    if (nameAtr === "articles-api") {
+    if (name === "articles-api") {
       this.validateUrl();
     }
-    if (nameAtr === "articles-arr") {
+    if (name === "articles-arr") {
       this.displayArrData();
     }
   }
@@ -41,7 +44,7 @@ class ArticleList extends HTMLElement {
     console.error("API URL not provided.");
   }
 
-  async fetchData() {
+  fetchData = async () => {
     this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
     if (this.#controller) {
@@ -50,6 +53,8 @@ class ArticleList extends HTMLElement {
 
     this.#controller = new AbortController();
     const signal = this.#controller.signal;
+
+    console.log(this.#articlesApi);
 
     try {
       let response = await fetch(this.#articlesApi, { signal });
@@ -63,7 +68,7 @@ class ArticleList extends HTMLElement {
       let message = error.statusText || "Ocurrió un error";
       console.error("Error fetching item data:", message);
     }
-  }
+  };
 
   displayDataApi(data) {
     data.forEach((article) => {
@@ -78,7 +83,11 @@ class ArticleList extends HTMLElement {
 
   displayArrData() {
     if (this.#articlesApi) return;
-    const array = JSON.parse(this.#arrayArticles);
+
+    let array =
+      !typeof this.#arrayArticles === "string"
+        ? (array = this.#arrayArticles)
+        : JSON.parse(this.#arrayArticles);
 
     this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
