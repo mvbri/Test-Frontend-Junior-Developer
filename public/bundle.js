@@ -472,15 +472,21 @@
 
       array.forEach((article) => {
         const articleItem = document.createElement("article-item");
-        articleItem.setAttribute("publishedat", article.publishedAt);
-        articleItem.setAttribute("title-text", article.title);
-        articleItem.setAttribute("image-src", article.image);
-        articleItem.setAttribute("company", article.company);
-        articleItem.setAttribute("description", article.description);
-        articleItem.setAttribute("content", article.content);
-        articleItem.setAttribute("author", article.author);
-        articleItem.setAttribute("id-item", article.id);
-        articleItem.setAttribute("id", `article-${article.id}`);
+
+        const mappings = {
+          "published-at": article.publishedAt,
+          "title-text": article.title,
+          "image-src": article.image,
+          company: article.company,
+          description: article.description,
+          content: article.content,
+          author: article.author,
+          "id-item": article.id,
+          id: `article-${article.id}`,
+        };
+
+        for (const [clave, valor] of Object.entries(mappings))
+          articleItem.setAttribute(clave, valor);
 
         fragment.appendChild(articleItem);
       });
