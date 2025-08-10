@@ -1,3 +1,5 @@
+const { rejects } = require("node:assert");
+
 const template = document.createElement("template"),
   fragment = document.createDocumentFragment();
 
@@ -53,8 +55,6 @@ class ArticleList extends HTMLElement {
 
     this.#controller = new AbortController();
     const signal = this.#controller.signal;
-
-    console.log(this.#articlesApi);
 
     try {
       let response = await fetch(this.#articlesApi, { signal });
@@ -117,7 +117,7 @@ class ArticleList extends HTMLElement {
   // getters y setters
 
   get articlesApi() {
-    setTimeout(() => console.log(this.#articlesApi), 3000);
+    return this.#articlesApi;
   }
 
   set articlesApi(val) {
@@ -126,13 +126,15 @@ class ArticleList extends HTMLElement {
   }
 
   get arrayArticles() {
-    setTimeout(() => console.log(this.#arrayArticles), 3000);
+    return this.#arrayArticles;
   }
 
   set arrayArticles(val) {
-    this.#arrayArticles = JSON.stringify(val);
-    this.setAttribute("articles-arr", JSON.stringify(val));
+    this.#arrayArticles = val;
+    this.setAttribute("articles-arr", val);
   }
 }
 
 customElements.define("article-list", ArticleList);
+
+const list = document.getElementById("list");
