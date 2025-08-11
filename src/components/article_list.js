@@ -121,7 +121,6 @@ class ArticleList extends HTMLElement {
   }
 
   set articlesApi(val) {
-    this.#articlesApi = val;
     this.setAttribute("articles-api", val);
   }
 
@@ -130,7 +129,6 @@ class ArticleList extends HTMLElement {
   }
 
   set arrayArticles(val) {
-    this.#arrayArticles = val;
     this.setAttribute("articles-arr", val);
   }
 }

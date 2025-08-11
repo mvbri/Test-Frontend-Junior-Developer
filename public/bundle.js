@@ -498,7 +498,6 @@
     }
 
     set articlesApi(val) {
-      this.#articlesApi = val;
       this.setAttribute("articles-api", val);
     }
 
@@ -507,7 +506,6 @@
     }
 
     set arrayArticles(val) {
-      this.#arrayArticles = val;
       this.setAttribute("articles-arr", val);
     }
   }
