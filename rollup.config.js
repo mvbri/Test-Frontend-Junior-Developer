@@ -8,8 +8,16 @@ import html from "rollup-plugin-html";
 import json from "@rollup/plugin-json";
 import copy from "rollup-plugin-copy";
 import pkg from "./package.json";
+import replace from "@rollup/plugin-replace";
+import dotenv from "dotenv";
 
 const production = !process.env.ROLLUP_WATCH;
+
+const env = dotenv.config().parsed;
+
+const environmentVariables = {
+  "process.env.API_URL": JSON.stringify(env.API_URL),
+};
 
 const banner = `/**
  * Copyright (C) ${new Date().getFullYear()} by ${
@@ -50,6 +58,10 @@ function serve() {
 }
 
 const defaultPlugins = [
+  replace({
+    preventAssignment: true,
+    values: environmentVariables,
+  }),
   html({ include: "./src/**/*.html" }),
   json(),
   postcss({ inject: false }),

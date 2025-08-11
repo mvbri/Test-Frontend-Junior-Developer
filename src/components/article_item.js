@@ -1,7 +1,10 @@
 import html from "../template.html";
 import css from "../styles.css";
 
+const apiUrlAuthor = process.env.API_URL;
 const template = document.createElement("template");
+
+console.log(apiUrlAuthor);
 
 template.innerHTML = `
   <style>
@@ -216,7 +219,7 @@ class ArticleItem extends HTMLElement {
 
     if (this.#authorInfo.classList.contains("hidden")) return;
 
-    let url = `http://localhost:3000/authors?id=${this.#id}`,
+    let url = `${apiUrlAuthor}?id=${this.#id}`,
       response = await fetch(url).catch((e) => {
         throw ErrorApiRequest(`Error en la petición: ${e}`);
       });
