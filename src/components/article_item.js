@@ -4,8 +4,6 @@ import css from "../styles.css";
 const apiUrlAuthor = process.env.API_URL;
 const template = document.createElement("template");
 
-console.log(apiUrlAuthor);
-
 template.innerHTML = `
   <style>
     ${css}
@@ -61,9 +59,8 @@ class ArticleItem extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newVal) {
-    if (oldValue === newVal) {
-      return;
-    }
+    if (oldValue === newVal) return;
+
     switch (name) {
       case "image-src":
         this.#image = newVal;

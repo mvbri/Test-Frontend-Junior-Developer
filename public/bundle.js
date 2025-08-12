@@ -9,8 +9,6 @@
   const apiUrlAuthor = "http://localhost:3000/authors";
   const template$2 = document.createElement("template");
 
-  console.log(apiUrlAuthor);
-
   template$2.innerHTML = `
   <style>
     ${css_248z}
@@ -66,9 +64,8 @@
     }
 
     attributeChangedCallback(name, oldValue, newVal) {
-      if (oldValue === newVal) {
-        return;
-      }
+      if (oldValue === newVal) return;
+
       switch (name) {
         case "image-src":
           this.#image = newVal;
@@ -412,12 +409,9 @@
           break;
       }
 
-      if (name === "articles-api") {
-        this.validateUrl();
-      }
-      if (name === "articles-arr") {
-        this.displayArrData();
-      }
+      if (name === "articles-api") return this.validateUrl();
+
+      if (name === "articles-arr") this.displayArrData();
     }
 
     validateUrl() {
@@ -464,10 +458,7 @@
     displayArrData() {
       if (this.#articlesApi) return;
 
-      let array =
-        !typeof this.#arrayArticles === "string"
-          ? (array = this.#arrayArticles)
-          : JSON.parse(this.#arrayArticles);
+      let array = JSON.parse(this.#arrayArticles);
 
       this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
@@ -509,13 +500,39 @@
     }
 
     set arrayArticles(val) {
-      this.setAttribute("articles-arr", val);
+      this.setAttribute("articles-arr", JSON.stringify(val));
     }
   }
 
   customElements.define("article-list", ArticleList);
 
-  document.getElementById("list");
+  const list = document.getElementById("list");
+
+  list.arrayArticles = [
+    {
+      publishedAt: "2024-06-05T03:29:00.248Z",
+      title: "hola",
+      image:
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgDKjl2MgiRWOJ-2yEkhwBasVBsikrQHS8iJszYp9av3HZUTFwLzPEAYKNjQ26znbUP2NaNlex5vnxalw_qF3mhOPAsai3W8Cg8DO2dPm5ZWUPY0x9V0uwDwHS0YisdXhHbyPxuphDnPdk/s640/Pokemon+%252831%2529.png",
+      company: "Brakus, Hyatt and Lesch",
+      description: "Rerum molestiae quod numquam nisi aut...",
+      content:
+        "Veniam sint dolorum corporis vitae porro rem maiores earum doloribus...",
+      author: 1,
+      id: "1",
+    },
+    {
+      publishedAt: "2024-07-05T03:29:00.248Z",
+      title: "Hola 2",
+      image:
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfXlDZYV5EqH2rr-gJ12MpVDCkv7mr1kBT21AAx1QfWrwVSK0rwSDGjfjj-I0N_T1mndx5jXEiyaRGRSw-wVnY_OPAZiIk3NftujrJQXMBsuCwUNoJ8UbtYtRoWFtRAEmkrh7ryFMV9p8/s1600/Pokemon+%25288%2529.png",
+      company: "company 2",
+      description: "description 2",
+      content: "content 2",
+      author: 60,
+      id: "2",
+    },
+  ];
 
   const template = document.createElement("template");
 
