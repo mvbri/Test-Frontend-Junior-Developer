@@ -1,5 +1,5 @@
-import html from "../template.html";
-import css from "../styles.css";
+import html from "../templates/template.html";
+import css from "../css/styles.css";
 
 const apiUrlAuthor = process.env.API_URL;
 const template = document.createElement("template");

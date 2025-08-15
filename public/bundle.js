@@ -2,18 +2,18 @@
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function () {
 
-  var html = "<article>\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n      <div class=\"author-info hidden\"></div>\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n    </div>\r\n</article>";
+  var html$1 = "<article>\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n      <div class=\"author-info hidden\"></div>\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n    </div>\r\n</article>";
 
-  var css_248z = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: -1px 2px 9px 3px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: blue;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Autor: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n";
+  var css_248z$1 = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: -1px 2px 9px 3px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: blue;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Autor: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n";
 
   const apiUrlAuthor = "http://localhost:3000/authors";
   const template$2 = document.createElement("template");
 
   template$2.innerHTML = `
   <style>
-    ${css_248z}
+    ${css_248z$1}
   </style>
-  ${html}
+  ${html$1}
 `;
 
   class ArticleItem extends HTMLElement {
@@ -377,24 +377,49 @@
 
   // getArticleTitle();
 
+  var html = "<div class=\"articlesList\">\r\n  <div class=\"article-container\"></div>\r\n  <div class=\"loading none\">\r\n    <span>Loading...</span>\r\n  </div>\r\n\r\n  <div class=\"error none\">Error fetching article list data.</div>\r\n</div>\r\n";
+
+  var css_248z = ".none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loading {\r\n  color: purple;\r\n  text-align: center;\r\n}\r\n";
+
   const template$1 = document.createElement("template"),
     fragment = document.createDocumentFragment();
 
-  template$1.innerHTML = `<div class="articlesList"></div>`;
+  template$1.innerHTML = `
+  <style>
+    ${css_248z}
+  </style>
+  ${html}
+`;
 
   class ArticleList extends HTMLElement {
     #articlesApi;
     #arrayArticles;
     #controller = null;
+    #articleContainer;
+    #loadingElement;
+    #loading = false;
+    #errorElement;
+    #error = false;
+    #dataLoadedPromise = null;
+    #resolvePromise;
 
     constructor() {
       super();
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template$1.content.cloneNode(true));
+
+      this.#articleContainer =
+        this.shadowRoot.querySelector(".article-container");
+      this.#loadingElement = this.shadowRoot.querySelector(".loading");
+      this.#errorElement = this.shadowRoot.querySelector(".error");
+
+      this.#dataLoadedPromise = new Promise((resolve) => {
+        this.#resolvePromise = resolve;
+      });
     }
 
     static get observedAttributes() {
-      return ["articles-api", "articles-arr"];
+      return ["articles-api", "articles-arr", "loading", "error"];
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
@@ -407,9 +432,19 @@
         case "articles-arr":
           this.#arrayArticles = newVal;
           break;
+        case "loading":
+          this.#loading = newVal;
+          break;
+        case "error":
+          this.#error = newVal;
+          break;
       }
 
       if (name === "articles-api") return this.validateUrl();
+
+      if (name === "loading") return this.updateLoadingState();
+
+      if (name === "error") return this.hadleError();
 
       if (name === "articles-arr") this.displayArrData();
     }
@@ -421,7 +456,7 @@
     }
 
     fetchData = async () => {
-      this.shadowRoot.querySelector(".articlesList").innerHTML = "";
+      this.setAttribute("loading", true);
 
       if (this.#controller) {
         this.#controller.abort();
@@ -439,10 +474,35 @@
         let data = await response.json();
         this.displayDataApi(data);
       } catch (error) {
+        this.setAttribute("error", true);
         let message = error.statusText || "Ocurrió un error";
         console.error("Error fetching item data:", message);
+      } finally {
+        this.setAttribute("loading", false);
+        this.#resolvePromise();
       }
     };
+
+    updateLoadingState() {
+      if (this.#loading === "false") {
+        this.#articleContainer.classList.remove("none");
+        this.#loadingElement.classList.add("none");
+        return;
+      }
+      this.#articleContainer.classList.add("none");
+      this.#loadingElement.classList.remove("none");
+    }
+
+    hadleError() {
+      if (this.#error === "false") {
+        this.#articleContainer.classList.remove("none");
+        this.#errorElement.classList.add("none");
+        return;
+      }
+
+      this.#articleContainer.classList.add("none");
+      this.#errorElement.classList.remove("none");
+    }
 
     displayDataApi(data) {
       data.forEach((article) => {
@@ -452,15 +512,13 @@
 
         fragment.appendChild(articleItem);
       });
-      this.shadowRoot.querySelector(".articlesList").appendChild(fragment);
+      this.#articleContainer.appendChild(fragment);
     }
 
     displayArrData() {
       if (this.#articlesApi) return;
 
       let array = JSON.parse(this.#arrayArticles);
-
-      this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
       array.forEach((article) => {
         const articleItem = document.createElement("article-item");
@@ -482,7 +540,7 @@
 
         fragment.appendChild(articleItem);
       });
-      this.shadowRoot.querySelector(".articlesList").appendChild(fragment);
+      this.#articleContainer.appendChild(fragment).appendChild(fragment);
     }
 
     // getters y setters
@@ -502,37 +560,53 @@
     set arrayArticles(val) {
       this.setAttribute("articles-arr", JSON.stringify(val));
     }
+
+    get loading() {
+      return this.#dataLoadedPromise.then(() => this.#loading);
+    }
+
+    set loading(val) {
+      this.setAttribute("loading", val);
+    }
+
+    get error() {
+      return this.#dataLoadedPromise.then(() => this.#error);
+    }
+
+    set error(val) {
+      this.setAttribute("error", val);
+    }
   }
 
   customElements.define("article-list", ArticleList);
 
-  const list = document.getElementById("list");
+  document.getElementById("list");
 
-  list.arrayArticles = [
-    {
-      publishedAt: "2024-06-05T03:29:00.248Z",
-      title: "hola",
-      image:
-        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgDKjl2MgiRWOJ-2yEkhwBasVBsikrQHS8iJszYp9av3HZUTFwLzPEAYKNjQ26znbUP2NaNlex5vnxalw_qF3mhOPAsai3W8Cg8DO2dPm5ZWUPY0x9V0uwDwHS0YisdXhHbyPxuphDnPdk/s640/Pokemon+%252831%2529.png",
-      company: "Brakus, Hyatt and Lesch",
-      description: "Rerum molestiae quod numquam nisi aut...",
-      content:
-        "Veniam sint dolorum corporis vitae porro rem maiores earum doloribus...",
-      author: 1,
-      id: "1",
-    },
-    {
-      publishedAt: "2024-07-05T03:29:00.248Z",
-      title: "Hola 2",
-      image:
-        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfXlDZYV5EqH2rr-gJ12MpVDCkv7mr1kBT21AAx1QfWrwVSK0rwSDGjfjj-I0N_T1mndx5jXEiyaRGRSw-wVnY_OPAZiIk3NftujrJQXMBsuCwUNoJ8UbtYtRoWFtRAEmkrh7ryFMV9p8/s1600/Pokemon+%25288%2529.png",
-      company: "company 2",
-      description: "description 2",
-      content: "content 2",
-      author: 60,
-      id: "2",
-    },
-  ];
+  // list.arrayArticles = [
+  //   {
+  //     publishedAt: "2024-06-05T03:29:00.248Z",
+  //     title: "hola",
+  //     image:
+  //       "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgDKjl2MgiRWOJ-2yEkhwBasVBsikrQHS8iJszYp9av3HZUTFwLzPEAYKNjQ26znbUP2NaNlex5vnxalw_qF3mhOPAsai3W8Cg8DO2dPm5ZWUPY0x9V0uwDwHS0YisdXhHbyPxuphDnPdk/s640/Pokemon+%252831%2529.png",
+  //     company: "Brakus, Hyatt and Lesch",
+  //     description: "Rerum molestiae quod numquam nisi aut...",
+  //     content:
+  //       "Veniam sint dolorum corporis vitae porro rem maiores earum doloribus...",
+  //     author: 1,
+  //     id: "1",
+  //   },
+  //   {
+  //     publishedAt: "2024-07-05T03:29:00.248Z",
+  //     title: "Hola 2",
+  //     image:
+  //       "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfXlDZYV5EqH2rr-gJ12MpVDCkv7mr1kBT21AAx1QfWrwVSK0rwSDGjfjj-I0N_T1mndx5jXEiyaRGRSw-wVnY_OPAZiIk3NftujrJQXMBsuCwUNoJ8UbtYtRoWFtRAEmkrh7ryFMV9p8/s1600/Pokemon+%25288%2529.png",
+  //     company: "company 2",
+  //     description: "description 2",
+  //     content: "content 2",
+  //     author: 60,
+  //     id: "2",
+  //   },
+  // ];
 
   const template = document.createElement("template");
 

@@ -1,0 +1,12 @@
+.none {
+  display: none;
+}
+
+.error {
+  text-align: center;
+}
+
+.loading {
+  color: purple;
+  text-align: center;
+}

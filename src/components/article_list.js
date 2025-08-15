@@ -1,21 +1,45 @@
+import html from "../templates/template-list.html";
+import css from "../css/article-list.css";
+
 const template = document.createElement("template"),
   fragment = document.createDocumentFragment();
 
-template.innerHTML = `<div class="articlesList"></div>`;
+template.innerHTML = `
+  <style>
+    ${css}
+  </style>
+  ${html}
+`;
 
 class ArticleList extends HTMLElement {
   #articlesApi;
   #arrayArticles;
   #controller = null;
+  #articleContainer;
+  #loadingElement;
+  #loading = false;
+  #errorElement;
+  #error = false;
+  #dataLoadedPromise = null;
+  #resolvePromise;
 
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+    this.#articleContainer =
+      this.shadowRoot.querySelector(".article-container");
+    this.#loadingElement = this.shadowRoot.querySelector(".loading");
+    this.#errorElement = this.shadowRoot.querySelector(".error");
+
+    this.#dataLoadedPromise = new Promise((resolve) => {
+      this.#resolvePromise = resolve;
+    });
   }
 
   static get observedAttributes() {
-    return ["articles-api", "articles-arr"];
+    return ["articles-api", "articles-arr", "loading", "error"];
   }
 
   attributeChangedCallback(name, oldVal, newVal) {
@@ -28,9 +52,19 @@ class ArticleList extends HTMLElement {
       case "articles-arr":
         this.#arrayArticles = newVal;
         break;
+      case "loading":
+        this.#loading = newVal;
+        break;
+      case "error":
+        this.#error = newVal;
+        break;
     }
 
     if (name === "articles-api") return this.validateUrl();
+
+    if (name === "loading") return this.updateLoadingState();
+
+    if (name === "error") return this.hadleError();
 
     if (name === "articles-arr") this.displayArrData();
   }
@@ -42,7 +76,7 @@ class ArticleList extends HTMLElement {
   }
 
   fetchData = async () => {
-    this.shadowRoot.querySelector(".articlesList").innerHTML = "";
+    this.setAttribute("loading", true);
 
     if (this.#controller) {
       this.#controller.abort();
@@ -60,10 +94,35 @@ class ArticleList extends HTMLElement {
       let data = await response.json();
       this.displayDataApi(data);
     } catch (error) {
+      this.setAttribute("error", true);
       let message = error.statusText || "Ocurrió un error";
       console.error("Error fetching item data:", message);
+    } finally {
+      this.setAttribute("loading", false);
+      this.#resolvePromise();
     }
   };
+
+  updateLoadingState() {
+    if (this.#loading === "false") {
+      this.#articleContainer.classList.remove("none");
+      this.#loadingElement.classList.add("none");
+      return;
+    }
+    this.#articleContainer.classList.add("none");
+    this.#loadingElement.classList.remove("none");
+  }
+
+  hadleError() {
+    if (this.#error === "false") {
+      this.#articleContainer.classList.remove("none");
+      this.#errorElement.classList.add("none");
+      return;
+    }
+
+    this.#articleContainer.classList.add("none");
+    this.#errorElement.classList.remove("none");
+  }
 
   displayDataApi(data) {
     data.forEach((article) => {
@@ -73,15 +132,13 @@ class ArticleList extends HTMLElement {
 
       fragment.appendChild(articleItem);
     });
-    this.shadowRoot.querySelector(".articlesList").appendChild(fragment);
+    this.#articleContainer.appendChild(fragment);
   }
 
   displayArrData() {
     if (this.#articlesApi) return;
 
     let array = JSON.parse(this.#arrayArticles);
-
-    this.shadowRoot.querySelector(".articlesList").innerHTML = "";
 
     array.forEach((article) => {
       const articleItem = document.createElement("article-item");
@@ -103,7 +160,7 @@ class ArticleList extends HTMLElement {
 
       fragment.appendChild(articleItem);
     });
-    this.shadowRoot.querySelector(".articlesList").appendChild(fragment);
+    this.#articleContainer.appendChild(fragment).appendChild(fragment);
   }
 
   // getters y setters
@@ -123,34 +180,50 @@ class ArticleList extends HTMLElement {
   set arrayArticles(val) {
     this.setAttribute("articles-arr", JSON.stringify(val));
   }
+
+  get loading() {
+    return this.#dataLoadedPromise.then(() => this.#loading);
+  }
+
+  set loading(val) {
+    this.setAttribute("loading", val);
+  }
+
+  get error() {
+    return this.#dataLoadedPromise.then(() => this.#error);
+  }
+
+  set error(val) {
+    this.setAttribute("error", val);
+  }
 }
 
 customElements.define("article-list", ArticleList);
 
 const list = document.getElementById("list");
 
-list.arrayArticles = [
-  {
-    publishedAt: "2024-06-05T03:29:00.248Z",
-    title: "hola",
-    image:
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgDKjl2MgiRWOJ-2yEkhwBasVBsikrQHS8iJszYp9av3HZUTFwLzPEAYKNjQ26znbUP2NaNlex5vnxalw_qF3mhOPAsai3W8Cg8DO2dPm5ZWUPY0x9V0uwDwHS0YisdXhHbyPxuphDnPdk/s640/Pokemon+%252831%2529.png",
-    company: "Brakus, Hyatt and Lesch",
-    description: "Rerum molestiae quod numquam nisi aut...",
-    content:
-      "Veniam sint dolorum corporis vitae porro rem maiores earum doloribus...",
-    author: 1,
-    id: "1",
-  },
-  {
-    publishedAt: "2024-07-05T03:29:00.248Z",
-    title: "Hola 2",
-    image:
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfXlDZYV5EqH2rr-gJ12MpVDCkv7mr1kBT21AAx1QfWrwVSK0rwSDGjfjj-I0N_T1mndx5jXEiyaRGRSw-wVnY_OPAZiIk3NftujrJQXMBsuCwUNoJ8UbtYtRoWFtRAEmkrh7ryFMV9p8/s1600/Pokemon+%25288%2529.png",
-    company: "company 2",
-    description: "description 2",
-    content: "content 2",
-    author: 60,
-    id: "2",
-  },
-];
+// list.arrayArticles = [
+//   {
+//     publishedAt: "2024-06-05T03:29:00.248Z",
+//     title: "hola",
+//     image:
+//       "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgDKjl2MgiRWOJ-2yEkhwBasVBsikrQHS8iJszYp9av3HZUTFwLzPEAYKNjQ26znbUP2NaNlex5vnxalw_qF3mhOPAsai3W8Cg8DO2dPm5ZWUPY0x9V0uwDwHS0YisdXhHbyPxuphDnPdk/s640/Pokemon+%252831%2529.png",
+//     company: "Brakus, Hyatt and Lesch",
+//     description: "Rerum molestiae quod numquam nisi aut...",
+//     content:
+//       "Veniam sint dolorum corporis vitae porro rem maiores earum doloribus...",
+//     author: 1,
+//     id: "1",
+//   },
+//   {
+//     publishedAt: "2024-07-05T03:29:00.248Z",
+//     title: "Hola 2",
+//     image:
+//       "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfXlDZYV5EqH2rr-gJ12MpVDCkv7mr1kBT21AAx1QfWrwVSK0rwSDGjfjj-I0N_T1mndx5jXEiyaRGRSw-wVnY_OPAZiIk3NftujrJQXMBsuCwUNoJ8UbtYtRoWFtRAEmkrh7ryFMV9p8/s1600/Pokemon+%25288%2529.png",
+//     company: "company 2",
+//     description: "description 2",
+//     content: "content 2",
+//     author: 60,
+//     id: "2",
+//   },
+// ];
