@@ -30,7 +30,7 @@
     #authorInfo;
     #controller = null;
     #controllerListener = null;
-    #dataLoadedPromise = null;
+    #dataLoadedPromise;
     #resolvePromise;
     #rejectedPromise;
 
@@ -39,9 +39,8 @@
 
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template$2.content.cloneNode(true));
-
-      this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
-      this.#authorInfo = this.shadowRoot.querySelector(".author-info");
+      this.hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
+      this.authorInfo = this.shadowRoot.querySelector(".author-info");
 
       this.#dataLoadedPromise = new Promise((resolve, reject) => {
         this.#resolvePromise = resolve;
@@ -348,38 +347,34 @@
      nueva instancia del web Compenent.
   */
 
-  const articleOne = new ArticleItem();
+  const articleOne = document.getElementById("articleOne");
 
   /* Aquí se atualiza con valores de la APi 
 
-    - Los valores traidos de la API tienen prioridad sobre las establecidad
-      directamente con los setters.
+    - Los valores de las propiedades colocados directamente en el componente tienen prioridad sobre las que vienen
+    mediante una petición a una API.
   */
   articleOne.apiUrl =
     "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
 
-  /* Aquí insertamos la instancia del Web Compenent en el DOM */
-
-  document.body.appendChild(articleOne);
-
-  /* Estas asignaciones como se mencionó antes tendrán prioridad;
-    es decir, que sobreescribiran la información de traída de API.
+  /* Estas asignaciones como se mencionó antes tendrán prioridad,
+    es decir, que sobreescribiran la información traída desde la API.
   */
 
-  articleOne.title = "Hola title";
-  articleOne.author = "Hola autor";
-  articleOne.company = "Hola compañia";
-  articleOne.description = "Hola descrición";
-  articleOne.content = "Hola contenido";
-  articleOne.publishedAt = "Hola Fecha de publicación";
+  articleOne.title = "Hola title desde JS";
+  articleOne.author = "Hola autor desde JS";
+  articleOne.company = "Hola compañia desde JS";
+  articleOne.description = "Hola descrición desde JS";
+  articleOne.content = "Hola contenido desde JS";
+  articleOne.publishedAt = "Hola Fecha de publicación desde JS";
   articleOne.image =
     "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
 
   // getArticleTitle();
 
-  var html = "<div class=\"articlesList\">\r\n  <div class=\"article-container\"></div>\r\n  <div class=\"loading none\">\r\n    <span>Loading...</span>\r\n  </div>\r\n\r\n  <div class=\"error none\">Error fetching article list data.</div>\r\n</div>\r\n";
+  var html = "<div class=\"articlesList\">\r\n  <div class=\"article-container\"></div>\r\n  <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"error none\">Error fetching article list data.</div>\r\n</div>\r\n";
 
-  var css_248z = ".none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loading {\r\n  color: purple;\r\n  text-align: center;\r\n}\r\n";
+  var css_248z = ".none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
 
   const template$1 = document.createElement("template"),
     fragment = document.createDocumentFragment();
@@ -580,7 +575,7 @@
 
   customElements.define("article-list", ArticleList);
 
-  document.getElementById("list");
+  // const list = document.getElementById("list");
 
   // list.arrayArticles = [
   //   {

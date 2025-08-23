@@ -25,7 +25,7 @@ class ArticleItem extends HTMLElement {
   #authorInfo;
   #controller = null;
   #controllerListener = null;
-  #dataLoadedPromise = null;
+  #dataLoadedPromise;
   #resolvePromise;
   #rejectedPromise;
 
@@ -34,9 +34,8 @@ class ArticleItem extends HTMLElement {
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-    this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
-    this.#authorInfo = this.shadowRoot.querySelector(".author-info");
+    this.hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
+    this.authorInfo = this.shadowRoot.querySelector(".author-info");
 
     this.#dataLoadedPromise = new Promise((resolve, reject) => {
       this.#resolvePromise = resolve;
@@ -343,30 +342,26 @@ customElements.define("article-item", ArticleItem);
    nueva instancia del web Compenent.
 */
 
-const articleOne = new ArticleItem();
+const articleOne = document.getElementById("articleOne");
 
 /* Aquí se atualiza con valores de la APi 
 
-  - Los valores traidos de la API tienen prioridad sobre las establecidad
-    directamente con los setters.
+  - Los valores de las propiedades colocados directamente en el componente tienen prioridad sobre las que vienen
+  mediante una petición a una API.
 */
 articleOne.apiUrl =
   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
 
-/* Aquí insertamos la instancia del Web Compenent en el DOM */
-
-document.body.appendChild(articleOne);
-
-/* Estas asignaciones como se mencionó antes tendrán prioridad;
-  es decir, que sobreescribiran la información de traída de API.
+/* Estas asignaciones como se mencionó antes tendrán prioridad,
+  es decir, que sobreescribiran la información traída desde la API.
 */
 
-articleOne.title = "Hola title";
-articleOne.author = "Hola autor";
-articleOne.company = "Hola compañia";
-articleOne.description = "Hola descrición";
-articleOne.content = "Hola contenido";
-articleOne.publishedAt = "Hola Fecha de publicación";
+articleOne.title = "Hola title desde JS";
+articleOne.author = "Hola autor desde JS";
+articleOne.company = "Hola compañia desde JS";
+articleOne.description = "Hola descrición desde JS";
+articleOne.content = "Hola contenido desde JS";
+articleOne.publishedAt = "Hola Fecha de publicación desde JS";
 articleOne.image =
   "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
 

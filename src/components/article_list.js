@@ -200,7 +200,7 @@ class ArticleList extends HTMLElement {
 
 customElements.define("article-list", ArticleList);
 
-const list = document.getElementById("list");
+// const list = document.getElementById("list");
 
 // list.arrayArticles = [
 //   {
