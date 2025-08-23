@@ -34,8 +34,8 @@ class ArticleItem extends HTMLElement {
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
-    this.authorInfo = this.shadowRoot.querySelector(".author-info");
+    this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
+    this.#authorInfo = this.shadowRoot.querySelector(".author-info");
 
     this.#dataLoadedPromise = new Promise((resolve, reject) => {
       this.#resolvePromise = resolve;
@@ -245,8 +245,8 @@ class ArticleItem extends HTMLElement {
   }
 
   set title(val) {
-    this.#title = val;
-    this.updateItemData();
+    if (this.#title === val) return;
+    this.setAttribute("title-text", val);
   }
 
   get image() {
@@ -255,8 +255,8 @@ class ArticleItem extends HTMLElement {
   }
 
   set image(val) {
-    this.#image = val;
-    this.updateItemData();
+    if (this.#image === val) return;
+    this.setAttribute("image-src", val);
   }
 
   get company() {
@@ -266,8 +266,8 @@ class ArticleItem extends HTMLElement {
   }
 
   set company(val) {
-    this.#company = val;
-    this.updateItemData();
+    if (this.#company === val) return;
+    this.setAttribute("company", val);
   }
 
   get description() {
@@ -277,8 +277,8 @@ class ArticleItem extends HTMLElement {
   }
 
   set description(val) {
-    this.#description = val;
-    this.updateItemData();
+    if (this.#description === val) return;
+    this.setAttribute("description", val);
   }
 
   get author() {
@@ -287,8 +287,8 @@ class ArticleItem extends HTMLElement {
   }
 
   set author(val) {
-    this.#author = val;
-    this.updateItemData();
+    if (this.#author === val) return;
+    this.setAttribute("author", val);
   }
 
   get content() {
@@ -298,8 +298,8 @@ class ArticleItem extends HTMLElement {
   }
 
   set content(val) {
-    this.#content = val;
-    this.updateItemData();
+    if (this.#content === val) return;
+    this.setAttribute("content", val);
   }
 
   get publishedAt() {
@@ -309,8 +309,8 @@ class ArticleItem extends HTMLElement {
   }
 
   set publishedAt(val) {
-    this.#publishedAt = val;
-    this.updateItemData();
+    if (this.#publishedAt === val) return;
+    this.setAttribute("published-at", val);
   }
 
   get id() {
@@ -319,8 +319,8 @@ class ArticleItem extends HTMLElement {
   }
 
   set id(val) {
-    this.#id = val;
-    this.updateItemData();
+    if (this.#id === val) return;
+    this.setAttribute("id-item", val);
   }
 
   get apiUrl() {
@@ -330,9 +330,7 @@ class ArticleItem extends HTMLElement {
 
   set apiUrl(val) {
     if (this.#apiUrl === val) return;
-    this.#apiUrl = val;
-
-    this.validateApiUrl();
+    this.setAttribute("api-url", val);
   }
 }
 
@@ -401,4 +399,4 @@ const getArticleTitle = async () => {
   }
 };
 
-// getArticleTitle();
+getArticleTitle();

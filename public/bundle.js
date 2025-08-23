@@ -39,8 +39,8 @@
 
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template$2.content.cloneNode(true));
-      this.hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
-      this.authorInfo = this.shadowRoot.querySelector(".author-info");
+      this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
+      this.#authorInfo = this.shadowRoot.querySelector(".author-info");
 
       this.#dataLoadedPromise = new Promise((resolve, reject) => {
         this.#resolvePromise = resolve;
@@ -250,8 +250,8 @@
     }
 
     set title(val) {
-      this.#title = val;
-      this.updateItemData();
+      if (this.#title === val) return;
+      this.setAttribute("title-text", val);
     }
 
     get image() {
@@ -260,8 +260,8 @@
     }
 
     set image(val) {
-      this.#image = val;
-      this.updateItemData();
+      if (this.#image === val) return;
+      this.setAttribute("image-src", val);
     }
 
     get company() {
@@ -271,8 +271,8 @@
     }
 
     set company(val) {
-      this.#company = val;
-      this.updateItemData();
+      if (this.#company === val) return;
+      this.setAttribute("company", val);
     }
 
     get description() {
@@ -282,8 +282,8 @@
     }
 
     set description(val) {
-      this.#description = val;
-      this.updateItemData();
+      if (this.#description === val) return;
+      this.setAttribute("description", val);
     }
 
     get author() {
@@ -292,8 +292,8 @@
     }
 
     set author(val) {
-      this.#author = val;
-      this.updateItemData();
+      if (this.#author === val) return;
+      this.setAttribute("author", val);
     }
 
     get content() {
@@ -303,8 +303,8 @@
     }
 
     set content(val) {
-      this.#content = val;
-      this.updateItemData();
+      if (this.#content === val) return;
+      this.setAttribute("content", val);
     }
 
     get publishedAt() {
@@ -314,8 +314,8 @@
     }
 
     set publishedAt(val) {
-      this.#publishedAt = val;
-      this.updateItemData();
+      if (this.#publishedAt === val) return;
+      this.setAttribute("published-at", val);
     }
 
     get id() {
@@ -324,8 +324,8 @@
     }
 
     set id(val) {
-      this.#id = val;
-      this.updateItemData();
+      if (this.#id === val) return;
+      this.setAttribute("id-item", val);
     }
 
     get apiUrl() {
@@ -335,9 +335,7 @@
 
     set apiUrl(val) {
       if (this.#apiUrl === val) return;
-      this.#apiUrl = val;
-
-      this.validateApiUrl();
+      this.setAttribute("api-url", val);
     }
   }
 
@@ -370,7 +368,43 @@
   articleOne.image =
     "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
 
-  // getArticleTitle();
+  /* Ya que usamos promesas como medio para manejar la posible asincronia
+     de las propiedades necesitaremos usar un mecanismo que permita el
+     correcto manejo de promesas en este caso async await.
+  */
+
+  const getArticleTitle = async () => {
+    console.log("Información de intancia");
+    try {
+      const titleValue = await articleOne.title;
+      console.log("Título:", titleValue);
+
+      const authorValue = await articleOne.author;
+      console.log("Autor:", authorValue);
+
+      const companyValue = await articleOne.company;
+      console.log("Compañía:", companyValue);
+
+      const descriptionValue = await articleOne.description;
+      console.log("Descripción:", descriptionValue);
+
+      const contentValue = await articleOne.content;
+      console.log("Contenido:", contentValue);
+
+      const publishedAtValue = await articleOne.publishedAt;
+      console.log("Fecha de publicación:", publishedAtValue);
+
+      const idValue = await articleOne.id;
+      console.log("ID:", idValue);
+    } catch (error) {
+      console.error(
+        "Error al obtener la información del artículo:",
+        error.message
+      );
+    }
+  };
+
+  getArticleTitle();
 
   var html = "<div class=\"articlesList\">\r\n  <div class=\"article-container\"></div>\r\n  <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"error none\">Error fetching article list data.</div>\r\n</div>\r\n";
 
@@ -545,6 +579,7 @@
     }
 
     set articlesApi(val) {
+      if (this.#articlesApi === val) return;
       this.setAttribute("articles-api", val);
     }
 
@@ -553,6 +588,7 @@
     }
 
     set arrayArticles(val) {
+      if (this.#arrayArticles === val) return;
       this.setAttribute("articles-arr", JSON.stringify(val));
     }
 
@@ -561,6 +597,7 @@
     }
 
     set loading(val) {
+      if (this.#loading === val) return;
       this.setAttribute("loading", val);
     }
 
@@ -569,6 +606,7 @@
     }
 
     set error(val) {
+      if (this.#error === val) return;
       this.setAttribute("error", val);
     }
   }

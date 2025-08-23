@@ -170,6 +170,7 @@ class ArticleList extends HTMLElement {
   }
 
   set articlesApi(val) {
+    if (this.#articlesApi === val) return;
     this.setAttribute("articles-api", val);
   }
 
@@ -178,6 +179,7 @@ class ArticleList extends HTMLElement {
   }
 
   set arrayArticles(val) {
+    if (this.#arrayArticles === val) return;
     this.setAttribute("articles-arr", JSON.stringify(val));
   }
 
@@ -186,6 +188,7 @@ class ArticleList extends HTMLElement {
   }
 
   set loading(val) {
+    if (this.#loading === val) return;
     this.setAttribute("loading", val);
   }
 
@@ -194,6 +197,7 @@ class ArticleList extends HTMLElement {
   }
 
   set error(val) {
+    if (this.#error === val) return;
     this.setAttribute("error", val);
   }
 }
