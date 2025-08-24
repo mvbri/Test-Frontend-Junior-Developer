@@ -53,10 +53,10 @@ class ArticleList extends HTMLElement {
         this.#arrayArticles = newVal;
         break;
       case "loading":
-        this.#loading = newVal;
+        this.#loading = newVal === "true" ? true : false;
         break;
       case "error":
-        this.#error = newVal;
+        this.#error = newVal === "true" ? true : false;
         break;
     }
 
@@ -93,18 +93,18 @@ class ArticleList extends HTMLElement {
 
       let data = await response.json();
       this.displayDataApi(data);
+      this.#resolvePromise();
     } catch (error) {
       this.setAttribute("error", true);
       let message = error.statusText || "Ocurrió un error";
       console.error("Error fetching item data:", message);
     } finally {
       this.setAttribute("loading", false);
-      this.#resolvePromise();
     }
   };
 
   updateLoadingState() {
-    if (this.#loading === "false") {
+    if (!this.#loading) {
       this.#articleContainer.classList.remove("none");
       this.#loadingElement.classList.add("none");
       return;
@@ -114,20 +114,15 @@ class ArticleList extends HTMLElement {
   }
 
   hadleError() {
-    if (this.#error === "false") {
-      this.#articleContainer.classList.remove("none");
-      this.#errorElement.classList.add("none");
-      return;
-    }
-
-    this.#articleContainer.classList.add("none");
+    if (this.#error) this.#articleContainer.classList.add("none");
     this.#errorElement.classList.remove("none");
   }
 
-  displayDataApi(data) {
+  displayDataApi(data = []) {
     data.forEach((article) => {
       const articleItem = document.createElement("article-item");
-      articleItem.setAttribute("api-url", `${this.#articlesApi}/${article.id}`);
+      articleItem.setAttribute("data", JSON.stringify(article));
+
       articleItem.setAttribute("id", `article-${article.id}`);
 
       fragment.appendChild(articleItem);

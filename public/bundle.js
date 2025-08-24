@@ -2,9 +2,9 @@
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function () {
 
-  var html$1 = "<article>\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n      <div class=\"author-info hidden\"></div>\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n    </div>\r\n</article>";
+  var html$1 = "<article class=\"article-container\">\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n      <div class=\"author-info hidden\"></div>\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n    </div>\r\n</article>\r\n <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n  <div class=\"error none\">\r\n    <p>Error fetching article list data.</p>\r\n  </div>";
 
-  var css_248z$1 = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: -1px 2px 9px 3px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: blue;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Autor: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n";
+  var css_248z$1 = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: -1px 2px 9px 3px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: blue;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Autor: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
 
   const apiUrlAuthor = "http://localhost:3000/authors";
   const template$2 = document.createElement("template");
@@ -33,14 +33,28 @@
     #dataLoadedPromise;
     #resolvePromise;
     #rejectedPromise;
+    #loading = false;
+    #loadingElment;
+    #articleContainer;
+    #error;
+    #errorElement;
+    #data;
 
     constructor() {
       super();
 
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template$2.content.cloneNode(true));
+
       this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
       this.#authorInfo = this.shadowRoot.querySelector(".author-info");
+
+      this.#articleContainer =
+        this.shadowRoot.querySelector(".article-container");
+      this.#loadingElment = this.shadowRoot.querySelector(".loading");
+
+      this.#errorElement = this.shadowRoot.querySelector(".error");
+      this.#error = false;
 
       this.#dataLoadedPromise = new Promise((resolve, reject) => {
         this.#resolvePromise = resolve;
@@ -59,6 +73,9 @@
         "author",
         "api-url",
         "id-item",
+        "loading",
+        "error",
+        "data",
       ];
     }
 
@@ -93,8 +110,31 @@
         case "id-item":
           this.#id = newVal;
           break;
+        case "loading":
+          this.#loading = newVal === "true" ? true : false;
+          break;
+        case "error":
+          this.#error = newVal === "true" ? true : false;
+          break;
+        case "data":
+          this.#data;
+          break;
       }
 
+      if (name === "loading") return this.updateLoadingState();
+
+      if (name === "api-url") return this.fetchItemData();
+
+      if (name === "error") return this.handleError();
+
+      if (name === "data") {
+        try {
+          const data = JSON.parse(newVal);
+          this.updateItemData(data);
+        } catch (error) {
+          console.error("Error parsing JSON data:", error);
+        }
+      }
       this.updateItemData();
     }
 
@@ -129,6 +169,8 @@
     }
 
     async fetchItemData() {
+      this.setAttribute("loading", true);
+
       if (this.#controller) {
         this.#controller.abort();
       }
@@ -137,20 +179,39 @@
       const signal = this.#controller.signal;
 
       try {
-        let response = await fetch(`${this.#apiUrl}`, { signal }),
+        let response = await fetch(this.#apiUrl, { signal }),
           data = await response.json();
         if (!response.ok)
           throw { status: response.status, statusText: response.statusText };
-
         this.updateItemData(data);
         this.#resolvePromise();
       } catch (error) {
+        this.setAttribute("error", true);
+        console.error("Error fetching item data:", error);
         if (error.name === "AbortError")
           return console.log("Petición abortada antes de completarse.");
         let message = error.statusText || "Ocurrió un error";
         console.error("Error fetching item data:", message);
         this.#rejectedPromise(error);
+      } finally {
+        this.setAttribute("loading", false);
       }
+    }
+
+    updateLoadingState() {
+      if (!this.#loading) {
+        this.#articleContainer.classList.remove("none");
+        this.#loadingElment.classList.add("none");
+        return;
+      }
+
+      this.#articleContainer.classList.add("none");
+      this.#loadingElment.classList.remove("none");
+    }
+
+    handleError() {
+      if (this.#error) this.#articleContainer.style.display = "none";
+      this.#errorElement.classList.remove("none");
     }
 
     updateItemData(data = {}) {
@@ -337,6 +398,17 @@
       if (this.#apiUrl === val) return;
       this.setAttribute("api-url", val);
     }
+
+    get loading() {
+      if (!this.#loading)
+        return this.#dataLoadedPromise.then(() => this.#loading);
+      return this.#loading;
+    }
+
+    set loading(val) {
+      if (this.#loading === val) return;
+      this.setAttribute("loading", val);
+    }
   }
 
   customElements.define("article-item", ArticleItem);
@@ -355,56 +427,7 @@
   articleOne.apiUrl =
     "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
 
-  /* Estas asignaciones como se mencionó antes tendrán prioridad,
-    es decir, que sobreescribiran la información traída desde la API.
-  */
-
-  articleOne.title = "Hola title desde JS";
-  articleOne.author = "Hola autor desde JS";
-  articleOne.company = "Hola compañia desde JS";
-  articleOne.description = "Hola descrición desde JS";
-  articleOne.content = "Hola contenido desde JS";
-  articleOne.publishedAt = "Hola Fecha de publicación desde JS";
-  articleOne.image =
-    "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
-
-  /* Ya que usamos promesas como medio para manejar la posible asincronia
-     de las propiedades necesitaremos usar un mecanismo que permita el
-     correcto manejo de promesas en este caso async await.
-  */
-
-  const getArticleTitle = async () => {
-    console.log("Información de intancia");
-    try {
-      const titleValue = await articleOne.title;
-      console.log("Título:", titleValue);
-
-      const authorValue = await articleOne.author;
-      console.log("Autor:", authorValue);
-
-      const companyValue = await articleOne.company;
-      console.log("Compañía:", companyValue);
-
-      const descriptionValue = await articleOne.description;
-      console.log("Descripción:", descriptionValue);
-
-      const contentValue = await articleOne.content;
-      console.log("Contenido:", contentValue);
-
-      const publishedAtValue = await articleOne.publishedAt;
-      console.log("Fecha de publicación:", publishedAtValue);
-
-      const idValue = await articleOne.id;
-      console.log("ID:", idValue);
-    } catch (error) {
-      console.error(
-        "Error al obtener la información del artículo:",
-        error.message
-      );
-    }
-  };
-
-  getArticleTitle();
+  // getArticleTitle();
 
   var html = "<div class=\"articlesList\">\r\n  <div class=\"article-container\"></div>\r\n  <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"error none\">Error fetching article list data.</div>\r\n</div>\r\n";
 
@@ -462,10 +485,10 @@
           this.#arrayArticles = newVal;
           break;
         case "loading":
-          this.#loading = newVal;
+          this.#loading = newVal === "true" ? true : false;
           break;
         case "error":
-          this.#error = newVal;
+          this.#error = newVal === "true" ? true : false;
           break;
       }
 
@@ -502,18 +525,18 @@
 
         let data = await response.json();
         this.displayDataApi(data);
+        this.#resolvePromise();
       } catch (error) {
         this.setAttribute("error", true);
         let message = error.statusText || "Ocurrió un error";
         console.error("Error fetching item data:", message);
       } finally {
         this.setAttribute("loading", false);
-        this.#resolvePromise();
       }
     };
 
     updateLoadingState() {
-      if (this.#loading === "false") {
+      if (!this.#loading) {
         this.#articleContainer.classList.remove("none");
         this.#loadingElement.classList.add("none");
         return;
@@ -523,20 +546,15 @@
     }
 
     hadleError() {
-      if (this.#error === "false") {
-        this.#articleContainer.classList.remove("none");
-        this.#errorElement.classList.add("none");
-        return;
-      }
-
-      this.#articleContainer.classList.add("none");
+      if (this.#error) this.#articleContainer.classList.add("none");
       this.#errorElement.classList.remove("none");
     }
 
-    displayDataApi(data) {
+    displayDataApi(data = []) {
       data.forEach((article) => {
         const articleItem = document.createElement("article-item");
-        articleItem.setAttribute("api-url", `${this.#articlesApi}/${article.id}`);
+        articleItem.setAttribute("data", JSON.stringify(article));
+
         articleItem.setAttribute("id", `article-${article.id}`);
 
         fragment.appendChild(articleItem);

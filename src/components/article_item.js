@@ -28,14 +28,28 @@ class ArticleItem extends HTMLElement {
   #dataLoadedPromise;
   #resolvePromise;
   #rejectedPromise;
+  #loading = false;
+  #loadingElment;
+  #articleContainer;
+  #error;
+  #errorElement;
+  #data;
 
   constructor() {
     super();
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+
     this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
     this.#authorInfo = this.shadowRoot.querySelector(".author-info");
+
+    this.#articleContainer =
+      this.shadowRoot.querySelector(".article-container");
+    this.#loadingElment = this.shadowRoot.querySelector(".loading");
+
+    this.#errorElement = this.shadowRoot.querySelector(".error");
+    this.#error = false;
 
     this.#dataLoadedPromise = new Promise((resolve, reject) => {
       this.#resolvePromise = resolve;
@@ -54,6 +68,9 @@ class ArticleItem extends HTMLElement {
       "author",
       "api-url",
       "id-item",
+      "loading",
+      "error",
+      "data",
     ];
   }
 
@@ -88,8 +105,31 @@ class ArticleItem extends HTMLElement {
       case "id-item":
         this.#id = newVal;
         break;
+      case "loading":
+        this.#loading = newVal === "true" ? true : false;
+        break;
+      case "error":
+        this.#error = newVal === "true" ? true : false;
+        break;
+      case "data":
+        this.#data;
+        break;
     }
 
+    if (name === "loading") return this.updateLoadingState();
+
+    if (name === "api-url") return this.fetchItemData();
+
+    if (name === "error") return this.handleError();
+
+    if (name === "data") {
+      try {
+        const data = JSON.parse(newVal);
+        this.updateItemData(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error);
+      }
+    }
     this.updateItemData();
   }
 
@@ -124,6 +164,8 @@ class ArticleItem extends HTMLElement {
   }
 
   async fetchItemData() {
+    this.setAttribute("loading", true);
+
     if (this.#controller) {
       this.#controller.abort();
     }
@@ -132,20 +174,39 @@ class ArticleItem extends HTMLElement {
     const signal = this.#controller.signal;
 
     try {
-      let response = await fetch(`${this.#apiUrl}`, { signal }),
+      let response = await fetch(this.#apiUrl, { signal }),
         data = await response.json();
       if (!response.ok)
         throw { status: response.status, statusText: response.statusText };
-
       this.updateItemData(data);
       this.#resolvePromise();
     } catch (error) {
+      this.setAttribute("error", true);
+      console.error("Error fetching item data:", error);
       if (error.name === "AbortError")
         return console.log("Petición abortada antes de completarse.");
       let message = error.statusText || "Ocurrió un error";
       console.error("Error fetching item data:", message);
       this.#rejectedPromise(error);
+    } finally {
+      this.setAttribute("loading", false);
     }
+  }
+
+  updateLoadingState() {
+    if (!this.#loading) {
+      this.#articleContainer.classList.remove("none");
+      this.#loadingElment.classList.add("none");
+      return;
+    }
+
+    this.#articleContainer.classList.add("none");
+    this.#loadingElment.classList.remove("none");
+  }
+
+  handleError() {
+    if (this.#error) this.#articleContainer.style.display = "none";
+    this.#errorElement.classList.remove("none");
   }
 
   updateItemData(data = {}) {
@@ -332,6 +393,17 @@ class ArticleItem extends HTMLElement {
     if (this.#apiUrl === val) return;
     this.setAttribute("api-url", val);
   }
+
+  get loading() {
+    if (!this.#loading)
+      return this.#dataLoadedPromise.then(() => this.#loading);
+    return this.#loading;
+  }
+
+  set loading(val) {
+    if (this.#loading === val) return;
+    this.setAttribute("loading", val);
+  }
 }
 
 customElements.define("article-item", ArticleItem);
@@ -354,14 +426,14 @@ articleOne.apiUrl =
   es decir, que sobreescribiran la información traída desde la API.
 */
 
-articleOne.title = "Hola title desde JS";
-articleOne.author = "Hola autor desde JS";
-articleOne.company = "Hola compañia desde JS";
-articleOne.description = "Hola descrición desde JS";
-articleOne.content = "Hola contenido desde JS";
-articleOne.publishedAt = "Hola Fecha de publicación desde JS";
-articleOne.image =
-  "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
+// articleOne.title = "Hola title desde JS";
+// articleOne.author = "Hola autor desde JS";
+// articleOne.company = "Hola compañia desde JS";
+// articleOne.description = "Hola descrición desde JS";
+// articleOne.content = "Hola contenido desde JS";
+// articleOne.publishedAt = "Hola Fecha de publicación desde JS";
+// articleOne.image =
+//   "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
 
 /* Ya que usamos promesas como medio para manejar la posible asincronia
    de las propiedades necesitaremos usar un mecanismo que permita el
@@ -399,4 +471,4 @@ const getArticleTitle = async () => {
   }
 };
 
-getArticleTitle();
+// getArticleTitle();
