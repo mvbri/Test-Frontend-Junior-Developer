@@ -10,10 +10,15 @@ article {
   margin: 0 auto;
   margin-bottom: 2rem;
   border: 1px solid #ac8cff;
-  box-shadow: -1px 2px 9px 3px #ac8cff;
+  box-shadow: 0 0 18px 1px #ac8cff;
   border-radius: 25px;
   cursor: pointer;
   padding-bottom: 2rem;
+  transition: all 300ms ease-in-out;
+}
+
+article:hover {
+  box-shadow: 0 0 18px 3px #7d4df7;
 }
 
 article * {

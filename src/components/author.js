@@ -231,7 +231,6 @@ class Author extends HTMLElement {
   }
 
   set loading(val) {
-    console.log("hola");
     this.#dataLoadedPromise.then(() => this.setAttribute("loading", val));
   }
 }
