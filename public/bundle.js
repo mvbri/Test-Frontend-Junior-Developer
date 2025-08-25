@@ -2,18 +2,18 @@
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function () {
 
-  var html$1 = "<article class=\"article-container\">\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n      <div class=\"author-info hidden\"></div>\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n    </div>\r\n</article>\r\n <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n  <div class=\"error none\">\r\n    <p>Error fetching article list data.</p>\r\n  </div>";
+  var html$2 = "<article class=\"article-container\">\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n      <div class=\"author-info hidden\"></div>\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n    </div>\r\n</article>\r\n <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n  <div class=\"error none\">\r\n    <p>Error fetching article list data.</p>\r\n  </div>";
 
-  var css_248z$1 = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: -1px 2px 9px 3px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: blue;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Autor: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
+  var css_248z$2 = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: -1px 2px 9px 3px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: blue;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Autor: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
 
-  const apiUrlAuthor = "http://localhost:3000/authors";
+  const apiUrlAuthor = "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/users";
   const template$2 = document.createElement("template");
 
   template$2.innerHTML = `
   <style>
-    ${css_248z$1}
+    ${css_248z$2}
   </style>
-  ${html$1}
+  ${html$2}
 `;
 
   class ArticleItem extends HTMLElement {
@@ -127,6 +127,7 @@
 
       if (name === "error") return this.handleError();
 
+      /* Para facilitar el rederizado de varios componentes desde un componente padre.*/
       if (name === "data") {
         try {
           const data = JSON.parse(newVal);
@@ -413,34 +414,20 @@
 
   customElements.define("article-item", ArticleItem);
 
-  /* Aquí se prueba el desarrollo mediante la creación de una
-     nueva instancia del web Compenent.
-  */
-
-  const articleOne = document.getElementById("articleOne");
-
-  /* Aquí se atualiza con valores de la APi 
-
-    - Los valores de las propiedades colocados directamente en el componente tienen prioridad sobre las que vienen
-    mediante una petición a una API.
-  */
-  articleOne.apiUrl =
-    "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
-
   // getArticleTitle();
 
-  var html = "<div class=\"articlesList\">\r\n  <div class=\"article-container\"></div>\r\n  <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"error none\">Error fetching article list data.</div>\r\n</div>\r\n";
+  var html$1 = "<div class=\"articlesList\">\r\n  <div class=\"article-container\"></div>\r\n  <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"error none\">Error fetching article list data.</div>\r\n</div>\r\n";
 
-  var css_248z = ".none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
+  var css_248z$1 = ".none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
 
   const template$1 = document.createElement("template"),
     fragment = document.createDocumentFragment();
 
   template$1.innerHTML = `
   <style>
-    ${css_248z}
+    ${css_248z$1}
   </style>
-  ${html}
+  ${html$1}
 `;
 
   class ArticleList extends HTMLElement {
@@ -659,59 +646,17 @@
   //   },
   // ];
 
+  var html = "<div class=\"loading none\">\r\n  <div class=\"loader-container\">\r\n    <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n      <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n        <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n      </path>\r\n    </svg>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"error none\">Error fetching autor data.</div>\r\n\r\n<article class=\"author-container\">\r\n  <img class=\"avatar\">\r\n  <h2 class=\"name\"></h2>\r\n  <h3 class=\"birthdate\"></h3>\r\n  <p class=\"bio\"></p>\r\n</article>\r\n";
+
+  var css_248z = "article {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  background: #f8f9f9;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding: 2rem;\r\n}\r\n\r\n.avatar {\r\n  width: 400px;\r\n  height: 400px;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  border-radius: 50%;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
+
   const template = document.createElement("template");
 
   template.innerHTML = `
-
-
   <style>
-
-    article {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 80%;
-      min-height: 100vh;
-      margin: 0 auto;
-      margin-bottom: 2rem;
-      background: #f8f9f9;
-      border-radius: 25px;
-      cursor: pointer;
-      padding: 2rem;
-    }
-
-    .avatar {
-      width: 400px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-  
-    .loading {
-      color: purple;
-      text-align: center;
-      display: none;
-    }
-
-    .error {
-      display: none;
-      text-align: center;
-    }
-
+    ${css_248z}
   </style>
-
-  <div class="loading">
-    <span>Loading...</span>
-  </div>
-
-  <div class="error">Error fetching autor data.</div>
-
-  <article>
-    <img class="avatar" />
-    <h2 class="name"></h2>
-    <h3 class="birthdate"></h3>
-    <p class="bio"></p>
-  </article>
+  ${html}
 `;
 
   class Author extends HTMLElement {
@@ -721,34 +666,72 @@
     #bio;
     #url;
     #loading = false;
+    #dataLoadedPromise;
+    #resolvePromise;
+    #rejectedPromise;
+    #loadingElement;
+    #articleElement;
+    #error = false;
+    #errorElement;
     #setApi;
 
     constructor() {
       super();
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+      this.#loadingElement = this.shadowRoot.querySelector(".loading");
+      this.#articleElement = this.shadowRoot.querySelector(".author-container");
+      this.#errorElement = this.shadowRoot.querySelector(".error");
+
+      this.#dataLoadedPromise = new Promise((resolve, reject) => {
+        this.#resolvePromise = resolve;
+        this.#rejectedPromise = reject;
+      });
     }
 
     static get observedAttributes() {
-      return ["name", "avatar-img", "birthdate", "bio", "url-api", "loading"];
+      return [
+        "name",
+        "avatar-img",
+        "birthdate",
+        "bio",
+        "url-api",
+        "loading",
+        "error",
+      ];
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
-      const attributeMap = {
-        name: "#name",
-        "avatar-img": "#avatar",
-        birthdate: "#birthdate",
-        bio: "#bio",
-        "url-api": "#url",
-        loading: "#loading",
-      };
+      if (newVal === oldVal) return;
 
-      if (attributeMap[name]) {
-        this[attributeMap[name]] = newVal;
+      switch (name) {
+        case "name":
+          this.#name = newVal;
+          break;
+        case "avatar-img":
+          this.#avatar = newVal;
+          break;
+        case "birthdate":
+          this.#birthdate = newVal;
+          break;
+        case "bio":
+          this.#bio = newVal;
+          break;
+        case "url-api":
+          this.#url = newVal;
+          break;
+        case "loading":
+          this.#loading = newVal === "true" ? true : false;
+          break;
+        case "error":
+          this.#error = newVal === "true" ? true : false;
+          break;
       }
 
       if (name === "url-api") return this.validateUrl();
       if (name === "loading") return this.updateLoadingState();
+      if (name === "error") return this.handleError();
     }
 
     validateUrl() {
@@ -767,28 +750,31 @@
         }
 
         this.displayData(data);
+        this.#resolvePromise();
       } catch (error) {
+        this.setAttribute("error", true);
         let message = error.statusText || "Ha ocurrido un error";
         console.error("Error fetching item data:", message);
         this.shadowRoot.querySelector(".error").style.display = "block";
+        this.#rejectedPromise(error);
       } finally {
         this.setAttribute("loading", false);
       }
     }
 
     updateLoadingState() {
-      const loadingElement = this.shadowRoot.querySelector(".loading"),
-        articleElement = this.shadowRoot.querySelector("article"),
-        errorElement = this.shadowRoot.querySelector(".error");
-
-      if (this.#loading !== "true") {
-        loadingElement.style.display = "none";
-        articleElement.style.display = "flex";
+      if (!this.#loading) {
+        this.#loadingElement.classList.add("none");
+        this.#articleElement.classList.remove("none");
         return;
       }
-      loadingElement.style.display = "block";
-      articleElement.style.display = "none";
-      errorElement.style.display = "none";
+      this.#loadingElement.classList.remove("none");
+      this.#articleElement.classList.add("none");
+    }
+
+    handleError() {
+      if (this.#error) this.#articleElement.style.display = "none";
+      this.#errorElement.classList.remove("none");
     }
 
     displayData(data) {
@@ -834,7 +820,8 @@
 
     // getters y setters
     get name() {
-      setTimeout(() => console.log(this.#name), 3000);
+      if (!this.#name) return this.#dataLoadedPromise.then(() => this.#name);
+      return this.#name;
     }
 
     set name(val) {
@@ -843,7 +830,8 @@
     }
 
     get avatar() {
-      setTimeout(() => console.log(this.#avatar), 3000);
+      if (!this.#avatar) return this.#dataLoadedPromise.then(() => this.#avatar);
+      return this.#avatar;
     }
 
     set avatar(val) {
@@ -852,7 +840,9 @@
     }
 
     get birthdate() {
-      setTimeout(() => console.log(this.#birthdate), 3000);
+      if (!this.#birthdate)
+        return this.#dataLoadedPromise.then(() => this.#birthdate);
+      return this.#birthdate;
     }
 
     set birthdate(val) {
@@ -861,7 +851,8 @@
     }
 
     get bio() {
-      setTimeout(() => console.log(this.#bio), 3000);
+      if (!this.#bio) return this.#dataLoadedPromise.then(() => this.#bio);
+      return this.#bio;
     }
 
     set bio(val) {
@@ -870,7 +861,8 @@
     }
 
     get urlApi() {
-      setTimeout(() => console.log(this.#url), 3000);
+      if (!this.#url) return this.#dataLoadedPromise.then(() => this.#url);
+      return this.#url;
     }
 
     set urlApi(val) {
@@ -882,15 +874,20 @@
     }
 
     get loading() {
-      setTimeout(() => console.log(this.#loading), 3000);
+      if (!this.#loading)
+        return this.#dataLoadedPromise.then(() => this.#loading);
+      return this.#loading;
     }
 
     set loading(val) {
-      setTimeout(() => this.setAttribute("loading", val), 3000);
+      console.log("hola");
+      this.#dataLoadedPromise.then(() => this.setAttribute("loading", val));
     }
   }
 
   customElements.define("author-item", Author);
+
+  document.getElementById("author");
 
 })();
 //# sourceMappingURL=bundle.js.map

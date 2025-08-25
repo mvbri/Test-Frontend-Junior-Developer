@@ -1,0 +1,40 @@
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  min-height: 100vh;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  background: #f8f9f9;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 2rem;
+}
+
+.avatar {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.none {
+  display: none;
+}
+
+.error {
+  text-align: center;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.loading-icon {
+  width: 2rem;
+  height: 2rem;
+}

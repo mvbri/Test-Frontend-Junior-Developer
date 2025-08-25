@@ -122,6 +122,7 @@ class ArticleItem extends HTMLElement {
 
     if (name === "error") return this.handleError();
 
+    /* Para facilitar el rederizado de varios componentes desde un componente padre.*/
     if (name === "data") {
       try {
         const data = JSON.parse(newVal);
@@ -412,15 +413,15 @@ customElements.define("article-item", ArticleItem);
    nueva instancia del web Compenent.
 */
 
-const articleOne = document.getElementById("articleOne");
+// const articleOne = document.getElementById("articleOne");
 
 /* Aquí se atualiza con valores de la APi 
 
   - Los valores de las propiedades colocados directamente en el componente tienen prioridad sobre las que vienen
   mediante una petición a una API.
 */
-articleOne.apiUrl =
-  "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
+// articleOne.apiUrl =
+//   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
 
 /* Estas asignaciones como se mencionó antes tendrán prioridad,
   es decir, que sobreescribiran la información traída desde la API.
