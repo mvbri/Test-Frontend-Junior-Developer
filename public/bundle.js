@@ -2,9 +2,9 @@
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function () {
 
-  var html$2 = "<article class=\"article-container\">\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n      <div class=\"author-info hidden\"></div>\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n    </div>\r\n</article>\r\n <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n  <div class=\"error none\">\r\n    <p>Error fetching article list data.</p>\r\n  </div>";
+  var html$2 = "<article class=\"article-container\">\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n        <div class=\"author-info hidden\"></div>\r\n    </div>\r\n</article>\r\n <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n  <div class=\"error none\">\r\n    <p>Error fetching article list data.</p>\r\n  </div>";
 
-  var css_248z$2 = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: 0 0 18px 1px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n  transition: all 300ms ease-in-out;\r\n}\r\n\r\narticle:hover {\r\n  box-shadow: 0 0 18px 3px #7d4df7;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: blue;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Autor: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
+  var css_248z$2 = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: 0 0 18px 1px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n  transition: all 300ms ease-in-out;\r\n}\r\n\r\narticle:hover {\r\n  box-shadow: 0 0 18px 3px #7d4df7;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n  padding: 1.5rem;\r\n  text-align: center;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: #7d4df7;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Autor: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
 
   const apiUrlAuthor = "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/users";
   const template$2 = document.createElement("template");
@@ -295,13 +295,13 @@
     }
 
     displayAuthorInfo(author) {
-      const authorInfo = `
-            <img src=${author.avatar}></img>
-            <p>${author.bio}</p>
-            <p>${author.birthdate}</p>
-            <p>${author.createdAt}</p>
-          `;
-      this.#authorInfo.innerHTML = authorInfo;
+      const authorTemplate = document.createElement("author-item");
+      authorTemplate.setAttribute("avatar-img", author.avatar);
+      authorTemplate.setAttribute("name", author.name);
+      authorTemplate.setAttribute("bio", author.bio);
+      authorTemplate.setAttribute("birthdate", author.birthdate);
+
+      this.#authorInfo.appendChild(authorTemplate);
     }
 
     // getters y setters
@@ -413,6 +413,20 @@
   }
 
   customElements.define("article-item", ArticleItem);
+
+  /* Aquí se prueba el desarrollo mediante la creación de una
+     nueva instancia del web Compenent.
+  */
+
+  // const articleOne = document.getElementById("articleOne");
+
+  /* Aquí se atualiza con valores de la APi 
+
+    - Los valores de las propiedades colocados directamente en el componente tienen prioridad sobre las que vienen
+    mediante una petición a una API.
+  */
+  articleOne.apiUrl =
+    "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/3";
 
   // getArticleTitle();
 
@@ -732,6 +746,8 @@
       if (name === "url-api") return this.validateUrl();
       if (name === "loading") return this.updateLoadingState();
       if (name === "error") return this.handleError();
+
+      this.displayData();
     }
 
     validateUrl() {
@@ -777,44 +793,39 @@
       this.#errorElement.classList.remove("none");
     }
 
-    displayData(data) {
+    displayData(data = {}) {
+      this.#avatar = this.#avatar || data.avatar;
+      this.#name = this.#name || data.name;
+      this.#birthdate = this.#birthdate || data.birthdate;
+      this.#bio = this.#bio || data.bio;
+
       const mappings = [
-        { prop: "#avatar", key: "avatar", selector: ".avatar", attr: "src" },
-        { prop: "#name", key: "name", selector: ".name", attr: "textContent" },
+        { prop: this.#avatar, key: "avatar", selector: ".avatar", attr: "src" },
+        { prop: this.#name, key: "name", selector: ".name", attr: "textContent" },
         {
-          prop: "#birthdate",
+          prop: this.#birthdate,
           key: "birthdate",
           selector: ".birthdate",
           attr: "textContent",
         },
         {
-          prop: "#bio",
+          prop: this.#bio,
           key: "bio",
           selector: ".bio",
           attr: "textContent",
         },
       ];
 
-      mappings.forEach(({ prop, key, selector, attr }) => {
-        if (this.#setApi) this[prop] = "";
-        this[prop] = this[prop] || data[key];
+      mappings.forEach(({ prop, selector, attr }) => {
+        if (this.#setApi) return;
         const element = this.shadowRoot.querySelector(selector);
         if (element) {
           if (attr !== "textContent" && attr !== "src")
             return console.log(`El atributo ${attr} no es un atributo valido`);
-          if (attr === "textContent") return (element.textContent = this[prop]);
+          if (attr !== "textContent") return element.setAttribute(attr, prop);
 
-          element.setAttribute(attr, this[prop]);
+          element.textContent = prop;
         }
-      });
-    }
-
-    updateUI() {
-      this.displayData({
-        name: this.#name,
-        avatar: this.#avatar,
-        birthdate: this.#birthdate,
-        bio: this.#bio,
       });
     }
 
@@ -826,7 +837,7 @@
 
     set name(val) {
       this.#name = val;
-      this.updateUI();
+      this.setAttribute("name", val);
     }
 
     get avatar() {
@@ -836,7 +847,7 @@
 
     set avatar(val) {
       this.#avatar = val;
-      this.updateUI();
+      this.setAttribute("avatar-img", val);
     }
 
     get birthdate() {
@@ -847,7 +858,7 @@
 
     set birthdate(val) {
       this.#birthdate = val;
-      this.updateUI();
+      this.setAttribute("birthdate", val);
     }
 
     get bio() {
@@ -857,7 +868,7 @@
 
     set bio(val) {
       this.#bio = val;
-      this.updateUI();
+      this.setAttribute("bio", val);
     }
 
     get urlApi() {
