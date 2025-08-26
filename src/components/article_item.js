@@ -1,315 +1,292 @@
+import html from "../templates/template.html";
+import css from "../css/styles.css";
+
+const apiUrlAuthor = process.env.API_URL;
 const template = document.createElement("template");
 
 template.innerHTML = `
   <style>
-    article {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 80%;
-      min-height: 100vh;
-      margin: 0 auto;
-      margin-bottom: 2rem;
-      background: #f8f9f9;
-      border-radius: 25px;
-      cursor: pointer;
-      padding-bottom: 2rem;
-    }
-
-    article * {
-    margin: 0;
-    font-family: "Roboto", serif;
-    }
-
-    img {
-      display: none;
-    }
-
-    img {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 15px 15px 0 0;
-      margin-bottom: 2rem;
-    }
-
-    .title {
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .hidden-info {  
-      padding-top: 1.5rem;
-      opacity: 1;
-      visibility: visible;
-      place-items: center;
-      flex-direction: column;
-    }
-
-    .hidden {
-      display: none;
-      visibility: hidden;
-      opacity: 0;
-    }
-
-   .author, .company, .description, .published-at, .content {
-      margin-bottom: 1rem;
-    }
-
-    .id {
-      font-weight: bold;
-      font-size: 27px;
-    }
-
-    .id::before {
-      content: "# ";
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .author {
-      color: blue;
-      font-weight: bold;
-    }
-
-    .author::before {
-      content: "Autor: "
-    }
-
-    a {
-      display: inline-block;
-    }
-
-    .author-info {
-      padding-bottom: 2rem;
-      text-align: center;
-    }
-
-    .author-info > * {
-      margin-bottom: 1rem;
-    }
-
-    .author-info *:last-child{
-      margin-bottom: 0;
-    }
-
+    ${css}
   </style>
-  <article>
-      <slot name="image-slot"></slot>
-      <img class="image" />
-      <span class="id"><slot name="id"></slot></span>
-      <h2 class="title"><slot name="title"></slot></h2>
-      <h3 class="company"><slot name="company"></slot></h3>
-      <p class="description"><slot name="description"></slot></p>
-      <div class= "hidden-info hidden">
-        <a href="#" class="author"><slot name="author"></slot></a>
-        <div class="author-info hidden"></div>
-        <p class="content"><slot name="author-content"></slot></p>
-        <p class="published-at"><slot name="author-published"></p>
-      </div>
-  </article>
+  ${html}
 `;
 
 class ArticleItem extends HTMLElement {
+  #image;
+  #title;
+  #company;
+  #description;
+  #author;
+  #content;
+  #publishedAt;
+  #apiUrl;
+  #id;
+  #hiddenInfo;
+  #authorInfo;
+  #controller = null;
+  #controllerListener = null;
+  #dataLoadedPromise;
+  #resolvePromise;
+  #rejectedPromise;
+  #loading = false;
+  #loadingElment;
+  #articleContainer;
+  #error;
+  #errorElement;
+  #data;
+
   constructor() {
     super();
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    this._hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
-    this._authorInfo = this.shadowRoot.querySelector(".author-info");
-    this._onToggleDetails = (e) => this.toggleDetails(e);
-    this._onFetchAuthorData = (e) => this.fetchAuthorData(e);
-    this._image;
-    this._title;
-    this._company;
-    this._description;
-    this._author;
-    this._content;
-    this._publishedAt;
-    this._apiUrl;
-    this._id;
-    this._controller = null;
+    this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
+    this.#authorInfo = this.shadowRoot.querySelector(".author-info");
+
+    this.#articleContainer =
+      this.shadowRoot.querySelector(".article-container");
+    this.#loadingElment = this.shadowRoot.querySelector(".loading");
+
+    this.#errorElement = this.shadowRoot.querySelector(".error");
+    this.#error = false;
+
+    this.#dataLoadedPromise = new Promise((resolve, reject) => {
+      this.#resolvePromise = resolve;
+      this.#rejectedPromise = reject;
+    });
   }
 
   static get observedAttributes() {
     return [
-      "image_src",
-      "title_text",
+      "image-src",
+      "title-text",
       "company",
-      "publishedat",
+      "published-at",
       "description",
       "content",
       "author",
-      "api_url",
-      "id_item",
+      "api-url",
+      "id-item",
+      "loading",
+      "error",
+      "data",
     ];
   }
 
-  attributeChangedCallback(nameAtr, oldVal, newVal) {
-    const attributeMap = {
-      image_src: "_image",
-      title_text: "_title",
-      company: "_company",
-      description: "_description",
-      content: "_content",
-      author: "_author",
-      api_url: "_apiUrl",
-      publishedat: "_publishedAt",
-      id_item: "_id",
-    };
+  attributeChangedCallback(name, oldValue, newVal) {
+    if (oldValue === newVal) return;
 
-    if (attributeMap[nameAtr]) {
-      this[attributeMap[nameAtr]] = newVal;
+    switch (name) {
+      case "image-src":
+        this.#image = newVal;
+        break;
+      case "title-text":
+        this.#title = newVal;
+        break;
+      case "company":
+        this.#company = newVal;
+        break;
+      case "description":
+        this.#description = newVal;
+        break;
+      case "content":
+        this.#content = newVal;
+        break;
+      case "author":
+        this.#author = newVal;
+        break;
+      case "api-url":
+        this.#apiUrl = newVal;
+        break;
+      case "published-at":
+        this.#publishedAt = newVal;
+        break;
+      case "id-item":
+        this.#id = newVal;
+        break;
+      case "loading":
+        this.#loading = newVal === "true" ? true : false;
+        break;
+      case "error":
+        this.#error = newVal === "true" ? true : false;
+        break;
+      case "data":
+        this.#data;
+        break;
+    }
+
+    if (name === "loading") return this.updateLoadingState();
+
+    if (name === "api-url") return this.fetchItemData();
+
+    if (name === "error") return this.handleError();
+
+    /* Para facilitar el rederizado de varios componentes desde un componente padre.*/
+    if (name === "data") {
+      try {
+        const data = JSON.parse(newVal);
+        this.updateItemData(data);
+      } catch (error) {
+        console.error("Error parsing JSON data:", error);
+      }
     }
     this.updateItemData();
   }
 
   connectedCallback() {
-    if (this._apiUrl) {
+    this.#controllerListener = new AbortController();
+    const signal = this.#controllerListener.signal;
+
+    if (this.#apiUrl) {
       this.validateApiUrl();
     }
 
     this.shadowRoot
       .querySelector("article")
-      .addEventListener("click", this._onToggleDetails);
+      .addEventListener("click", this.toggleDetails.bind(this), {
+        signal,
+      });
 
     this.shadowRoot
       .querySelector(".author")
-      .addEventListener("click", this._onFetchAuthorData);
+      .addEventListener("click", this.fetchAuthorData.bind(this), {
+        signal,
+      });
   }
 
   disconnectedCallback() {
-    this.shadowRoot
-      .querySelector("article")
-      .removeEventListener("click", this._onToggleDetails);
-
-    this.shadowRoot
-      .querySelector(".author")
-      .removeEventListener("click", this._onFetchAuthorData);
+    this.#controllerListener.abort();
   }
 
   validateApiUrl() {
-    if (this._apiUrl) return this.fetchItemData();
-
+    if (this.#apiUrl) return this.fetchItemData();
     console.error("API URL not provided.");
-    this.updateItemData();
   }
 
   async fetchItemData() {
-    if (this._controller) {
-      this._controller.abort();
+    this.setAttribute("loading", true);
+
+    if (this.#controller) {
+      this.#controller.abort();
     }
 
-    this._controller = new AbortController();
-    const signal = this._controller.signal;
+    this.#controller = new AbortController();
+    const signal = this.#controller.signal;
 
     try {
-      let response = await fetch(`${this._apiUrl}`, { signal }),
+      let response = await fetch(this.#apiUrl, { signal }),
         data = await response.json();
-
       if (!response.ok)
         throw { status: response.status, statusText: response.statusText };
-
       this.updateItemData(data);
+      this.#resolvePromise();
     } catch (error) {
+      this.setAttribute("error", true);
+      console.error("Error fetching item data:", error);
       if (error.name === "AbortError")
         return console.log("Petición abortada antes de completarse.");
-
       let message = error.statusText || "Ocurrió un error";
       console.error("Error fetching item data:", message);
+      this.#rejectedPromise(error);
+    } finally {
+      this.setAttribute("loading", false);
     }
   }
 
-  updateItemData(data = {}) {
-    if (this._image || data["image"]) {
-      this.shadowRoot.querySelector(".image").style.display = "block";
+  updateLoadingState() {
+    if (!this.#loading) {
+      this.#articleContainer.classList.remove("none");
+      this.#loadingElment.classList.add("none");
+      return;
     }
 
+    this.#articleContainer.classList.add("none");
+    this.#loadingElment.classList.remove("none");
+  }
+
+  handleError() {
+    if (this.#error) this.#articleContainer.style.display = "none";
+    this.#errorElement.classList.remove("none");
+  }
+
+  updateItemData(data = {}) {
+    this.#image = this.#image || data.image;
+    this.#id = this.#id || data.id;
+    this.#title = this.#title || data.title;
+    this.#company = this.#company || data.company;
+    this.#description = this.#description || data.description;
+    this.#author = this.#author || data.author;
+    this.#content = this.#content || data.content;
+    this.#publishedAt = this.#publishedAt || data.publishedAt;
+
     const mappings = [
-      { prop: "_image", key: "image", selector: ".image", attr: "src" },
-      { prop: "_id", key: "id", selector: ".id", attr: "textContent" },
+      { prop: this.#image, selector: ".image", attr: "src" },
+      { prop: this.#id, selector: ".id", attr: "textContent" },
       {
-        prop: "_title",
-        key: "title",
+        prop: this.#title,
         selector: ".title",
         attr: "textContent",
       },
       {
-        prop: "_company",
-        key: "company",
+        prop: this.#company,
         selector: ".company",
         attr: "textContent",
       },
       {
-        prop: "_description",
-        key: "description",
+        prop: this.#description,
         selector: ".description",
         attr: "textContent",
       },
       {
-        prop: "_author",
-        key: "author",
+        prop: this.#author,
         selector: ".author",
         attr: "textContent",
       },
       {
-        prop: "_content",
-        key: "content",
+        prop: this.#content,
         selector: ".content",
         attr: "textContent",
       },
       {
-        prop: "_publishedAt",
-        key: "publishedAt",
+        prop: this.#publishedAt,
         selector: ".published-at",
         attr: "textContent",
       },
     ];
 
-    mappings.forEach(({ prop, key, selector, attr }) => {
-      this[prop] = this[prop] || data[key];
+    mappings.forEach(({ prop, selector, attr }) => {
       const element = this.shadowRoot.querySelector(selector);
-      if (element) {
-        if (attr !== "textContent" && attr !== "src")
-          return console.log(`El atributo ${attr} no es un atributo valido`);
-        if (attr === "textContent") return (element.textContent = this[prop]);
-
-        element.setAttribute(attr, this[prop]);
-      }
+      if (!element) return;
+      if (attr !== "textContent" && attr !== "src")
+        return console.log(`El atributo ${attr} no es un atributo valido`);
+      if (attr === "src") return element.setAttribute(attr, prop);
+      element.textContent = prop;
     });
   }
 
   toggleDetails() {
-    this._hiddenInfo.classList.toggle("hidden");
+    this.#hiddenInfo.classList.toggle("hidden");
   }
 
   async fetchAuthorData(e) {
     e.stopPropagation();
     e.preventDefault();
 
-    this._authorInfo.classList.toggle("hidden");
+    this.#authorInfo.classList.toggle("hidden");
 
-    if (!this._authorInfo.classList.contains("hidden")) {
-      try {
-        let url = `http://localhost:3000/authors?id=${this._id}`,
-          response = await fetch(url),
-          data = await response.json();
+    if (this.#authorInfo.classList.contains("hidden")) return;
 
-        if (!response.ok)
-          throw { status: response.status, statusText: response.statusText };
+    let url = `${apiUrlAuthor}?id=${this.#id}`,
+      response = await fetch(url).catch((e) => {
+        throw ErrorApiRequest(`Error en la petición: ${e}`);
+      });
+    if (response instanceof Error) return console.log(response);
+    let data = await response.json();
 
-        if (data.length === 0) return console.log("Autor no encontrado");
+    if (data.length === 0) return console.log("Autor no encontrado");
 
-        this.displayAuthorInfo(data[0]);
-      } catch (error) {
-        let message = error.statusText || "Ocurrió un error";
-        console.error("Error fetching item data:", message);
-      }
-    }
+    this.displayAuthorInfo(data[0]);
   }
 
   displayAuthorInfo(author) {
@@ -319,84 +296,180 @@ class ArticleItem extends HTMLElement {
             <p>${author.birthdate}</p>
             <p>${author.createdAt}</p>
           `;
-    this._authorInfo.innerHTML = authorInfo;
+    this.#authorInfo.innerHTML = authorInfo;
   }
 
   // getters y setters
 
   get title() {
-    setTimeout(() => console.log(this._title), 3000);
+    if (!this.#title) return this.#dataLoadedPromise.then(() => this.#title);
+    return this.#title;
   }
 
   set title(val) {
-    this._title = val;
-    this.updateItemData();
+    if (this.#title === val) return;
+    this.setAttribute("title-text", val);
   }
 
   get image() {
-    setTimeout(() => console.log(this._image), 3000);
+    if (!this.#image) return this.#dataLoadedPromise.then(() => this.#image);
+    return this.#image;
   }
 
   set image(val) {
-    this._image = val;
-    this.updateItemData();
+    if (this.#image === val) return;
+    this.setAttribute("image-src", val);
   }
 
   get company() {
-    setTimeout(() => console.log(this._company), 3000);
+    if (!this.#company)
+      return this.#dataLoadedPromise.then(() => this.#company);
+    return this.#company;
   }
 
   set company(val) {
-    this._company = val;
-    this.updateItemData();
+    if (this.#company === val) return;
+    this.setAttribute("company", val);
   }
 
   get description() {
-    setTimeout(() => console.log(this._description), 3000);
+    if (!this.#description)
+      return this.#dataLoadedPromise.then(() => this.#description);
+    return this.#description;
   }
 
   set description(val) {
-    this._description = val;
-    this.updateItemData();
+    if (this.#description === val) return;
+    this.setAttribute("description", val);
   }
 
   get author() {
-    setTimeout(() => console.log(this._author), 3000);
+    if (!this.#author) return this.#dataLoadedPromise.then(() => this.#author);
+    return this.#author;
   }
 
   set author(val) {
-    this._author = val;
-    this.updateItemData();
+    if (this.#author === val) return;
+    this.setAttribute("author", val);
   }
 
   get content() {
-    setTimeout(() => console.log(this._content), 3000);
+    if (!this.#content)
+      return this.#dataLoadedPromise.then(() => this.#content);
+    return this.#content;
   }
 
   set content(val) {
-    this._content = val;
-    this.updateItemData();
+    if (this.#content === val) return;
+    this.setAttribute("content", val);
   }
 
-  get publishedat() {
-    setTimeout(() => console.log(this._publishedAt), 3000);
+  get publishedAt() {
+    if (!this.#publishedAt)
+      return this.#dataLoadedPromise.then(() => this.#publishedAt);
+    return this.#publishedAt;
   }
 
-  set publishedat(val) {
-    this._publishedAt = val;
-    this.updateItemData();
+  set publishedAt(val) {
+    if (this.#publishedAt === val) return;
+    this.setAttribute("published-at", val);
+  }
+
+  get id() {
+    if (!this.#id) return this.#dataLoadedPromise.then(() => this.#id);
+    return this.#id;
+  }
+
+  set id(val) {
+    if (this.#id === val) return;
+    this.setAttribute("id-item", val);
   }
 
   get apiUrl() {
-    setTimeout(() => console.log(this._apiUrl), 3000);
+    if (!this.#apiUrl) return this.#dataLoadedPromise.then(() => this.#apiUrl);
+    return this.#apiUrl;
   }
 
   set apiUrl(val) {
-    if (this._apiUrl === val) return;
-    this._apiUrl = val;
+    if (this.#apiUrl === val) return;
+    this.setAttribute("api-url", val);
+  }
 
-    this.validateApiUrl();
+  get loading() {
+    if (!this.#loading)
+      return this.#dataLoadedPromise.then(() => this.#loading);
+    return this.#loading;
+  }
+
+  set loading(val) {
+    if (this.#loading === val) return;
+    this.setAttribute("loading", val);
   }
 }
 
-window.customElements.define("article-item", ArticleItem);
+customElements.define("article-item", ArticleItem);
+
+/* Aquí se prueba el desarrollo mediante la creación de una
+   nueva instancia del web Compenent.
+*/
+
+// const articleOne = document.getElementById("articleOne");
+
+/* Aquí se atualiza con valores de la APi 
+
+  - Los valores de las propiedades colocados directamente en el componente tienen prioridad sobre las que vienen
+  mediante una petición a una API.
+*/
+// articleOne.apiUrl =
+//   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
+
+/* Estas asignaciones como se mencionó antes tendrán prioridad,
+  es decir, que sobreescribiran la información traída desde la API.
+*/
+
+// articleOne.title = "Hola title desde JS";
+// articleOne.author = "Hola autor desde JS";
+// articleOne.company = "Hola compañia desde JS";
+// articleOne.description = "Hola descrición desde JS";
+// articleOne.content = "Hola contenido desde JS";
+// articleOne.publishedAt = "Hola Fecha de publicación desde JS";
+// articleOne.image =
+//   "https://images.wikidexcdn.net/mwuploads/wikidex/a/ad/latest/20211225033009/EP1181_Gengar_de_Ash.png";
+
+/* Ya que usamos promesas como medio para manejar la posible asincronia
+   de las propiedades necesitaremos usar un mecanismo que permita el
+   correcto manejo de promesas en este caso async await.
+*/
+
+const getArticleTitle = async () => {
+  console.log("Información de intancia");
+  try {
+    const titleValue = await articleOne.title;
+    console.log("Título:", titleValue);
+
+    const authorValue = await articleOne.author;
+    console.log("Autor:", authorValue);
+
+    const companyValue = await articleOne.company;
+    console.log("Compañía:", companyValue);
+
+    const descriptionValue = await articleOne.description;
+    console.log("Descripción:", descriptionValue);
+
+    const contentValue = await articleOne.content;
+    console.log("Contenido:", contentValue);
+
+    const publishedAtValue = await articleOne.publishedAt;
+    console.log("Fecha de publicación:", publishedAtValue);
+
+    const idValue = await articleOne.id;
+    console.log("ID:", idValue);
+  } catch (error) {
+    console.error(
+      "Error al obtener la información del artículo:",
+      error.message
+    );
+  }
+};
+
+// getArticleTitle();

@@ -6,10 +6,18 @@ import livereload from "rollup-plugin-livereload";
 import postcss from "rollup-plugin-postcss";
 import html from "rollup-plugin-html";
 import json from "@rollup/plugin-json";
-
+import copy from "rollup-plugin-copy";
 import pkg from "./package.json";
+import replace from "@rollup/plugin-replace";
+import dotenv from "dotenv";
 
 const production = !process.env.ROLLUP_WATCH;
+
+const env = dotenv.config().parsed;
+
+const environmentVariables = {
+  "process.env.API_URL": JSON.stringify(env.API_URL),
+};
 
 const banner = `/**
  * Copyright (C) ${new Date().getFullYear()} by ${
@@ -38,7 +46,7 @@ function serve() {
       if (server) return;
       server = require("child_process").spawn(
         "npm",
-        ["run", "start", "--", "--dev"],
+        ["run", "serve", "--", "--dev"],
         {
           shell: true,
         }
@@ -50,11 +58,24 @@ function serve() {
 }
 
 const defaultPlugins = [
+  replace({
+    preventAssignment: true,
+    values: environmentVariables,
+  }),
   html({ include: "./src/**/*.html" }),
   json(),
   postcss({ inject: false }),
   resolve({ browser: true }),
   commonjs(),
+  copy({
+    targets: [
+      { src: "src/index.html", dest: "public" }, // Copia index.html a la carpeta public
+      // Puedes añadir más si tienes otros archivos estáticos en src que quieras copiar:
+      // { src: 'src/assets/**/*', dest: 'public/assets' } // Ejemplo: copiar toda la carpeta assets
+    ],
+    verbose: true, // Opcional: muestra en la consola qué archivos se copian
+    watch: ["src/index.html"],
+  }),
 ];
 
 const configBuild = [

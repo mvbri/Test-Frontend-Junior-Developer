@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  min-height: 100vh;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  border: 1px solid #ac8cff;
+  box-shadow: 0 0 18px 1px #ac8cff;
+  border-radius: 25px;
+  cursor: pointer;
+  padding-bottom: 2rem;
+  transition: all 300ms ease-in-out;
+}
+
+article:hover {
+  box-shadow: 0 0 18px 3px #7d4df7;
+}
+
+article * {
+  margin: 0;
+}
+
+.img-container {
+  width: 100%;
+}
+
+img {
+  object-fit: cover;
+  object-position: 50% 45%;
+  width: 100%;
+  height: 31.25rem;
+  margin-bottom: 2rem;
+  border-top-left-radius: 1.625rem;
+  border-top-right-radius: 1.625rem;
+}
+
+::slotted(img) {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+  border-top-left-radius: 1.625rem;
+  border-top-right-radius: 1.625rem;
+}
+
+.title {
+  color: rgb(39, 36, 36);
+  font-family: "Maven Pro", sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.hidden-info {
+  padding-top: 1.5rem;
+  opacity: 1;
+  visibility: visible;
+  place-items: center;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.description {
+  color: rgb(49, 48, 48);
+  text-align: center;
+  padding: 1rem;
+}
+
+.author,
+.company,
+.description,
+.published-at,
+.content {
+  color: rgb(39, 36, 36);
+  margin-bottom: 1rem;
+}
+
+.id {
+  font-family: "Maven Pro", sans-serif;
+  color: rgb(39, 36, 36);
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.id::before {
+  content: "# ";
+}
+
+a {
+  text-decoration: none;
+}
+
+.author {
+  color: blue;
+  font-weight: bold;
+}
+
+.author::before {
+  content: "Autor: ";
+}
+
+a {
+  display: inline-block;
+}
+
+.author-info {
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.author-info > * {
+  margin-bottom: 1rem;
+}
+
+.author-info *:last-child {
+  margin-bottom: 0;
+}
+
+.none {
+  display: none;
+}
+
+.error {
+  text-align: center;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.loading-icon {
+  width: 2rem;
+  height: 2rem;
+}

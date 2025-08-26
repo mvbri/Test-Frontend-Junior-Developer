@@ -1,0 +1,19 @@
+.none {
+  display: none;
+}
+
+.error {
+  text-align: center;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.loading-icon {
+  width: 2rem;
+  height: 2rem;
+}

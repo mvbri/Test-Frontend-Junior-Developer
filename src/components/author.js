@@ -1,103 +1,99 @@
+import html from "../templates/template-author.html";
+import css from "../css/author.css";
+
 const template = document.createElement("template");
 
 template.innerHTML = `
-
-
   <style>
-
-    article {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 80%;
-      min-height: 100vh;
-      margin: 0 auto;
-      margin-bottom: 2rem;
-      background: #f8f9f9;
-      border-radius: 25px;
-      cursor: pointer;
-      padding: 2rem;
-    }
-
-    .avatar {
-      width: 400px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-  
-    .loading {
-      color: purple;
-      text-align: center;
-      display: none;
-    }
-
-    .error {
-      display: none;
-      text-align: center;
-    }
-
+    ${css}
   </style>
-
-  <div class="loading">
-    <span>Loading...</span>
-  </div>
-
-  <div class="error">Error fetching autor data.</div>
-
-  <article>
-    <img class="avatar" />
-    <h2 class="name"></h2>
-    <h3 class="birthdate"></h3>
-    <p class="bio"></p>
-  </article>
+  ${html}
 `;
 
 class Author extends HTMLElement {
+  #name;
+  #avatar;
+  #birthdate;
+  #bio;
+  #url;
+  #loading = false;
+  #dataLoadedPromise;
+  #resolvePromise;
+  #rejectedPromise;
+  #loadingElement;
+  #articleElement;
+  #error = false;
+  #errorElement;
+  #setApi;
+
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    this._name;
-    this._avatar;
-    this._birthdate;
-    this._bio;
-    this._url;
-    this._loading = false;
+    this.#loadingElement = this.shadowRoot.querySelector(".loading");
+    this.#articleElement = this.shadowRoot.querySelector(".author-container");
+    this.#errorElement = this.shadowRoot.querySelector(".error");
+
+    this.#dataLoadedPromise = new Promise((resolve, reject) => {
+      this.#resolvePromise = resolve;
+      this.#rejectedPromise = reject;
+    });
   }
 
   static get observedAttributes() {
-    return ["name", "avatar_img", "birthdate", "bio", "url_api", "loading"];
+    return [
+      "name",
+      "avatar-img",
+      "birthdate",
+      "bio",
+      "url-api",
+      "loading",
+      "error",
+    ];
   }
 
-  attributeChangedCallback(nameAtr, oldVal, newVal) {
-    const attributeMap = {
-      name: "_name",
-      avatar_img: "_avatar",
-      birthdate: "_birthdate",
-      bio: "_bio",
-      url_api: "_url",
-      loading: "_loading",
-    };
+  attributeChangedCallback(name, oldVal, newVal) {
+    if (newVal === oldVal) return;
 
-    if (attributeMap[nameAtr]) {
-      this[attributeMap[nameAtr]] = newVal;
+    switch (name) {
+      case "name":
+        this.#name = newVal;
+        break;
+      case "avatar-img":
+        this.#avatar = newVal;
+        break;
+      case "birthdate":
+        this.#birthdate = newVal;
+        break;
+      case "bio":
+        this.#bio = newVal;
+        break;
+      case "url-api":
+        this.#url = newVal;
+        break;
+      case "loading":
+        this.#loading = newVal === "true" ? true : false;
+        break;
+      case "error":
+        this.#error = newVal === "true" ? true : false;
+        break;
     }
 
-    if (nameAtr === "url_api") return this.validateUrl();
-    if (nameAtr === "loading") return this.updateLoadingState();
+    if (name === "url-api") return this.validateUrl();
+    if (name === "loading") return this.updateLoadingState();
+    if (name === "error") return this.handleError();
   }
 
   validateUrl() {
-    if (this._url) return this.fetchData();
+    if (this.#url) return this.fetchData();
     console.error("API URL not provided.");
   }
 
   async fetchData() {
     this.setAttribute("loading", true);
     try {
-      let response = await fetch(this._url);
+      let response = await fetch(this.#url);
       let data = await response.json();
 
       if (!response.ok) {
@@ -105,42 +101,45 @@ class Author extends HTMLElement {
       }
 
       this.displayData(data);
+      this.#resolvePromise();
     } catch (error) {
+      this.setAttribute("error", true);
       let message = error.statusText || "Ha ocurrido un error";
       console.error("Error fetching item data:", message);
       this.shadowRoot.querySelector(".error").style.display = "block";
+      this.#rejectedPromise(error);
     } finally {
       this.setAttribute("loading", false);
     }
   }
 
   updateLoadingState() {
-    const loadingElement = this.shadowRoot.querySelector(".loading"),
-      articleElement = this.shadowRoot.querySelector("article"),
-      errorElement = this.shadowRoot.querySelector(".error");
-
-    if (this._loading !== "true") {
-      loadingElement.style.display = "none";
-      articleElement.style.display = "flex";
+    if (!this.#loading) {
+      this.#loadingElement.classList.add("none");
+      this.#articleElement.classList.remove("none");
       return;
     }
-    loadingElement.style.display = "block";
-    articleElement.style.display = "none";
-    errorElement.style.display = "none";
+    this.#loadingElement.classList.remove("none");
+    this.#articleElement.classList.add("none");
+  }
+
+  handleError() {
+    if (this.#error) this.#articleElement.style.display = "none";
+    this.#errorElement.classList.remove("none");
   }
 
   displayData(data) {
     const mappings = [
-      { prop: "_avatar", key: "avatar", selector: ".avatar", attr: "src" },
-      { prop: "_name", key: "name", selector: ".name", attr: "textContent" },
+      { prop: "#avatar", key: "avatar", selector: ".avatar", attr: "src" },
+      { prop: "#name", key: "name", selector: ".name", attr: "textContent" },
       {
-        prop: "_birthdate",
+        prop: "#birthdate",
         key: "birthdate",
         selector: ".birthdate",
         attr: "textContent",
       },
       {
-        prop: "_bio",
+        prop: "#bio",
         key: "bio",
         selector: ".bio",
         attr: "textContent",
@@ -148,7 +147,7 @@ class Author extends HTMLElement {
     ];
 
     mappings.forEach(({ prop, key, selector, attr }) => {
-      if (this._setApi) this[prop] = "";
+      if (this.#setApi) this[prop] = "";
       this[prop] = this[prop] || data[key];
       const element = this.shadowRoot.querySelector(selector);
       if (element) {
@@ -163,69 +162,79 @@ class Author extends HTMLElement {
 
   updateUI() {
     this.displayData({
-      name: this._name,
-      avatar: this._avatar,
-      birthdate: this._birthdate,
-      bio: this._bio,
+      name: this.#name,
+      avatar: this.#avatar,
+      birthdate: this.#birthdate,
+      bio: this.#bio,
     });
   }
 
   // getters y setters
   get name() {
-    setTimeout(() => console.log(this._name), 3000);
+    if (!this.#name) return this.#dataLoadedPromise.then(() => this.#name);
+    return this.#name;
   }
 
   set name(val) {
-    this._name = val;
+    this.#name = val;
     this.updateUI();
   }
 
   get avatar() {
-    setTimeout(() => console.log(this._avatar), 3000);
+    if (!this.#avatar) return this.#dataLoadedPromise.then(() => this.#avatar);
+    return this.#avatar;
   }
 
   set avatar(val) {
-    this._avatar = val;
+    this.#avatar = val;
     this.updateUI();
   }
 
   get birthdate() {
-    setTimeout(() => console.log(this._birthdate), 3000);
+    if (!this.#birthdate)
+      return this.#dataLoadedPromise.then(() => this.#birthdate);
+    return this.#birthdate;
   }
 
   set birthdate(val) {
-    this._birthdate = val;
+    this.#birthdate = val;
     this.updateUI();
   }
 
   get bio() {
-    setTimeout(() => console.log(this._bio), 3000);
+    if (!this.#bio) return this.#dataLoadedPromise.then(() => this.#bio);
+    return this.#bio;
   }
 
   set bio(val) {
-    this._bio = val;
+    this.#bio = val;
     this.updateUI();
   }
 
   get urlApi() {
-    setTimeout(() => console.log(this._url), 3000);
+    if (!this.#url) return this.#dataLoadedPromise.then(() => this.#url);
+    return this.#url;
   }
 
   set urlApi(val) {
-    if (this._url === val) return;
-    this._url = val;
+    if (this.#url === val) return;
+    this.#url = val;
 
-    this._setApi = true;
+    this.#setApi = true;
     this.validateUrl();
   }
 
   get loading() {
-    setTimeout(() => console.log(this._loading), 3000);
+    if (!this.#loading)
+      return this.#dataLoadedPromise.then(() => this.#loading);
+    return this.#loading;
   }
 
   set loading(val) {
-    setTimeout(() => this.setAttribute("loading", val), 3000);
+    this.#dataLoadedPromise.then(() => this.setAttribute("loading", val));
   }
 }
 
 customElements.define("author-item", Author);
+
+const author1 = document.getElementById("author");
