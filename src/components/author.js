@@ -83,6 +83,8 @@ class Author extends HTMLElement {
     if (name === "url-api") return this.validateUrl();
     if (name === "loading") return this.updateLoadingState();
     if (name === "error") return this.handleError();
+
+    this.displayData();
   }
 
   validateUrl() {
@@ -128,44 +130,39 @@ class Author extends HTMLElement {
     this.#errorElement.classList.remove("none");
   }
 
-  displayData(data) {
+  displayData(data = {}) {
+    this.#avatar = this.#avatar || data.avatar;
+    this.#name = this.#name || data.name;
+    this.#birthdate = this.#birthdate || data.birthdate;
+    this.#bio = this.#bio || data.bio;
+
     const mappings = [
-      { prop: "#avatar", key: "avatar", selector: ".avatar", attr: "src" },
-      { prop: "#name", key: "name", selector: ".name", attr: "textContent" },
+      { prop: this.#avatar, key: "avatar", selector: ".avatar", attr: "src" },
+      { prop: this.#name, key: "name", selector: ".name", attr: "textContent" },
       {
-        prop: "#birthdate",
+        prop: this.#birthdate,
         key: "birthdate",
         selector: ".birthdate",
         attr: "textContent",
       },
       {
-        prop: "#bio",
+        prop: this.#bio,
         key: "bio",
         selector: ".bio",
         attr: "textContent",
       },
     ];
 
-    mappings.forEach(({ prop, key, selector, attr }) => {
-      if (this.#setApi) this[prop] = "";
-      this[prop] = this[prop] || data[key];
+    mappings.forEach(({ prop, selector, attr }) => {
+      if (this.#setApi) return;
       const element = this.shadowRoot.querySelector(selector);
       if (element) {
         if (attr !== "textContent" && attr !== "src")
           return console.log(`El atributo ${attr} no es un atributo valido`);
-        if (attr === "textContent") return (element.textContent = this[prop]);
+        if (attr !== "textContent") return element.setAttribute(attr, prop);
 
-        element.setAttribute(attr, this[prop]);
+        element.textContent = prop;
       }
-    });
-  }
-
-  updateUI() {
-    this.displayData({
-      name: this.#name,
-      avatar: this.#avatar,
-      birthdate: this.#birthdate,
-      bio: this.#bio,
     });
   }
 
@@ -177,7 +174,7 @@ class Author extends HTMLElement {
 
   set name(val) {
     this.#name = val;
-    this.updateUI();
+    this.setAttribute("name", val);
   }
 
   get avatar() {
@@ -187,7 +184,7 @@ class Author extends HTMLElement {
 
   set avatar(val) {
     this.#avatar = val;
-    this.updateUI();
+    this.setAttribute("avatar-img", val);
   }
 
   get birthdate() {
@@ -198,7 +195,7 @@ class Author extends HTMLElement {
 
   set birthdate(val) {
     this.#birthdate = val;
-    this.updateUI();
+    this.setAttribute("birthdate", val);
   }
 
   get bio() {
@@ -208,7 +205,7 @@ class Author extends HTMLElement {
 
   set bio(val) {
     this.#bio = val;
-    this.updateUI();
+    this.setAttribute("bio", val);
   }
 
   get urlApi() {

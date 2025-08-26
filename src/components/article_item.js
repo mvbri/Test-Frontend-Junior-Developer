@@ -290,13 +290,13 @@ class ArticleItem extends HTMLElement {
   }
 
   displayAuthorInfo(author) {
-    const authorInfo = `
-            <img src=${author.avatar}></img>
-            <p>${author.bio}</p>
-            <p>${author.birthdate}</p>
-            <p>${author.createdAt}</p>
-          `;
-    this.#authorInfo.innerHTML = authorInfo;
+    const authorTemplate = document.createElement("author-item");
+    authorTemplate.setAttribute("avatar-img", author.avatar);
+    authorTemplate.setAttribute("name", author.name);
+    authorTemplate.setAttribute("bio", author.bio);
+    authorTemplate.setAttribute("birthdate", author.birthdate);
+
+    this.#authorInfo.appendChild(authorTemplate);
   }
 
   // getters y setters
@@ -420,8 +420,8 @@ customElements.define("article-item", ArticleItem);
   - Los valores de las propiedades colocados directamente en el componente tienen prioridad sobre las que vienen
   mediante una petición a una API.
 */
-// articleOne.apiUrl =
-//   "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/1";
+articleOne.apiUrl =
+  "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/articles/3";
 
 /* Estas asignaciones como se mencionó antes tendrán prioridad,
   es decir, que sobreescribiran la información traída desde la API.
