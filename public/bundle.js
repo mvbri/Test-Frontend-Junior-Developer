@@ -2,18 +2,18 @@
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function () {
 
-  var html$2 = "<article class=\"article-container\">\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n        <div class=\"author-info hidden\"></div>\r\n    </div>\r\n</article>\r\n <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n  <div class=\"error none\">\r\n    <p>Error fetching article list data.</p>\r\n  </div>";
+  var html$3 = "<article class=\"article-container\">\r\n  <div class=\"img-container\">\r\n    <slot name=\"image\">\r\n      <img class=\"image\" alt=\"Imagen por defecto\" src=\"./img/img-default.jpg\">\r\n    </slot>\r\n  </div>\r\n    <span class=\"id\"><slot name=\"id\">ID por defecto</slot></span>\r\n    <h2 class=\"title\"><slot name=\"title\">Titulo por Defecto</slot></h2>\r\n    <h3 class=\"company\"><slot name=\"company\">Compañía por defecto</slot></h3>\r\n    <p class=\"description\"><slot name=\"description\">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates odit blanditiis tenetur. Dicta tempore ducimus animi numquam obcaecati voluptatem soluta alias sunt. Recusandae, non earum! Magni facere commodi corporis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, accusamus provident facilis nihil iure animi et. Quisquam asperiores voluptates eligendi repudiandae ad labore expedita tenetur adipisci, eveniet recusandae, dicta dolorem?</slot></p>\r\n    <div class=\"hidden-info hidden\">\r\n      <p class=\"content\"><slot name=\"author-content\">Contenido por defecto.</slot></p>\r\n      <p class=\"published-at\"><slot name=\"author-published\">fecha por defecto</slot></p>\r\n      <a href=\"#\" class=\"author\"><slot name=\"author\">Autor por defecto</slot></a>\r\n        <div class=\"author-info hidden\"></div>\r\n    </div>\r\n</article>\r\n <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n  <div class=\"error none\">\r\n    <p>Error fetching article list data.</p>\r\n  </div>";
 
-  var css_248z$2 = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: 0 0 18px 1px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n  transition: all 300ms ease-in-out;\r\n}\r\n\r\narticle:hover {\r\n  box-shadow: 0 0 18px 3px #7d4df7;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n  padding: 1.5rem;\r\n  text-align: center;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: #7d4df7;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Autor: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
+  var css_248z$3 = "@import url(\"https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap\");\r\n\r\narticle {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  border: 1px solid #ac8cff;\r\n  box-shadow: 0 0 18px 1px #ac8cff;\r\n  border-radius: 25px;\r\n  cursor: pointer;\r\n  padding-bottom: 2rem;\r\n  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;\r\n}\r\n\r\narticle:hover {\r\n  transform: translateY(-5px);\r\n  box-shadow: 0 0 18px 3px #7d4df7;\r\n}\r\n\r\narticle * {\r\n  margin: 0;\r\n}\r\n\r\n.img-container {\r\n  width: 100%;\r\n}\r\n\r\nimg {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  -o-object-position: 50% 45%;\r\n     object-position: 50% 45%;\r\n  width: 100%;\r\n  height: 31.25rem;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n::slotted(img) {\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  width: 100%;\r\n  height: auto;\r\n  margin-bottom: 2rem;\r\n  border-top-left-radius: 1.625rem;\r\n  border-top-right-radius: 1.625rem;\r\n}\r\n\r\n.title {\r\n  color: rgb(39, 36, 36);\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 1.5rem;\r\n}\r\n\r\n.hidden-info {\r\n  padding-top: 1.5rem;\r\n  opacity: 1;\r\n  visibility: visible;\r\n  place-items: center;\r\n  flex-direction: column;\r\n}\r\n\r\n.hidden {\r\n  display: none;\r\n  visibility: hidden;\r\n  opacity: 0;\r\n}\r\n\r\n.description {\r\n  color: rgb(49, 48, 48);\r\n  text-align: center;\r\n  padding: 1rem;\r\n}\r\n\r\n.author,\r\n.company,\r\n.description,\r\n.published-at,\r\n.content {\r\n  color: rgb(39, 36, 36);\r\n  margin-bottom: 1rem;\r\n  padding: 1.5rem;\r\n  text-align: center;\r\n}\r\n\r\n.id {\r\n  font-family: \"Maven Pro\", sans-serif;\r\n  color: rgb(39, 36, 36);\r\n  font-weight: bold;\r\n  font-size: 1.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.id::before {\r\n  content: \"# \";\r\n}\r\n\r\na {\r\n  text-decoration: none;\r\n}\r\n\r\n.author {\r\n  color: #7d4df7;\r\n  font-weight: bold;\r\n}\r\n\r\n.author::before {\r\n  content: \"Publicado por: \";\r\n}\r\n\r\na {\r\n  display: inline-block;\r\n}\r\n\r\n.author-info {\r\n  padding-bottom: 2rem;\r\n  text-align: center;\r\n}\r\n\r\n.author-info > * {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.author-info *:last-child {\r\n  margin-bottom: 0;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
 
   const apiUrlAuthor = "https://67900f0149875e5a1a9441cf.mockapi.io/api/v1/users";
-  const template$2 = document.createElement("template");
+  const template$3 = document.createElement("template");
 
-  template$2.innerHTML = `
+  template$3.innerHTML = `
   <style>
-    ${css_248z$2}
+    ${css_248z$3}
   </style>
-  ${html$2}
+  ${html$3}
 `;
 
   class ArticleItem extends HTMLElement {
@@ -44,7 +44,7 @@
       super();
 
       this.attachShadow({ mode: "open" });
-      this.shadowRoot.appendChild(template$2.content.cloneNode(true));
+      this.shadowRoot.appendChild(template$3.content.cloneNode(true));
 
       this.#hiddenInfo = this.shadowRoot.querySelector(".hidden-info");
       this.#authorInfo = this.shadowRoot.querySelector(".author-info");
@@ -430,18 +430,18 @@
 
   // getArticleTitle();
 
-  var html$1 = "<div class=\"articlesList\">\r\n  <div class=\"article-container\"></div>\r\n  <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"error none\">Error fetching article list data.</div>\r\n</div>\r\n";
+  var html$2 = "<div class=\"articlesList\">\r\n  <div class=\"article-container\"></div>\r\n  <div class=\"loading none\">\r\n    <div class=\"loader-container\">\r\n      <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n        <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n        <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n          <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n        </path>\r\n      </svg>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"error none\">No se ha encontrado el articulo que buscas</div>\r\n</div>\r\n";
 
-  var css_248z$1 = ".none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
+  var css_248z$2 = ".none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n  font-weight: bold;\r\n}\r\n\r\n.article-container {\r\n  padding: 2rem;\r\n  display: grid;\r\n  gap: 2rem;\r\n  grid-template-columns: repeat(2, minmax(300px, 1fr));\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
 
-  const template$1 = document.createElement("template"),
+  const template$2 = document.createElement("template"),
     fragment = document.createDocumentFragment();
 
-  template$1.innerHTML = `
+  template$2.innerHTML = `
   <style>
-    ${css_248z$1}
+    ${css_248z$2}
   </style>
-  ${html$1}
+  ${html$2}
 `;
 
   class ArticleList extends HTMLElement {
@@ -459,7 +459,7 @@
     constructor() {
       super();
       this.attachShadow({ mode: "open" });
-      this.shadowRoot.appendChild(template$1.content.cloneNode(true));
+      this.shadowRoot.appendChild(template$2.content.cloneNode(true));
 
       this.#articleContainer =
         this.shadowRoot.querySelector(".article-container");
@@ -509,6 +509,7 @@
     }
 
     fetchData = async () => {
+      this.setAttribute("error", false);
       this.setAttribute("loading", true);
 
       if (this.#controller) {
@@ -547,11 +548,17 @@
     }
 
     hadleError() {
-      if (this.#error) this.#articleContainer.classList.add("none");
-      this.#errorElement.classList.remove("none");
+      if (this.#error) {
+        this.#articleContainer.innerHTML = "";
+        this.#errorElement.classList.remove("none");
+        return;
+      }
+      this.#articleContainer.classList.remove("none");
+      this.#errorElement.classList.add("none");
     }
 
     displayDataApi(data = []) {
+      this.#articleContainer.innerHTML = "";
       data.forEach((article) => {
         const articleItem = document.createElement("article-item");
         articleItem.setAttribute("data", JSON.stringify(article));
@@ -660,17 +667,17 @@
   //   },
   // ];
 
-  var html = "<div class=\"loading none\">\r\n  <div class=\"loader-container\">\r\n    <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n      <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n        <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n      </path>\r\n    </svg>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"error none\">Error fetching autor data.</div>\r\n\r\n<article class=\"author-container\">\r\n  <img class=\"avatar\">\r\n  <h2 class=\"name\"></h2>\r\n  <h3 class=\"birthdate\"></h3>\r\n  <p class=\"bio\"></p>\r\n</article>\r\n";
+  var html$1 = "<div class=\"loading none\">\r\n  <div class=\"loader-container\">\r\n    <svg class=\"loading-icon\" fill=\"hsl(228, 97%, 42%)\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\r\n      <path d=\"M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z\" opacity=\".25\"/>\r\n      <path d=\"M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z\">\r\n        <animateTransform attributeName=\"transform\" type=\"rotate\" dur=\"0.75s\" values=\"0 12 12;360 12 12\" repeatCount=\"indefinite\"/>\r\n      </path>\r\n    </svg>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"error none\">Error fetching autor data.</div>\r\n\r\n<article class=\"author-container\">\r\n  <img class=\"avatar\">\r\n  <h2 class=\"name\"></h2>\r\n  <h3 class=\"birthdate\"></h3>\r\n  <p class=\"bio\"></p>\r\n</article>\r\n";
 
-  var css_248z = "article {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  background: #f8f9f9;\r\n  border-radius: 25px;\r\n  padding: 2rem;\r\n}\r\n\r\n.avatar {\r\n  width: 400px;\r\n  height: 400px;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  border-radius: 50%;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
+  var css_248z$1 = "article {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  width: 80%;\r\n  min-height: 100vh;\r\n  margin: 0 auto;\r\n  margin-bottom: 2rem;\r\n  background: #f8f9f9;\r\n  border-radius: 25px;\r\n  padding: 2rem;\r\n}\r\n\r\n.avatar {\r\n  width: 400px;\r\n  height: 400px;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\r\n  border-radius: 50%;\r\n}\r\n\r\n.none {\r\n  display: none;\r\n}\r\n\r\n.error {\r\n  text-align: center;\r\n}\r\n\r\n.loader-container {\r\n  display: flex;\r\n  justify-content: center;\r\n  gap: 0.5rem;\r\n  align-items: center;\r\n}\r\n\r\n.loading-icon {\r\n  width: 2rem;\r\n  height: 2rem;\r\n}\r\n";
 
-  const template = document.createElement("template");
+  const template$1 = document.createElement("template");
 
-  template.innerHTML = `
+  template$1.innerHTML = `
   <style>
-    ${css_248z}
+    ${css_248z$1}
   </style>
-  ${html}
+  ${html$1}
 `;
 
   class Author extends HTMLElement {
@@ -692,7 +699,7 @@
     constructor() {
       super();
       this.attachShadow({ mode: "open" });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
+      this.shadowRoot.appendChild(template$1.content.cloneNode(true));
 
       this.#loadingElement = this.shadowRoot.querySelector(".loading");
       this.#articleElement = this.shadowRoot.querySelector(".author-container");
@@ -898,6 +905,170 @@
   customElements.define("author-item", Author);
 
   document.getElementById("author");
+
+  var html = "<div>\r\n  <!-- Controles de filtrado y ordenamiento -->\r\n  <div class=\"filters-container\">\r\n    <!-- Barra de búsqueda -->\r\n    <div>\r\n      <input type=\"search\" id=\"searchInput\" placeholder=\"Buscar por título o contenido...\" class=\"search-input\">\r\n    </div>\r\n\r\n    <!-- Controles de ordenamiento -->\r\n    <div class=\"select-container\">\r\n      <div>\r\n        <label for=\"sortKey\">Ordenar por:</label>\r\n        <select class=\"select-btn\" id=\"sortKey\">\r\n          <option value=\"title\">Título</option>\r\n          <option value=\"author\">Autor</option>\r\n        </select>\r\n      </div>\r\n\r\n      <div>\r\n        <label for=\"sortDirection\">Dirección:</label>\r\n        <select class=\"select-btn\" id=\"sortDirection\">\r\n          <option value=\"desc\">Descendente</option>\r\n          <option value=\"asc\">Ascendente</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Contenedor para los artículos -->\r\n  <h1 class=\"title\">Directorio de Artículos</h1>\r\n  <div class=\"articles-container\" id=\"articlesContainer\">\r\n    <!-- Los artículos se renderizarán aquí dinámicamente usando el Custom Element -->\r\n  </div>\r\n</div>\r\n";
+
+  var css_248z = ".filter {\r\n  visibility: hidden;\r\n  opacity: 0;\r\n  order: 1;\r\n}\r\n\r\n.title {\r\n  text-align: center;\r\n  margin-bottom: 4rem;\r\n}\r\n\r\n.filters-container {\r\n  width: 80%;\r\n  margin: 0 auto;\r\n  padding: 2rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  max-width: 1600px;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.search-input {\r\n  font-size: 1rem;\r\n  font-weight: 500;\r\n  padding: 0.5rem;\r\n  padding-left: 1rem;\r\n  width: 18.75rem;\r\n  border-radius: 0.5rem;\r\n  outline: none;\r\n  border: 1px solid #6932f3;\r\n  transition: box-shadow 300ms ease;\r\n}\r\n\r\n.search-input:hover {\r\n  box-shadow: 0 0 5px 1px #ac8cff;\r\n}\r\n\r\n.select-btn {\r\n  margin-left: 0.5rem;\r\n  text-decoration: none;\r\n  display: inline-block;\r\n  width: 160px;\r\n  height: 50px;\r\n  border: 2px solid #505ac7;\r\n  border-radius: 0.25rem;\r\n  background-color: #505ac7;\r\n  box-shadow: 0px 0px 2px 0px #333333;\r\n  color: #ffffff;\r\n  font-size: 0.9375rem;\r\n  font-weight: 500;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  position: relative;\r\n  text-shadow: 0px 0px 0px #505ac7;\r\n  transition: all 300ms ease;\r\n}\r\n\r\n.select-btn:hover {\r\n  border-color: #505ac7;\r\n  background-color: white;\r\n  box-shadow: 0px 0px 2px 0px #333333;\r\n  color: #505ac7;\r\n  text-shadow: 0px 0px 0px #333333;\r\n}\r\n\r\n.select-container {\r\n  display: flex;\r\n  gap: 2rem;\r\n}\r\n";
+
+  const template = document.createElement("template");
+
+  template.innerHTML = `
+  <style>
+    ${css_248z}
+  </style>
+  ${html}
+`;
+
+  class Filter extends HTMLElement {
+    #sortBy;
+    #order;
+    #searchQuery;
+    #searchInput;
+    #sortKey;
+    #urlQuery;
+    #articlesInfo;
+    #controllerListener;
+    #sortDirection;
+    #articleList;
+
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+      this.shadowRoot.appendChild(template.content.cloneNode(true));
+      this.#searchInput = this.shadowRoot.querySelector("#searchInput");
+      this.#articleList = document.createElement("article-list");
+      this.#sortKey = this.shadowRoot.getElementById("sortKey");
+      this.#sortDirection = this.shadowRoot.getElementById("sortDirection");
+    }
+
+    static get observedAttributes() {
+      return ["articles-info"];
+    }
+
+    attributeChangedCallback(name, oldValue, newVal) {
+      if (oldValue === newVal) return;
+
+      switch (name) {
+        case "articles-info":
+          this.#articlesInfo = newVal;
+          break;
+      }
+    }
+
+    connectedCallback() {
+      this.render();
+      this.#controllerListener = new AbortController();
+      const signal = this.#controllerListener.signal;
+      this.#searchInput.addEventListener(
+        "input",
+        (e) =>
+          this.search.bind(this, e.target.value, this.#sortBy, this.#order)(),
+        {
+          signal,
+        }
+      );
+      this.#sortKey.addEventListener(
+        "input",
+        (e) => this.sort.bind(this, e.target.value, this.#order)(),
+        {
+          signal,
+        }
+      );
+      this.#sortDirection.addEventListener(
+        "input",
+        (e) => this.order.bind(this, e.target.value)(),
+        { signal }
+      );
+    }
+
+    disconnectedCallback() {
+      this.#controllerListener.abort();
+    }
+
+    render() {
+      this.#urlQuery = new URL(this.#articlesInfo);
+
+      let urlParams = new URLSearchParams(window.location.search);
+      this.#searchQuery = urlParams.get("search") || "";
+      this.#sortBy = urlParams.get("sortBy") || "title";
+      this.#order = urlParams.get("order") || "desc";
+
+      this.search(this.#searchQuery);
+
+      this.shadowRoot
+        .querySelector("#articlesContainer")
+        .appendChild(this.#articleList);
+    }
+
+    #updateUrl(queryUrl) {
+      const url = new URL(window.location.href);
+
+      if (!queryUrl) {
+        url.searchParams.delete("search");
+        url.searchParams.delete("sortBy");
+        url.searchParams.delete("order");
+        return;
+      }
+
+      const searchVal = queryUrl.searchParams.get("search") || "all";
+      const sortVal = queryUrl.searchParams.get("sortBy") || "title";
+      const orderVal = queryUrl.searchParams.get("order") || "desc";
+
+      url.searchParams.set("search", searchVal);
+      url.searchParams.set("sortBy", sortVal);
+      url.searchParams.set("order", orderVal);
+      window.history.pushState({}, "", url.toString());
+    }
+
+    search(query) {
+      this.#searchQuery = query;
+
+      // Para evitar que se hagan busquedas demasiado generales.
+      if (query.length < 3 && query.length !== 0) return;
+
+      if (query.length === 0) {
+        this.#articleList.articlesApi = `${this.#articlesInfo}`;
+        this.#updateUrl();
+        return;
+      }
+
+      this.#urlQuery.searchParams.set("search", query);
+
+      this.sort(this.#sortBy, this.#order);
+    }
+
+    sort(category, order) {
+      if (!order) this.#order = "desc";
+
+      const query = this.#urlQuery.searchParams.get("search") || "all";
+      this.#urlQuery.searchParams.set("search", query);
+      this.#urlQuery.searchParams.set("sortBy", category);
+      this.#urlQuery.searchParams.set("order", this.#order);
+
+      this.#sortBy = category;
+
+      this.#articleList.articlesApi = `${this.#urlQuery}`;
+
+      this.#updateUrl(this.#urlQuery);
+    }
+
+    order(val) {
+      const query = this.#urlQuery.searchParams.get("search") || "all";
+      this.#urlQuery.searchParams.set("search", query);
+
+      this.#sortBy = this.#urlQuery.searchParams.get("sortBy") || "title";
+      this.#urlQuery.searchParams.set("sortBy", this.#sortBy);
+
+      this.#order = val;
+      this.#urlQuery.searchParams.set("order", this.#order);
+
+      this.#articleList.articlesApi = `${this.#urlQuery}`;
+      this.#updateUrl(this.#urlQuery);
+    }
+  }
+  customElements.define("article-filter", Filter);
+
+  document.querySelector("#filter");
 
 })();
 //# sourceMappingURL=bundle.js.map

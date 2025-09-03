@@ -1,0 +1,39 @@
+<div>
+  <!-- Controles de filtrado y ordenamiento -->
+  <div class="filters-container">
+    <!-- Barra de búsqueda -->
+    <div>
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Buscar por título o contenido..."
+        class="search-input"
+      />
+    </div>
+
+    <!-- Controles de ordenamiento -->
+    <div class="select-container">
+      <div>
+        <label for="sortKey">Ordenar por:</label>
+        <select class="select-btn" id="sortKey">
+          <option value="title">Título</option>
+          <option value="author">Autor</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="sortDirection">Dirección:</label>
+        <select class="select-btn" id="sortDirection">
+          <option value="desc">Descendente</option>
+          <option value="asc">Ascendente</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor para los artículos -->
+  <h1 class="title">Directorio de Artículos</h1>
+  <div class="articles-container" id="articlesContainer">
+    <!-- Los artículos se renderizarán aquí dinámicamente usando el Custom Element -->
+  </div>
+</div>
