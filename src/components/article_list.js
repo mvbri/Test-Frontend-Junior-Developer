@@ -76,6 +76,7 @@ class ArticleList extends HTMLElement {
   }
 
   fetchData = async () => {
+    this.setAttribute("error", false);
     this.setAttribute("loading", true);
 
     if (this.#controller) {
@@ -114,11 +115,17 @@ class ArticleList extends HTMLElement {
   }
 
   hadleError() {
-    if (this.#error) this.#articleContainer.classList.add("none");
-    this.#errorElement.classList.remove("none");
+    if (this.#error) {
+      this.#articleContainer.innerHTML = "";
+      this.#errorElement.classList.remove("none");
+      return;
+    }
+    this.#articleContainer.classList.remove("none");
+    this.#errorElement.classList.add("none");
   }
 
   displayDataApi(data = []) {
+    this.#articleContainer.innerHTML = "";
     data.forEach((article) => {
       const articleItem = document.createElement("article-item");
       articleItem.setAttribute("data", JSON.stringify(article));

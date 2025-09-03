@@ -290,6 +290,7 @@ class ArticleItem extends HTMLElement {
   }
 
   displayAuthorInfo(author) {
+    this.#authorInfo.innerHTML = "";
     const authorTemplate = document.createElement("author-item");
     authorTemplate.setAttribute("avatar-img", author.avatar);
     authorTemplate.setAttribute("name", author.name);
